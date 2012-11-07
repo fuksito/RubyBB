@@ -1,0 +1,25 @@
+%h1 Listing forums
+
+%table
+  %tr
+    %th Name
+    %th Content
+    %th Topics count
+    %th Messages count
+    %th
+    %th
+    %th
+
+  - @forums.each do |forum|
+    %tr
+      %td= forum.name
+      %td= forum.content
+      %td= forum.topics_count
+      %td= forum.messages_count
+      %td= link_to 'Show', forum
+      %td= link_to 'Edit', edit_forum_path(forum)
+      %td= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Forum', new_forum_path

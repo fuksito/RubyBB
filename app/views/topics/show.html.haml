@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @topic.name
+%p
+  %b User:
+  = @topic.user
+%p
+  %b Forum:
+  = @topic.forum
+%p
+  %b Messages count:
+  = @topic.messages_count
+
+= link_to 'Edit', edit_topic_path(@topic)
+\|
+= link_to 'Back', topics_path

@@ -1,4 +1,10 @@
 RubyBB::Application.routes.draw do
+  resources :messages
+
+  resources :topics
+
+  resources :forums
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -50,7 +56,7 @@ RubyBB::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'users#sign_in'
+  root :to => 'forums#index'
 
   # See how all your routes lay out with "rake routes"
 

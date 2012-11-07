@@ -11,7 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106230858) do
+ActiveRecord::Schema.define(:version => 20121107222724) do
+
+  create_table "forums", :force => true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.integer  "topics_count"
+    t.integer  "messages_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.integer  "forum_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "messages", ["forum_id"], :name => "index_messages_on_forum_id"
+  add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+
+  create_table "topics", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "forum_id"
+    t.integer  "messages_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
+  add_index "topics", ["user_id"], :name => "index_topics_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -26,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20121106230858) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "messages_count"
+    t.integer  "topics_count"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
