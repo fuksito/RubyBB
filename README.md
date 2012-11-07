@@ -28,7 +28,19 @@ A ruby bulletin board
     gem install bundler
     gem install rails
 
-### Fork and git clone
+### Fork, git clone and config
+
+    cp config/database.yml.example config/database.yml
+
+Configure `config/database.yml`. Then:
+
+    bundle exec rake db:create
+
+### Update everything
+
+    git pull origin master
+    bundle install
+    bundle exec rake db:migrate
 
 You're ready!
 
