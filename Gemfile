@@ -26,4 +26,5 @@ gem "haml-rails"
 gem "jquery-rails"
 gem "redis"
 gem 'bootstrap-sass'
-
+gem 'simple_form'
+gem 'country_select'
