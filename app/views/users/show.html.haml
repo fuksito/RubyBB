@@ -1,0 +1,10 @@
+%p#notice= notice
+
+- User::PROFILE_FIELDS.each do |field|
+  %p
+    %b= "#{field.capitalize}:"
+    = @user.send(field)
+
+-#= link_to 'Edit', edit_user_path(@user)
+-#\|
+= link_to 'Back', users_path
