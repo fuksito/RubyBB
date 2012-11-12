@@ -1,10 +1,10 @@
 class CreateTopics < ActiveRecord::Migration
   def change
     create_table :topics do |t|
-      t.string :name
+      t.string :name, :null => false
       t.references :user
       t.references :forum
-      t.integer :messages_count
+      t.integer :messages_count, :default => 0, :null => false
 
       t.timestamps
     end
