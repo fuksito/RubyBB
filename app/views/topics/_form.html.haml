@@ -3,9 +3,8 @@
 
   .form-inputs
     = f.input :name
-    = f.association :user
-    = f.association :forum
-    = f.input :messages_count
+    .hidden
+      = f.association :forum
 
   .form-actions
     = f.button :submit

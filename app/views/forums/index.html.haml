@@ -1,24 +1,18 @@
-%h1 Listing forums
+%h1= t('.title')
 
-%table
-  %tr
-    %th Name
-    %th Content
-    %th Topics count
-    %th Messages count
-    %th
-    %th
-    %th
-
+%table.table
   - @forums.each do |forum|
     %tr
-      %td= forum.name
-      %td= forum.content
-      %td= forum.topics_count
-      %td= forum.messages_count
-      %td= link_to 'Show', forum
-      %td= link_to 'Edit', edit_forum_path(forum)
-      %td= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' }
+      %td
+        = link_to forum do
+          %p= forum.name
+          %p= forum.content
+      %td
+        %p= t('common.topics_count', count: forum.topics_count)
+        %p= t('common.messages_count', count: forum.messages_count)
+      %td
+        = link_to 'Edit', edit_forum_path(forum), class: 'btn'
+        = link_to 'Destroy', forum, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
 
 %br
 

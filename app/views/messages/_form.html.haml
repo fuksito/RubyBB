@@ -3,9 +3,8 @@
 
   .form-inputs
     = f.input :content
-    = f.association :user
-    = f.association :topic
-    = f.association :forum
+    .hidden
+      = f.association :topic
 
   .form-actions
     = f.button :submit

@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new
+    @message = Message.new topic_id: params[:topic_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +40,12 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
+    params[:message][:user_id] = current_user.id
     @message = Message.new(params[:message])
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to topic_url(@message.topic_id), notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -56,11 +57,12 @@ class MessagesController < ApplicationController
   # PUT /messages/1
   # PUT /messages/1.json
   def update
+    params[:message].delete :user_id
     @message = Message.find(params[:id])
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to topic_url(@message.topic_id), notice: 'Message was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

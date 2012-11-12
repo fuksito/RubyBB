@@ -1,18 +1,14 @@
-%p#notice= notice
+%h1= t('.title', name: @topic.name)
 
-%p
-  %b Name:
-  = @topic.name
-%p
-  %b User:
-  = @topic.user
-%p
-  %b Forum:
-  = @topic.forum
-%p
-  %b Messages count:
-  = @topic.messages_count
+%table.table
+  - @topic.messages.each do |message|
+    %tr
+      %td= message.user.name
+      %td= message.content
+      %td
+        = link_to 'Edit', edit_message_path(message), class: 'btn'
+        = link_to 'Destroy', message, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
 
-= link_to 'Edit', edit_topic_path(@topic)
-\|
-= link_to 'Back', topics_path
+%br
+
+= link_to 'New message', new_message_path(topic_id: @topic.id)

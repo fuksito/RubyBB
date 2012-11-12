@@ -1,18 +1,16 @@
-%p#notice= notice
+%h1= t('.title', name: @forum.name)
 
-%p
-  %b Name:
-  = @forum.name
-%p
-  %b Content:
-  = @forum.content
-%p
-  %b Topics count:
-  = @forum.topics_count
-%p
-  %b Messages count:
-  = @forum.messages_count
+%table.table
+  - @forum.topics.each do |topic|
+    %tr
+      %td
+        = link_to topic.name, topic
+      %td
+        %p= t('common.messages_count', count: topic.messages_count)
+      %td
+        = link_to 'Edit', edit_topic_path(topic), class: 'btn'
+        = link_to 'Destroy', topic, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
 
-= link_to 'Edit', edit_forum_path(@forum)
-\|
-= link_to 'Back', forums_path
+%br
+
+= link_to 'New topic', new_topic_path(forum_id: @forum.id)

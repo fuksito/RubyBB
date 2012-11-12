@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
   # GET /topics/new
   # GET /topics/new.json
   def new
-    @topic = Topic.new
+    @topic = Topic.new forum_id: params[:forum_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +40,12 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
+    params[:topic][:user_id] = current_user.id
     @topic = Topic.new(params[:topic])
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
+        format.html { redirect_to forum_url(@topic.forum_id), notice: 'Topic was successfully created.' }
         format.json { render json: @topic, status: :created, location: @topic }
       else
         format.html { render action: "new" }
@@ -56,11 +57,12 @@ class TopicsController < ApplicationController
   # PUT /topics/1
   # PUT /topics/1.json
   def update
+    params[:topic].delete :user_id
     @topic = Topic.find(params[:id])
 
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
-        format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
+        format.html { redirect_to forum_url(@topic.forum_id), notice: 'Topic was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,10 +75,11 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     @topic = Topic.find(params[:id])
+    forum_id = @topic.forum_id
     @topic.destroy
 
     respond_to do |format|
-      format.html { redirect_to topics_url }
+      format.html { redirect_to forum_url(forum_id) }
       format.json { head :no_content }
     end
   end

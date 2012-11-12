@@ -2,4 +2,21 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  common:
+    topics_count:
+      zero: "%{count} message"
+      one: "%{count} topic"
+      other: "%{count} topics"
+    messages_count:
+      zero: "%{count} message"
+      one: "%{count} message"
+      other: "%{count} messages"
+
+  forums:
+    index:
+      title: "Forums"
+    show:
+      title: "%{name}"
+  topics:
+    show:
+      title: "%{name}"
