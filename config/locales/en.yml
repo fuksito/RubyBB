@@ -4,7 +4,7 @@
 en:
   common:
     topics_count:
-      zero: "%{count} message"
+      zero: "%{count} topic"
       one: "%{count} topic"
       other: "%{count} topics"
     messages_count:
