@@ -1,8 +1,8 @@
-= simple_form_for(@message) do |f|
+= simple_form_for(@message, :defaults => {:input_html => {:class => 'input-xxlarge'}}, :html => {:class => 'form-horizontal' }) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :content
+    = f.input :content, :required => true, :autofocus => true
     .hidden
       = f.association :topic
 
