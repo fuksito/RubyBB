@@ -30,6 +30,7 @@ A ruby bulletin board
 
 Configure `config/database.yml`. Then:
 
+    bundle install
     bundle exec rake db:create
 
 ### Update everything
@@ -46,7 +47,7 @@ You're ready!
 
 ## License
 
-Copyright (c) 2012, Julien Grillot
+Copyright (c) 2012, Julien Grillot.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
