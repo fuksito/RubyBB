@@ -3,7 +3,7 @@
 %table.table
   - @topic.messages.each do |message|
     %tr
-      %td= message.user.name
+      %td= link_to message.user.name, user_path(message.user)
       %td= message.content
       %td
         = link_to 'Edit', edit_message_path(message), class: 'btn'

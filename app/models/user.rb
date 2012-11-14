@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  PROFILE_FIELDS = [:name, :location, :website, :birthdate, :gender]
+  include Gravtastic
+  gravtastic :default => 'retro', :size => 128
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :gender, :inclusion => { :in => %w[male female other] }, :allow_blank => true

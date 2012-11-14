@@ -1,9 +1,32 @@
-%p#notice= notice
+%h1= @user.name
 
-- User::PROFILE_FIELDS.each do |field|
+= image_tag @user.gravatar_url
+
+%p
+  %b= "#{User.human_attribute_name(:location)}:"
+  - if @user.location.present?
+    = @user.location
+  - else
+    %i= t('common.na')
+
+%p
+  %b= "#{User.human_attribute_name(:birthdate)}:"
+  - if @user.birthdate.present?
+    = l @user.birthdate
+  - else
+    %i= t('common.na')
+
+%p
+  %b= "#{User.human_attribute_name(:gender)}:"
+  - if @user.gender.present?
+    = @user.gender
+  - else
+    %i= t('common.na')
+
+- if @user.website.present?
   %p
-    %b= "#{field.capitalize}:"
-    = @user.send(field)
+    %b= "#{User.human_attribute_name(:website)}:"
+    = link_to @user.website, @user.website, :rel => :nofollow
 
 -#= link_to 'Edit', edit_user_path(@user)
 -#\|

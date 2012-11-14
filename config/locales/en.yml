@@ -3,6 +3,7 @@
 
 en:
   common:
+    na: "not available"
     topics_count:
       zero: "%{count} topic"
       one: "%{count} topic"

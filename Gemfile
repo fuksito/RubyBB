@@ -12,20 +12,18 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
 
+gem 'bootstrap-sass'
+gem 'country_select'
 gem "devise"
+gem 'gravtastic'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
 gem "redis"
-gem 'bootstrap-sass'
 gem 'simple_form'
-gem 'country_select'
