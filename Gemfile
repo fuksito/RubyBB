@@ -25,5 +25,6 @@ gem 'gravtastic'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
+gem "paperclip"
 gem "redis"
 gem 'simple_form'

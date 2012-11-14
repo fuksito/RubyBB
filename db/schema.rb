@@ -11,27 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107223414) do
+ActiveRecord::Schema.define(:version => 20121114171557) do
 
   create_table "forums", :force => true do |t|
     t.string   "name"
     t.text     "content"
-    t.integer  "topics_count"
-    t.integer  "messages_count"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "topics_count",   :default => 0
+    t.integer  "messages_count", :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "messages", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
     t.integer  "topic_id"
-    t.integer  "forum_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "forum_id",   :default => 0
   end
 
-  add_index "messages", ["forum_id"], :name => "index_messages_on_forum_id"
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
@@ -39,9 +38,9 @@ ActiveRecord::Schema.define(:version => 20121107223414) do
     t.string   "name"
     t.integer  "user_id"
     t.integer  "forum_id"
-    t.integer  "messages_count"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "messages_count", :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
@@ -60,13 +59,17 @@ ActiveRecord::Schema.define(:version => 20121107223414) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.integer  "messages_count"
-    t.integer  "topics_count"
+    t.integer  "messages_count",         :default => 0
+    t.integer  "topics_count",           :default => 0
     t.string   "name"
     t.date     "birthdate"
     t.string   "gender"
     t.string   "location"
     t.string   "website"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
