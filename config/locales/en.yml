@@ -13,6 +13,16 @@ en:
       one: "%{count} message"
       other: "%{count} messages"
 
+  layouts:
+    navigation:
+      title: RubyBB
+      forums: Forums
+      users: Users
+      settings: Settings
+      logout: Logout
+      login: Login
+      sign_up: Sign up
+
   forums:
     index:
       title: "Forums"
