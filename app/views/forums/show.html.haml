@@ -7,10 +7,7 @@
         = link_to topic.name, topic
       %td
         %p= t('common.messages_count', count: topic.messages_count)
-      %td
-        = link_to 'Edit', edit_topic_path(topic), class: 'btn'
-        = link_to 'Destroy', topic, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New topic', new_topic_path(forum_id: @forum.id)
+= link_to 'New topic', new_topic_path(forum_id: @forum.id) if current_user

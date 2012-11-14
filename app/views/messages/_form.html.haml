@@ -8,3 +8,5 @@
 
   .form-actions
     = f.button :submit
+    = link_to 'Destroy', @message, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } unless @message.new_record?
+    = link_to 'Back', topic_path(@message.topic_id), :class => 'btn btn-link'

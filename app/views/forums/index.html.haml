@@ -10,10 +10,7 @@
       %td
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
-      %td
-        = link_to 'Edit', edit_forum_path(forum), class: 'btn'
-        = link_to 'Destroy', forum, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Forum', new_forum_path
+= link_to 'New forum', new_forum_path if current_user
