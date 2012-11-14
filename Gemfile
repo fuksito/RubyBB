@@ -20,11 +20,12 @@ end
 
 gem 'bootstrap-sass'
 gem 'country_select'
-gem "devise"
+gem 'devise'
 gem 'gravtastic'
-gem "haml", ">= 3.0.0"
-gem "haml-rails"
-gem "jquery-rails"
-gem "paperclip"
-gem "redis"
+gem 'haml', '>= 3.0.0'
+gem 'haml-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'paperclip'
+gem 'redis'
 gem 'simple_form'
