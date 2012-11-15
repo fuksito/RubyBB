@@ -3,8 +3,9 @@
 
   .form-inputs
     = f.input :name, :required => true
-    = f.simple_fields_for :messages do |m|
-      = m.input :content
+    - if @topic.new_record?
+      = f.simple_fields_for :messages do |m|
+        = m.input :content
     .hidden
       = f.association :forum
 
