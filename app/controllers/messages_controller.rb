@@ -81,7 +81,7 @@ class MessagesController < ApplicationController
       r = forum_url(@message.forum_id)
       @message.topic.destroy
     else
-      r = @message.topic_id
+      r = topic_url(@message.topic_id)
       @message.destroy
     end
 
