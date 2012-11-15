@@ -15,7 +15,7 @@
           %p
             = render 'shared/avatar', user: message.user, size: :small
         %p= link_to 'Edit', edit_message_path(message, page: params[:page]) if current_user
-      %td= message.content
+      %td= raw message.rendered_content
 
 = paginate @messages
 
