@@ -77,10 +77,16 @@ class MessagesController < ApplicationController
   # DELETE /messages/1.json
   def destroy
     @message = Message.find(params[:id])
-    @message.destroy
+    if(@message == @message.topic.messages.first)
+      r = forum_url(@message.forum_id)
+      @message.topic.destroy
+    else
+      r = @message.topic_id
+      @message.destroy
+    end
 
     respond_to do |format|
-      format.html { redirect_to topic_url(@message.topic_id) }
+      format.html { redirect_to r }
       format.json { head :no_content }
     end
   end
