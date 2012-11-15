@@ -13,8 +13,8 @@ class Message < ActiveRecord::Base
   private
   def render_content
     require 'redcarpet'
-    renderer = Redcarpet::Render::HTML.new
-    extensions = {fenced_code_blocks: true}
+    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: true
+    extensions = {tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.rendered_content = redcarpet.render self.content
   end
