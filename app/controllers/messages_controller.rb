@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     params[:message][:user_id] = current_user.id
+    params[:message][:forum_id] = Topic.find(params[:message][:topic_id]).forum_id
     @message = Message.new(params[:message])
 
     respond_to do |format|
@@ -57,8 +58,9 @@ class MessagesController < ApplicationController
   # PUT /messages/1
   # PUT /messages/1.json
   def update
-    params[:message].delete :user_id
     @message = Message.find(params[:id])
+    params[:message].delete :user_id
+    params[:message][:forum_id] = Topic.find(params[:message][:topic_id]).forum_id
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
@@ -78,7 +80,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url }
+      format.html { redirect_to topic_url(@message.topic_id) }
       format.json { head :no_content }
     end
   end
