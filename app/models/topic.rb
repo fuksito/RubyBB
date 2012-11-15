@@ -1,4 +1,5 @@
 class Topic < ActiveRecord::Base
+  acts_as_paranoid
   paginates_per 25
 
   belongs_to :user

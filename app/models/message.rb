@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
+  acts_as_paranoid
   paginates_per 20
 
   belongs_to :user, :counter_cache => true
