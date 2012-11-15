@@ -7,7 +7,7 @@
         = link_to forum do
           %p= forum.name
           %p= forum.content
-      %td
+      %td.infos.hidden-portrait-phone
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
 

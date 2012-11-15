@@ -1,9 +1,16 @@
 class User < ActiveRecord::Base
   include Gravtastic
-  gravtastic :default => 'retro', :size => 128
+  gravtastic :default => 'retro', :size => 100
 
   attr_accessible :avatar
-  has_attached_file :avatar, :styles => { :small => "128x128>" }
+  has_attached_file :avatar, :styles => {
+    :mini => "80x80>",
+    :small => "100x100>",
+    :medium => "128x128>",
+    :large => "150x150>",
+    :xlarge => "200x200>",
+    :xxlarge => "256x256>"
+  }
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :gender, :inclusion => { :in => %w[male female other] }, :allow_blank => true

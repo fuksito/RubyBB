@@ -14,3 +14,6 @@
  */
 
 a { cursor: pointer; }
+td.infos { width: 128px; }
+td.user { width: 128px; text-align: center !important; }
+@media (max-width: 480px) { .hidden-portrait-phone { display: none; } }

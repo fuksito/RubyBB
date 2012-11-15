@@ -1,9 +1,6 @@
 %h1= @user.name
 
-- if @user.avatar.exists?
-  = image_tag @user.avatar.url(:small)
-- else
-  = image_tag @user.gravatar_url
+= render 'shared/avatar', user: @user, size: :large
 
 %p
   %b= "#{User.human_attribute_name(:location)}:"

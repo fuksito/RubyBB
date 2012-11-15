@@ -3,10 +3,13 @@
 %table.table
   - @topic.messages.each do |message|
     %tr
-      %td= link_to message.user.name, user_path(message.user)
+      %td.user
+        = link_to user_path(message.user) do
+          %p= message.user.name
+          %p
+            = render 'shared/avatar', user: message.user, size: :small
+        %p= link_to 'Edit', edit_message_path(message) if current_user
       %td= message.content
-      %td
-        = link_to 'Edit', edit_message_path(message), class: 'btn' if current_user
 
 %br
 
