@@ -1,7 +1,9 @@
 %h1= t('.title', name: @topic.name)
 
+= paginate @messages
+
 %table.table
-  - @topic.messages.each do |message|
+  - @messages.each do |message|
     %tr
       %td.user
         = link_to user_path(message.user) do
@@ -11,6 +13,6 @@
         %p= link_to 'Edit', edit_message_path(message) if current_user
       %td= message.content
 
-%br
+= paginate @messages
 
 = link_to 'New message', new_message_path(topic_id: @topic.id) if current_user

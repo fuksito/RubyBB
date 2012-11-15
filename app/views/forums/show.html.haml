@@ -1,7 +1,9 @@
 %h1= t('.title', name: @forum.name)
 
+= paginate @topics
+
 %table.table
-  - @forum.topics.each do |topic|
+  - @topics.each do |topic|
     %tr
       %td
         = link_to topic do
@@ -9,6 +11,6 @@
       %td.infos.hidden-portrait-phone
         %p= t('common.messages_count', count: topic.messages_count)
 
-%br
+= paginate @topics
 
 = link_to 'New topic', new_topic_path(forum_id: @forum.id) if current_user

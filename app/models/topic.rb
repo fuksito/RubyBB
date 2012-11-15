@@ -1,4 +1,6 @@
 class Topic < ActiveRecord::Base
+  paginates_per 25
+
   belongs_to :user
   belongs_to :forum, :counter_cache => true
   has_many :messages, :include => [:user], :dependent => :destroy

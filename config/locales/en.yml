@@ -23,6 +23,14 @@ en:
       login: Login
       sign_up: Sign up
 
+  views:
+    pagination:
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      truncate: "..."
+
   forums:
     index:
       title: "Forums"
