@@ -17,4 +17,4 @@
 
 = render 'breadcrumb', forum: @forum
 
-= link_to 'New topic', new_topic_path(forum_id: @forum.id) if current_user
+= render 'topics/form'

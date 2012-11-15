@@ -1,12 +1,11 @@
-= simple_form_for(@message, :url => message_path(@message, :page => params[:page]), :defaults => {:input_html => {:class => 'input-xxlarge'}}, :html => {:class => 'form-horizontal' }) do |f|
+= simple_form_for(@message, :url => @message.new_record? ? messages_path(:page => params[:page]) : message_path(@message, :page => params[:page]), :defaults => {:input_html => {:class => 'input-xxlarge'}}, :html => {:class => 'form-horizontal' }) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :content, :required => true, :autofocus => true
+    = f.input :content, :required => true
     .hidden
       = f.association :topic
 
   .form-actions
     = f.button :submit
     = link_to 'Destroy', @message, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } unless @message.new_record?
-    = link_to 'Back', topic_path(@message.topic_id, page: params[:page]), :class => 'btn btn-link'

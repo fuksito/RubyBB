@@ -15,6 +15,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     @messages = @topic.messages.page params[:page]
+    @message = Message.new topic_id: @topic.id
 
     respond_to do |format|
       format.html # show.html.erb
