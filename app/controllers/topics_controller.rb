@@ -44,15 +44,12 @@ class TopicsController < ApplicationController
   # POST /topics.json
   def create
     params[:topic][:user_id] = current_user.id
-    message = params[:topic][:message]
-    params[:topic].delete :message
+    params[:topic][:messages_attributes]['0'][:user_id] = current_user.id
+    params[:topic][:messages_attributes]['0'][:forum_id] = params[:topic][:forum_id]
     @topic = Topic.new(params[:topic])
 
     respond_to do |format|
       if @topic.save
-        message[:topic_id] = @topic.id
-        message[:user_id] = current_user.id
-        message = Message.create(message)
         format.html { redirect_to forum_url(@topic.forum_id), notice: 'Topic was successfully created.' }
         format.json { render json: @topic, status: :created, location: @topic }
       else

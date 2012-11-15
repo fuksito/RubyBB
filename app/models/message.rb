@@ -6,6 +6,5 @@ class Message < ActiveRecord::Base
   belongs_to :topic, :counter_cache => true, :touch => true
   belongs_to :forum, :counter_cache => true, :touch => true
   validates :content, :presence => true
-  validates :topic, :presence => true
   attr_accessible :content, :user_id, :topic_id, :forum_id
 end
