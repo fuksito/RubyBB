@@ -17,3 +17,16 @@ a { cursor: pointer; }
 td.infos { width: 128px; }
 td.user { width: 128px; text-align: center !important; }
 @media (max-width: 480px) { .hidden-portrait-phone { display: none; } }
+
+th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+th .asc {
+  background-image: url(/assets/asc.gif);
+}
+
+th .desc {
+  background-image: url(/assets/desc.gif);
+}

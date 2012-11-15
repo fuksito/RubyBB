@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  paginates_per 25
+
   include Gravtastic
   gravtastic :default => 'retro', :size => 100
 
@@ -25,5 +27,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   attr_accessible :name, :birthdate, :location, :gender, :website
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
+  end
 
 end

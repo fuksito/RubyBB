@@ -1,16 +1,33 @@
 %h1 Listing users
 
-%table
+= paginate @users
+
+%table.table
   %tr
-    %th Name
-    %th
-    %th
-    %th
+    %th= sortable User, :name
+    %th= sortable User, :birthdate, t('.age')
+    %th= sortable User, :gender
+    %th.hidden-phone= sortable User, :location
+    %th.hidden-phone= sortable User, :website
+    %th.hidden-phone= sortable User, :topics_count
+    %th= sortable User, :messages_count
+    %th.hidden-phone.hidden-tablet= sortable User, :created_at
+    %th= sortable User, :updated_at
 
   - @users.each do |user|
     %tr
-      %td= user.name
-      %td= link_to 'Show', user
-      -#%td= link_to 'Edit', edit_user_path(user)
-      -#%td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to user.name, user
+      %td
+        = user.age if user.birthdate
+      %td
+        = user.gender if user.gender
+      %td.hidden-phone
+        = user.location if user.location
+      %td.hidden-phone
+        = link_to user.website, user.website, rel: :nofollow if user.website
+      %td.hidden-phone= user.topics_count
+      %td= user.messages_count
+      %td.hidden-phone.hidden-tablet= l user.created_at.to_date
+      %td= time_ago_in_words user.updated_at
 
+= paginate @users
