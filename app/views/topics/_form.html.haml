@@ -3,8 +3,8 @@
 
   .form-inputs
     = f.input :name, :required => true
-    = f.simple_fields_for :message do |m|
-      = m.input :content, :as => :text
+    = f.simple_fields_for :messages do |m|
+      = m.input :content
     .hidden
       = f.association :forum
 

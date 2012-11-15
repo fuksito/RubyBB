@@ -16,6 +16,7 @@ class ForumsController < ApplicationController
     @forum = Forum.find(params[:id])
     @topics = @forum.topics.order('updated_at desc').page params[:page]
     @topic = Topic.new forum_id: @forum.id
+    @topic.messages.build
 
     respond_to do |format|
       format.html # show.html.erb
