@@ -1,0 +1,8 @@
+%ul.breadcrumb
+  %li
+    = link_to t('layouts.navigation.title'), forums_path
+    %span.divider /
+  %li
+    = link_to topic.forum.name, forum_path(topic.forum)
+    %span.divider /
+  %li.active= link_to topic.name, topic_path(topic)

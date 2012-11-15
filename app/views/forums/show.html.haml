@@ -1,5 +1,7 @@
 %h1= t('.title', name: @forum.name)
 
+= render 'breadcrumb', forum: @forum
+
 = paginate @topics
 
 %table.table
@@ -12,5 +14,7 @@
         %p= t('common.messages_count', count: topic.messages_count)
 
 = paginate @topics
+
+= render 'breadcrumb', forum: @forum
 
 = link_to 'New topic', new_topic_path(forum_id: @forum.id) if current_user

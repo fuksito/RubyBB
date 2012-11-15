@@ -1,5 +1,7 @@
 %h1= t('.title', name: @topic.name)
 
+= render 'breadcrumb', topic: @topic
+
 = paginate @messages
 
 %table.table
@@ -14,5 +16,7 @@
       %td= message.content
 
 = paginate @messages
+
+= render 'breadcrumb', topic: @topic
 
 = link_to 'New message', new_message_path(topic_id: @topic.id) if current_user
