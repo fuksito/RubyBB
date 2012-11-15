@@ -4,7 +4,8 @@
   - @forum.topics.each do |topic|
     %tr
       %td
-        = link_to topic.name, topic
+        = link_to topic do
+          %p= topic.name
       %td
         %p= t('common.messages_count', count: topic.messages_count)
 
