@@ -21,7 +21,7 @@ en:
       settings: Settings
       logout: Logout
       login: Login
-      sign_up: Sign up
+      sign_up: Register
 
   views:
     pagination:
@@ -31,6 +31,10 @@ en:
       next: "Next &rsaquo;"
       truncate: "..."
 
+  users:
+    index:
+      age: Age
+
   forums:
     index:
       title: "Forums"
@@ -39,3 +43,21 @@ en:
   topics:
     show:
       title: "%{name}"
+
+  activerecord:
+    models:
+      user: User
+      forum: Forum
+      topic: Topic
+      message: Message
+    attributes:
+      user:
+        name: Name
+        birthdate: Birthdate
+        gender: Gender
+        location: Location
+        website: Website
+        created_at: Joined
+        updated_at: Last visited
+        topics_count: Topics
+        messages_count: Messages
