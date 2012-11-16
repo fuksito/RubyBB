@@ -21,6 +21,7 @@ end
 gem 'bootstrap-sass'
 gem 'country_select'
 gem 'devise'
+gem 'friendly_id'
 gem 'gravtastic'
 gem 'haml', '>= 3.0.0'
 gem 'haml-rails'

@@ -1,6 +1,6 @@
 = link_to t('.title'), root_path, :class => 'brand'
 %ul.nav
-  %li= link_to t('.forums'), forums_path
+  %li= link_to t('.forums'), root_path
   %li= link_to t('.users'), users_path
   - if user_signed_in?
     %li= link_to t('.settings'), edit_user_registration_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115215435) do
+ActiveRecord::Schema.define(:version => 20121116010257) do
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(:version => 20121115215435) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.datetime "deleted_at"
+    t.string   "slug"
   end
+
+  add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
 
   create_table "messages", :force => true do |t|
     t.text     "content"
@@ -55,9 +58,11 @@ ActiveRecord::Schema.define(:version => 20121115215435) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.datetime "deleted_at"
+    t.string   "slug"
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
+  add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
   add_index "topics", ["user_id"], :name => "index_topics_on_user_id"
 
   create_table "users", :force => true do |t|
@@ -85,9 +90,11 @@ ActiveRecord::Schema.define(:version => 20121115215435) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.datetime "deleted_at"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
 end
