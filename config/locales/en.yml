@@ -18,7 +18,7 @@ en:
       title: RubyBB
       forums: Forums
       users: Users
-      settings: Settings
+      user: Profile
       logout: Logout
       login: Login
       sign_up: Register

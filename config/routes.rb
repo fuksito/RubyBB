@@ -1,15 +1,26 @@
 RubyBB::Application.routes.draw do
   root :to => 'forums#index'
 
-  resources :messages
-
   resources :topics
 
   resources :forums
 
-  devise_for :users
+  as :user do
+    get 'register' => 'devise/registrations#new', :as => :new_user_registration
+    post 'profile' => 'devise/registrations#create', :as => :user_registration
+    delete 'profile' => 'devise/registrations#destroy', :as => :user_registration
+    get 'profile' => 'devise/registrations#edit', :as => :edit_user_registration
+    put 'profile' => 'devise/registrations#update', :as => :user_registration
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
+    post 'login' => 'devise/sessions#create', :as => :user_session
+    delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
+
+  devise_for :users, :skip => [:sessions, :registrations]
 
   resources :users, :only => [:index, :show]
+
+  resources :messages
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
