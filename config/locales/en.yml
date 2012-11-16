@@ -40,6 +40,10 @@ en:
       title: "Forums"
     show:
       title: "%{name}"
+      by: by
+      topics: Topics
+      messages: Msg
+      Last: Last
   topics:
     show:
       title: "%{name}"
@@ -51,6 +55,13 @@ en:
       topic: Topic
       message: Message
     attributes:
+      forum:
+        name: Title
+        content: Description
+      topic:
+        name: Title
+      message:
+        content: Message
       user:
         name: Name
         birthdate: Birthdate

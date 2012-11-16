@@ -5,16 +5,32 @@
 = paginate @topics
 
 %table.table
+  %tr
+    %th= t('.topics')
+    %th.hidden-phone= t('.messages')
+    %th.hidden-portrait-phone= t('.last')
   - @topics.each do |topic|
     %tr
       %td
         = link_to topic do
           %p= topic.name
+        %p
+          = t('.by')
+          = link_to topic.user.name, topic.user
+          - if topic.messages_count > 20
+            –
+            = link_to t('.last_page'), topic_path(topic, page: (topic.messages_count / 20.0).ceil)
+      %td.infos.hidden-phone
+        %p= topic.messages_count
       %td.infos.hidden-portrait-phone
-        %p= t('common.messages_count', count: topic.messages_count)
+        - if topic.messages.any?
+          %p= l topic.updated_at, format: :short
+          %p
+            = t('.by')
+            = link_to topic.messages.last.user.name, topic.messages.last.user
 
 = paginate @topics
 
 = render 'breadcrumb', forum: @forum
 
-= render 'topics/form'
+= render 'topics/form' if current_user
