@@ -11,6 +11,4 @@
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
 
-%br
-
-= link_to 'New forum', new_forum_path if current_user
+%p= link_to 'New forum', new_forum_path if current_user
