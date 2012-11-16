@@ -12,4 +12,14 @@ class Topic < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
   validates :forum, :presence => true
   attr_accessible :name, :user_id, :forum_id, :messages_attributes
+
+  after_update :update_counters
+
+  private
+  def update_counters
+    if forum_id_was.present? and forum_id_changed?
+      Forum.update_counters forum_id_was, topics_count: -1, messages_count: -messages_count
+      Forum.update_counters forum_id, topics_count: 1, messages_count: messages_count
+    end
+  end
 end

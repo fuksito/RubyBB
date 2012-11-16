@@ -6,7 +6,9 @@
     - if @topic.new_record?
       = f.simple_fields_for :messages do |m|
         = m.input :content
-    .hidden
+    - if @topic.new_record?
+      .hidden= f.association :forum
+    - else
       = f.association :forum
 
   .form-actions
