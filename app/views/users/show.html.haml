@@ -27,7 +27,3 @@
   %p
     %b= "#{User.human_attribute_name(:website)}:"
     = link_to @user.website, @user.website, :rel => :nofollow
-
--#= link_to 'Edit', edit_user_path(@user)
--#\|
-= link_to 'Back', users_path

@@ -2,10 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name, :required => true, :autofocus => true
+    = f.input :name, :required => true
     = f.input :content
 
   .form-actions
     = f.button :submit
-    = link_to 'Destroy', @forum, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } unless @forum.new_record?
-    = link_to 'Back', forum_path(@forum), :class => 'btn btn-link' unless @forum.new_record?
+    = link_to t('common.destroy'), @forum, method: :delete, class: 'btn btn-danger', data: { confirm: t('common.are_you_sure') } unless @forum.new_record?
+    = link_to t('common.back'), @forum.new_record? ? forums_path : forum_path(@forum), :class => 'btn btn-link'

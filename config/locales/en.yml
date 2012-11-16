@@ -3,6 +3,10 @@
 
 en:
   common:
+    new: New
+    edit: Edit
+    destroy: Destroy
+    are_you_sure: "Are you sure?"
     na: "not available"
     topics_count:
       zero: "%{count} topic"

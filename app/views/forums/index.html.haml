@@ -1,4 +1,6 @@
-%h1= t('.title')
+%h1
+  = t('.title')
+  %small= link_to t('common.new'), new_forum_path if current_user
 
 %table.table
   - @forums.each do |forum|
@@ -11,5 +13,3 @@
       %td.infos.hidden-portrait-phone
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
-
-%p= link_to 'New forum', new_forum_path if current_user
