@@ -8,4 +8,4 @@
   .form-actions
     = f.button :submit
     = link_to 'Destroy', @forum, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } unless @forum.new_record?
-    = link_to 'Back', forums_path, :class => 'btn btn-link'
+    = link_to 'Back', forum_path(@forum), :class => 'btn btn-link' unless @forum.new_record?

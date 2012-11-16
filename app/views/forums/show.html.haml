@@ -1,4 +1,6 @@
-%h1= t('.title', name: @forum.name)
+%h1
+  = t('.title', name: @forum.name)
+  %small= link_to 'Edit', edit_forum_path(@forum) if current_user
 
 = render 'breadcrumb', forum: @forum
 
