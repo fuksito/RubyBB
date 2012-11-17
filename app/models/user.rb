@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :birthdate, :location, :gender, :website
 
+  def self.find_for_database_authentication(conditions={})
+    self.where("name = ? or email = ?", conditions[:email], conditions[:email]).limit(1).first
+  end
+
   def age
     now = Time.now.utc.to_date
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)

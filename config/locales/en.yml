@@ -70,6 +70,10 @@ en:
       message:
         content: Message
       user:
+        email: Email
+        password: Password
+        current_password: Current password
+        password_confirmation: Password confirmation
         name: Name
         birthdate: Birthdate
         gender: Gender
