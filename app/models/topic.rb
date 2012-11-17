@@ -5,6 +5,7 @@ class Topic < ActiveRecord::Base
   acts_as_paranoid
   paginates_per 25
 
+  belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :user
   belongs_to :forum, :counter_cache => true
   has_many :messages, :include => [:user], :dependent => :destroy
@@ -14,6 +15,14 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :user_id, :forum_id, :messages_attributes
 
   after_update :update_counters
+
+  def last_page
+    (messages_count / 20.0).ceil
+  end
+
+  def last_page? page
+    last_page == (page||1).to_i
+  end
 
   private
   def update_counters

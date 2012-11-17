@@ -17,6 +17,11 @@ class TopicsController < ApplicationController
     @messages = @topic.messages.page params[:page]
     @message = Message.new topic_id: @topic.id
 
+    if current_user && current_user.id != @topic.viewer_id && @topic.last_page?(params[:page])
+      @topic.update_column :viewer_id, current_user.id
+      @topic.update_column :views_count, @topic.views_count+1
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @topic }
