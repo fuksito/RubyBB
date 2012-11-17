@@ -7,8 +7,8 @@ class Topic < ActiveRecord::Base
 
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
-  belongs_to :user
-  belongs_to :forum, :counter_cache => true
+  belongs_to :user, :counter_cache => true
+  belongs_to :forum, :counter_cache => true # do not touch: true, msg ever do this
   has_many :messages, :include => [:user], :dependent => :destroy
   accepts_nested_attributes_for :messages
   validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
@@ -27,7 +27,7 @@ class Topic < ActiveRecord::Base
 
   private
   def update_counters
-    if forum_id_was.present? and forum_id_changed?
+    if forum_id_changed?
       Forum.update_counters forum_id_was, topics_count: -1, messages_count: -messages_count
       Forum.update_counters forum_id, topics_count: 1, messages_count: messages_count
     end
