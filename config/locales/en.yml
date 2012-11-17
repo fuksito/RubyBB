@@ -53,6 +53,7 @@ en:
   topics:
     show:
       title: "%{name}"
+      updated_by: "Updated by %{name} at %{date}"
 
   activerecord:
     models:

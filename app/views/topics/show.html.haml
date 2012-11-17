@@ -15,7 +15,9 @@
           %p
             = render 'shared/avatar', user: message.user, size: :small
         %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if current_user
-      %td= raw message.rendered_content
+      %td
+        = raw message.rendered_content
+        %p.updated= t('.updated_by', name: message.updater.name, date: message.updated_at) if message.updater
 
 = paginate @messages
 

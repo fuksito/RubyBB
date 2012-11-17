@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     params[:message][:user_id] = current_user.id
+    params[:message].delete :updater_id
     params[:message][:forum_id] = Topic.find(params[:message][:topic_id]).forum_id
     @message = Message.new(params[:message])
 
@@ -59,6 +60,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     @message = Message.find(params[:id])
+    params[:message][:updater_id] = current_user.id
     params[:message].delete :user_id
     params[:message][:forum_id] = Topic.find(params[:message][:topic_id]).forum_id
 

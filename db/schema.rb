@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116010257) do
+ActiveRecord::Schema.define(:version => 20121117104246) do
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -35,9 +35,11 @@ ActiveRecord::Schema.define(:version => 20121116010257) do
     t.integer  "forum_id",         :default => 0
     t.datetime "deleted_at"
     t.text     "rendered_content"
+    t.integer  "updater_id"
   end
 
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
+  add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "sessions", :force => true do |t|
@@ -59,11 +61,14 @@ ActiveRecord::Schema.define(:version => 20121116010257) do
     t.datetime "updated_at",                    :null => false
     t.datetime "deleted_at"
     t.string   "slug"
+    t.integer  "views_count",    :default => 0, :null => false
+    t.integer  "viewer_id"
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
   add_index "topics", ["user_id"], :name => "index_topics_on_user_id"
+  add_index "topics", ["viewer_id"], :name => "index_topics_on_viewer_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
