@@ -49,6 +49,7 @@ class TopicsController < ApplicationController
   # POST /topics.json
   def create
     params[:topic][:user_id] = current_user.id
+    params[:topic][:updater_id] = current_user.id
     params[:topic][:messages_attributes]['0'][:user_id] = current_user.id
     params[:topic][:messages_attributes]['0'][:forum_id] = params[:topic][:forum_id]
     @topic = Topic.new(params[:topic])
