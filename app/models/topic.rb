@@ -6,6 +6,7 @@ class Topic < ActiveRecord::Base
   paginates_per 25
 
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
+  belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :user
   belongs_to :forum, :counter_cache => true
   has_many :messages, :include => [:user], :dependent => :destroy

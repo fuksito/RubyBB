@@ -33,7 +33,7 @@
           %p= l topic.updated_at, format: :short
           %p
             = t('.by')
-            = link_to topic.messages.last.user.name, topic.messages.last.user
+            = link_to topic.updater.name, topic.updater
 
 = paginate @topics
 
