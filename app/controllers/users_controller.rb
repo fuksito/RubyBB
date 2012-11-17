@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show]
+
   before_filter :check_params, :only => [:index]
   helper_method :default_column, :default_direction
 
