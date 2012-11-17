@@ -47,7 +47,8 @@ en:
       by: by
       topics: Topics
       messages: Msg
-      Last: Last
+      last: Last
+      last_page: last page
   topics:
     show:
       title: "%{name}"
