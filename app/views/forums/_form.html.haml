@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :name, :required => true
-    = f.input :content
+    = f.input :content, :input_html => {:rows => 5}
 
   .form-actions
     = f.button :submit

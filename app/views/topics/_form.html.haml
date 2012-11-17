@@ -5,7 +5,7 @@
     = f.input :name, :required => true
     - if @topic.new_record?
       = f.simple_fields_for :messages do |m|
-        = m.input :content
+        = m.input :content, :input_html => {:rows => 15, :class => 'input-xxlarge markdown-toolbar'}
     - if @topic.new_record?
       .hidden= f.association :forum
     - else
