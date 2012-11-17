@@ -5,19 +5,19 @@
 %table.table
   %tr
     %th= sortable User, :name
-    %th= sortable User, :birthdate, t('.age')
+    %th.number= sortable User, :birthdate, t('.age')
     %th= sortable User, :gender
     %th.hidden-phone= sortable User, :location
     %th.hidden-phone= sortable User, :website
-    %th.hidden-phone= sortable User, :topics_count
-    %th= sortable User, :messages_count
+    %th.number.hidden-phone= sortable User, :topics_count
+    %th.number= sortable User, :messages_count
     %th.hidden-phone.hidden-tablet= sortable User, :created_at
     %th= sortable User, :updated_at
 
   - @users.each do |user|
     %tr
       %td= link_to user.name, user
-      %td
+      %td.number
         = user.age if user.birthdate
       %td
         = user.gender if user.gender
@@ -25,8 +25,8 @@
         = user.location if user.location
       %td.hidden-phone
         = link_to user.website, user.website, rel: :nofollow if user.website
-      %td.hidden-phone= user.topics_count
-      %td= user.messages_count
+      %td.number.hidden-phone= user.topics_count
+      %td.number= user.messages_count
       %td.hidden-phone.hidden-tablet= l user.created_at.to_date
       %td= time_ago_in_words user.updated_at
 

@@ -10,8 +10,8 @@
 %table.table
   %tr
     %th= t('.topics')
-    %th.hidden-phone= t('.messages')
-    %th.hidden-phone= t('.views')
+    %th.number.hidden-phone= t('.messages')
+    %th.number.hidden-phone= t('.views')
     %th.hidden-portrait-phone= t('.last')
   - @topics.each do |topic|
     %tr
@@ -24,9 +24,9 @@
           - if topic.messages_count > 20
             –
             = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
-      %td.infos.hidden-phone
+      %td.number.hidden-phone
         %p= topic.messages_count
-      %td.infos.hidden-phone
+      %td.number.hidden-phone
         %p= topic.views_count
       %td.infos.hidden-portrait-phone
         - if topic.messages.any?
