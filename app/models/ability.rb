@@ -3,8 +3,6 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    $stderr.puts user.inspect
-    $stderr.puts user.new_record?.inspect
 
     can :read, :all
 
