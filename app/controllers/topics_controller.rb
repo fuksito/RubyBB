@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  authorize_resource
   before_filter :authenticate_user!, :except => [:show]
 
   # GET /topics

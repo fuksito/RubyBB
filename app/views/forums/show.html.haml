@@ -1,7 +1,7 @@
 %h1
   = t('.title', name: @forum.name)
-  %small= link_to t('common.edit'), edit_forum_path(@forum) if current_user
-  %small= link_to t('common.new'), new_topic_path(forum_id: @forum.id) if current_user
+  %small= link_to t('common.edit'), edit_forum_path(@forum) if can? :update, @forum
+  %small= link_to t('common.new'), new_topic_path(forum_id: @forum.id) if can? :create, Topic.new
 
 = render 'breadcrumb', forum: @forum
 

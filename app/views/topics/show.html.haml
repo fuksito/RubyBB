@@ -1,6 +1,6 @@
 %h1
   = t('.title', name: @topic.name)
-  %small= link_to t('common.edit'), edit_topic_path(@topic) if current_user
+  %small= link_to t('common.edit'), edit_topic_path(@topic) if can? :update, @topic
 
 = render 'breadcrumb', topic: @topic
 
@@ -14,7 +14,7 @@
           %p= message.user.name
           %p
             = render 'shared/avatar', user: message.user, size: :small
-        %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if current_user
+        %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
       %td
         = raw message.rendered_content
         %p.updated= t('.updated_by', name: message.updater.name, date: message.updated_at) if message.updater
@@ -23,4 +23,4 @@
 
 = render 'breadcrumb', topic: @topic
 
-= render 'messages/form', back: false if current_user
+= render 'messages/form', back: false if can? :create, Message.new

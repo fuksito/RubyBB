@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  has_many :roleS
+  has_many :topics
+  has_many :messages
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -41,4 +45,23 @@ class User < ActiveRecord::Base
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
   end
 
+  def sysadmin? forum_id
+    forum_id = 0 if forum_id == :all
+    roles.where(:forum_id => [forum_id, 'all'], :name => 'sysadmin').limit(1).any?
+  end
+
+  def admin? forum_id
+    forum_id = 0 if forum_id == :all
+    roles.where(:forum_id => [forum_id, 'all'], :name => ['sysadmin', 'admin']).limit(1).any?
+  end
+
+  def moderator? forum_id
+    forum_id = 0 if forum_id == :all
+    roles.where(:forum_id => [forum_id, 'all'], :name => ['sysadmin', 'admin', 'moderator']).limit(1).any?
+  end
+
+  def banned? forum_id
+    forum_id = 0 if forum_id == :all
+    roles.where(:forum_id => [forum_id, 'all'], :name => 'banned').limit(1).any?
+  end
 end

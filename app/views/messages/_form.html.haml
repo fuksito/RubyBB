@@ -8,5 +8,5 @@
 
   .form-actions
     = f.button :submit
-    = link_to t('common.destroy'), @message, method: :delete, class: 'btn btn-danger', data: { confirm: t('common.are_you_sure') } unless @message.new_record?
+    = link_to t('common.destroy'), @message, method: :delete, class: 'btn btn-danger', data: { confirm: t('common.are_you_sure') } if !@message.new_record? && can?(:destroy, @message)
     = link_to t('common.back'), topic_path(@message.topic, page: params[:page]), :class => 'btn btn-link' unless defined?(back) and !back

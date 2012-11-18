@@ -19,6 +19,7 @@ end
 # gem 'debugger'
 
 gem 'bootstrap-sass'
+gem 'cancan'
 gem 'country_select'
 gem 'devise'
 gem 'friendly_id'

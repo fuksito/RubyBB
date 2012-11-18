@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117121351) do
+ActiveRecord::Schema.define(:version => 20121117180321) do
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(:version => 20121117121351) do
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "forum_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "roles", ["forum_id"], :name => "index_roles_on_forum_id"
+  add_index "roles", ["user_id"], :name => "index_roles_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

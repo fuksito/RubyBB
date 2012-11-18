@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  authorize_resource
   before_filter :authenticate_user!
 
   # GET /messages
