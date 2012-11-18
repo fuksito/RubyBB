@@ -14,12 +14,15 @@ class User < ActiveRecord::Base
 
   attr_accessible :avatar
   has_attached_file :avatar, :styles => {
+    :icon => "40x40^",
     :mini => "80x80>",
     :small => "100x100>",
     :medium => "128x128>",
     :large => "150x150>",
     :xlarge => "200x200>",
     :xxlarge => "256x256>"
+  }, :convert_options => {
+    :icon => "-gravity center -extent 40x40"
   }
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }

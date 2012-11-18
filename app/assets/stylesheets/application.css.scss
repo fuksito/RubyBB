@@ -19,6 +19,7 @@ td.infos { width: 128px; }
 td.user { width: 128px; text-align: center !important; }
 th.number, td.number { text-align: center !important; }
 p.updated { font-style: italic; font-size: 90% }
+.icon img { width: 40px; height: 40px; }
 @media (max-width: 480px) { .hidden-portrait-phone { display: none; } }
 
 /* Table sorting */
