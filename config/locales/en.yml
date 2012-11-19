@@ -10,6 +10,7 @@ en:
       default: "%Y-%m-%d, %I:%M %p"
 
   common:
+    stats: Stats
     staff: Staff
     role: Role
     sysadmin: Sysadmin
@@ -61,6 +62,15 @@ en:
   forums:
     index:
       title: "Forums"
+      users:
+        zero: "%{count} user, "
+        one: "%{count} user, "
+        other: "%{count} users, "
+      online:
+        zero: "%{count} online."
+        one: "%{count} is online:"
+        other: "%{count} are online:"
+      counters: "%{messages} messages in %{topics} topics."
     show:
       title: "%{name}"
       by: by

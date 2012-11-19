@@ -16,3 +16,10 @@
       %td.infos.hidden-portrait-phone
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
+
+.widget
+  %h4= t('common.stats')
+  %p= t('.counters', topics: Topic.count, messages: Message.count)
+  %p
+    = "#{t('.users', count: User.count)}#{t('.online', count: @users.count)}"
+    = raw @users.map{|u| username u}.join(', ')

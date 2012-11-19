@@ -6,6 +6,7 @@ class ForumsController < ApplicationController
   # GET /forums.json
   def index
     @forums = Forum.all
+    @users = User.where('updated_at >= ?', 5.minutes.ago)
 
     respond_to do |format|
       format.html # index.html.erb
