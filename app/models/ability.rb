@@ -18,11 +18,11 @@ class Ability
       end
 
       can :manage, Message do |o|
-        user.id == o.user_id || user.moderator?(o.forum_id)
+        user.sysadmin? || user.id == o.user_id || user.moderator?(o.forum_id)
       end
 
       can :manage, Topic do |o|
-        user.id == o.user_id || user.admin?(o.forum_id)
+        user.sysadmin? || user.id == o.user_id || user.admin?(o.forum_id)
       end
 
       can [:update, :destroy], Forum do |o|
