@@ -59,7 +59,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       if @topic.save
         @topic.update_column :updater_id, current_user.id
-        format.html { redirect_to forum_url(@topic.forum_id), notice: 'Topic was successfully created.' }
+        format.html { redirect_to forum_url(@topic.forum), notice: 'Topic was successfully created.' }
         format.json { render json: @topic, status: :created, location: @topic }
       else
         format.html { render action: "new" }
@@ -77,7 +77,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
-        format.html { redirect_to forum_url(@topic.forum_id), notice: 'Topic was successfully updated.' }
+        format.html { redirect_to forum_url(@topic.forum), notice: 'Topic was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -90,11 +90,11 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     @topic = Topic.find(params[:id])
-    forum_id = @topic.forum_id
+    forum = @topic.forum
     @topic.destroy
 
     respond_to do |format|
-      format.html { redirect_to forum_url(forum_id) }
+      format.html { redirect_to forum_url(forum) }
       format.json { head :no_content }
     end
   end

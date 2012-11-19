@@ -51,7 +51,7 @@ class MessagesController < ApplicationController
       if @message.save
         @message.topic.update_column :updater_id, current_user.id
         @message.forum.update_column :updater_id, current_user.id
-        format.html { redirect_to topic_url(@message.topic_id, page: Topic.find(@message.topic_id).messages.page.num_pages), notice: 'Message was successfully created.' }
+        format.html { redirect_to topic_url(@message.topic, page: Topic.find(@message.topic_id).messages.page.num_pages), notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.update_attributes(params[:message])
         @message.update_column :updater_id, current_user.id
-        format.html { redirect_to topic_url(@message.topic_id, page: params[:page]), notice: 'Message was successfully updated.' }
+        format.html { redirect_to topic_url(@message.topic, page: params[:page]), notice: 'Message was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -84,10 +84,10 @@ class MessagesController < ApplicationController
   def destroy
     @message = Message.find(params[:id])
     if(@message == @message.topic.messages.first)
-      r = forum_url(@message.forum_id)
+      r = forum_url(@message.forum)
       @message.topic.destroy
     else
-      r = topic_url(@message.topic_id)
+      r = topic_url(@message.topic)
       @message.destroy
     end
 
