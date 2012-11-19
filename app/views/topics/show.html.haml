@@ -10,10 +10,9 @@
   - @messages.each do |message|
     %tr
       %td.user
-        = link_to user_path(message.user) do
-          %p= username message.user, @topic.forum_id
-          %p
-            = render 'shared/avatar', user: message.user, size: :small
+        %p= username message.user, @topic.forum_id
+        %p
+          = render 'shared/avatar', user: message.user, size: :small
         %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
       %td
         = raw message.rendered_content

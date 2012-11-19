@@ -20,7 +20,7 @@
           %p= topic.name
         %p
           = t('.by')
-          = link_to username(topic.user, @forum.id), topic.user
+          = username topic.user, @forum.id
           - if topic.messages_count > 20
             –
             = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
@@ -33,7 +33,7 @@
           %p= l topic.updated_at, format: :short
           %p
             = t('.by')
-            = link_to username(topic.updater, @forum.id), topic.updater
+            = username topic.updater, @forum.id
 
 = paginate @topics
 

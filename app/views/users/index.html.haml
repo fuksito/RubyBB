@@ -17,9 +17,8 @@
   - @users.each do |user|
     %tr
       %td.icon
-        = link_to user do
-          = render 'shared/avatar', user: user, size: :icon
-          = username user
+        = render 'shared/avatar', user: user, size: :icon
+        = username user
       %td.number
         = user.age if user.birthdate
       %td
