@@ -5,6 +5,7 @@ class Forum < ActiveRecord::Base
   acts_as_paranoid
   has_many :topics, :dependent => :destroy
   has_many :roles
+  belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   attr_accessible :content, :name
 end

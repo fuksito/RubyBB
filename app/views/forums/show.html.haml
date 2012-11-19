@@ -19,7 +19,7 @@
         = link_to topic do
           %p= topic.name
         %p
-          = t('.by')
+          = t('common.by')
           = username topic.user, @forum.id
           - if topic.messages_count > 20
             –
@@ -32,7 +32,7 @@
         - if topic.messages.any?
           %p= l topic.updated_at, format: :short
           %p
-            = t('.by')
+            = t('common.by')
             = username topic.updater, @forum.id
 
 = paginate @topics

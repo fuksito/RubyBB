@@ -50,6 +50,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         @message.topic.update_column :updater_id, current_user.id
+        @message.forum.update_column :updater_id, current_user.id
         format.html { redirect_to topic_url(@message.topic_id, page: Topic.find(@message.topic_id).messages.page.num_pages), notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else

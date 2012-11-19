@@ -10,6 +10,7 @@ en:
       default: "%Y-%m-%d, %I:%M %p"
 
   common:
+    by: by
     stats: Stats
     staff: Staff
     role: Role
@@ -73,7 +74,6 @@ en:
       counters: "%{messages} messages in %{topics} topics."
     show:
       title: "%{name}"
-      by: by
       topics: Topics
       messages: Msg
       views: Views

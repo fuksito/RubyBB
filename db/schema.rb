@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119013954) do
+ActiveRecord::Schema.define(:version => 20121119191753) do
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(:version => 20121119013954) do
     t.datetime "updated_at",                    :null => false
     t.datetime "deleted_at"
     t.string   "slug"
+    t.integer  "updater_id"
   end
 
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
+  add_index "forums", ["updater_id"], :name => "index_forums_on_updater_id"
 
   create_table "messages", :force => true do |t|
     t.text     "content"
