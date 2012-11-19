@@ -28,19 +28,19 @@
     %b= "#{User.human_attribute_name(:website)}:"
     = link_to @user.website, @user.website, :rel => :nofollow
 
-%h1= t('.admin')
-
-= form_for @user, url: {action: :roles} do |f|
-  %table.table.table-bordered.table-condensed
-    %tr
-      %th= t('common.forum')
-      - User::ROLES.each do |r|
-        %th.role{class: "role-#{r}"}= t("common.#{r}")
-    - Forum.all.each do |f|
-      - if can? :manage, Role.new(forum_id: f.id)
-        %tr
-          %td= f.name
-          - User::ROLES.each do |r|
-            %td.role{class: "role-#{r}"}
-              %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
-  = f.submit
+- if can? :manage, Role.new(user_id: @user.id)
+  %h1= t('.admin')
+  = form_for @user, url: {action: :roles} do |f|
+    %table.table.table-bordered.table-condensed
+      %tr
+        %th= t('common.forum')
+        - User::ROLES.each do |r|
+          %th.role{class: "role-#{r}"}= t("common.#{r}")
+      - Forum.all.each do |f|
+        - if can? :manage, Role.new(forum_id: f.id)
+          %tr
+            %td= f.name
+            - User::ROLES.each do |r|
+              %td.role{class: "role-#{r}"}
+                %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
+    = f.submit

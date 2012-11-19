@@ -8,11 +8,13 @@ class Ability
 
     unless user.new_record?
       can :create, Message do |o|
-        !user.banned?(o.forum_id)
+        !user.banned?(o.forum_id) &&
+        (user.human? || user.messages.empty?)
       end
 
       can :create, Topic do |o|
-        !user.banned?(o.forum_id)
+        !user.banned?(o.forum_id) &&
+        (user.human? || user.topics.empty?)
       end
 
       can :manage, Message do |o|
@@ -24,15 +26,16 @@ class Ability
       end
 
       can :manage, Forum do |o|
-        user.sysadmin? o.id
+        user.sysadmin? || user.admin?(o.id)
       end
 
       can :manage, Role do |o|
-        user.sysadmin? o.forum_id
+        (!o.user || !o.user.sysadmin?) &&
+        (user.sysadmin? || user.admin?(o.forum_id))
       end
 
       can :manage, User do |o|
-        user.sysadmin? :all
+        user.sysadmin?
       end
     end
   end
