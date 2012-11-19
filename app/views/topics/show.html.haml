@@ -23,7 +23,8 @@
           = form_for message.user, url: bot_user_path(message.user) do |f|
             = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
             = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
-        %p.updated= t('.updated_by', name: message.updater.name, date: message.updated_at) if message.updater
+        - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
+          %p.updated= t('.updated_by', name: message.updater.name, date: message.updated_at)
 
 = paginate @messages
 
