@@ -35,6 +35,8 @@ p.updated { font-style: italic; font-size: 90% }
 .widget .table th { background-color: #ddd; }
 .widget .table td { background-color: #fff; }
 
+.table.table-striped th { background-color: #eee !important; }
+
 /* Roles */
 .sysadmin { color: #B94A48 !important; }
 .admin { color: #B94A48 !important; }

@@ -6,7 +6,10 @@
 
 = paginate @messages
 
-%table.table
+%table.table.table-striped
+  %tr.hidden
+    %th= t('activerecord.models.user')
+    %th= t('activerecord.models.message')
   - @messages.each do |message|
     %tr
       %td.user

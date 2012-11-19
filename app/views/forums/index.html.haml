@@ -2,7 +2,7 @@
   = t('.title')
   %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new
 
-%table.table
+%table.table.table-striped
   - @forums.each do |forum|
     %tr
       %td
