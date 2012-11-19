@@ -37,6 +37,10 @@ class Ability
       can :manage, User do |o|
         user.sysadmin?
       end
+
+      can :bot, User do |o|
+        user.sysadmin? || (user.moderator?(o.messages.first.try(:forum_id)) && o.messages.count == 1)
+      end
     end
   end
 end

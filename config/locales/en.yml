@@ -54,6 +54,8 @@ en:
     show:
       title: "%{name}"
       updated_by: "Updated by %{name} at %{date}"
+      bot: "%{name} is a bot"
+      human: "%{name} is a human"
 
   activerecord:
     models:

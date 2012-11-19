@@ -21,6 +21,7 @@ RubyBB::Application.routes.draw do
   resources :users, :only => [:index, :show] do
     member do
       put 'roles' => :roles
+      put 'bot' => :bot
     end
   end
   resources :messages

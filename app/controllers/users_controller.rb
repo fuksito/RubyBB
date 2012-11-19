@@ -44,6 +44,24 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT /users/1/bot
+  def bot
+    @user = User.find(params[:id])
+    authorize! :bot, @user
+
+    if params[:bot]
+      @user.messages.delete_all
+      @user.delete
+    elsif params[:human]
+      @user.update_column :human, true
+    end
+
+    respond_to do |format|
+      format.html { render action: 'show' }
+      format.json { render json: @user, :except => [:email] }
+    end
+  end
+
   private
 
   def default_column
