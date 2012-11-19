@@ -19,9 +19,13 @@
       .container
         .content
           .row
-            .span12
+            - if @widgets_mode
               = render 'layouts/messages'
               = yield
+            - else
+              .span12
+                = render 'layouts/messages'
+                = yield
           %footer
             © 2012
             = link_to 'RubyBB', 'http://www.rubybb.com'

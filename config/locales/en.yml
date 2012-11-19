@@ -2,7 +2,19 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  time:
+    formats:
+      default: "%Y-%m-%d, %I:%M %p"
+
   common:
+    banned: Banned
+    user: User
+    moderator: Moderator
+    admin: Admin
+    forum: Forum
     new: New
     edit: Edit
     destroy: Destroy
@@ -38,6 +50,10 @@ en:
   users:
     index:
       age: Age
+    show:
+      stats: Stats
+      admin: Admin
+      more: "(%{a_day} a day, %{total} %)"
 
   forums:
     index:

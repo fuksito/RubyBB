@@ -1,46 +1,68 @@
-%h1= @user.name
+.span4
+  .widget
+    %h1= @user.name
+    %p
+      = render 'shared/avatar', user: @user, size: :large
+    %p
+      %b= "#{User.human_attribute_name(:location)}:"
+      - if @user.location.present?
+        = @user.location
+      - else
+        %i= t('common.na')
 
-= render 'shared/avatar', user: @user, size: :large
+    %p
+      %b= "#{User.human_attribute_name(:birthdate)}:"
+      - if @user.birthdate.present?
+        = l @user.birthdate
+      - else
+        %i= t('common.na')
 
-%p
-  %b= "#{User.human_attribute_name(:location)}:"
-  - if @user.location.present?
-    = @user.location
-  - else
-    %i= t('common.na')
+    %p
+      %b= "#{User.human_attribute_name(:gender)}:"
+      - if @user.gender.present?
+        = @user.gender
+      - else
+        %i= t('common.na')
 
-%p
-  %b= "#{User.human_attribute_name(:birthdate)}:"
-  - if @user.birthdate.present?
-    = l @user.birthdate
-  - else
-    %i= t('common.na')
+    - if @user.website.present?
+      %p
+        %b= "#{User.human_attribute_name(:website)}:"
+        = link_to @user.website, @user.website, :rel => :nofollow
 
-%p
-  %b= "#{User.human_attribute_name(:gender)}:"
-  - if @user.gender.present?
-    = @user.gender
-  - else
-    %i= t('common.na')
+.span4
+  .widget
+    %h1= t('.stats')
+    - [:topics_count, :messages_count].each do |a|
+      %p
+        %b= "#{User.human_attribute_name(a)}:"
+        = @user.send(a)
+        %small= t('.more',
+          a_day: (@user.send(a).to_f * 1.day / (Time.now - @user.created_at)).round(2), 
+          total: (@user.send(a).to_f * 100 / Message.count).round(2))
+    - [:updated_at, :created_at].each do |a|
+      %p
+        %b= "#{User.human_attribute_name(a)}:"
+        = l @user.send(a)
 
-- if @user.website.present?
-  %p
-    %b= "#{User.human_attribute_name(:website)}:"
-    = link_to @user.website, @user.website, :rel => :nofollow
+.span4
+  .widget
+    %h1= t('.wip')
 
 - if can? :manage, Role.new(user_id: @user.id)
-  %h1= t('.admin')
-  = form_for @user, url: {action: :roles} do |f|
-    %table.table.table-bordered.table-condensed
-      %tr
-        %th= t('common.forum')
-        - User::ROLES.each do |r|
-          %th.role{class: "role-#{r}"}= t("common.#{r}")
-      - Forum.all.each do |f|
-        - if can? :manage, Role.new(forum_id: f.id)
+  .span12
+    .widget
+      %h1= t('.admin')
+      = simple_form_for @user, url: {action: :roles} do |f|
+        %table.table.table-bordered.table-condensed
           %tr
-            %td= f.name
+            %th= t('common.forum')
             - User::ROLES.each do |r|
-              %td.role{class: "role-#{r}"}
-                %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
-    = f.submit
+              %th.role{class: "role-#{r}"}= t("common.#{r}")
+          - Forum.all.each do |f|
+            - if can? :manage, Role.new(forum_id: f.id)
+              %tr
+                %td= f.name
+                - User::ROLES.each do |r|
+                  %td.role{class: "role-#{r}"}
+                    %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
+        = f.button :submit
