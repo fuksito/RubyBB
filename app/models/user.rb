@@ -70,4 +70,9 @@ class User < ActiveRecord::Base
   def banned? forum_id, strict = false
     roles.where(:forum_id => forum_id, :name => 'banned').limit(1).any?
   end
+
+  def role forum_id = nil
+    return :sysadmin if sysadmin?
+    roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
+  end
 end

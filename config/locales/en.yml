@@ -10,6 +10,8 @@ en:
       default: "%Y-%m-%d, %I:%M %p"
 
   common:
+    role: Role
+    sysadmin: Sysadmin
     banned: Banned
     user: User
     moderator: Moderator

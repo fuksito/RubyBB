@@ -39,6 +39,7 @@ class UsersController < ApplicationController
       r.save unless name == 'user'
     end
 
+    @widgets_mode = true
     respond_to do |format|
       format.html { render action: 'show' }
       format.json { render json: @user.roles, :except => [:email] }
@@ -57,6 +58,7 @@ class UsersController < ApplicationController
       @user.update_column :human, true
     end
 
+    @widgets_mode = true
     respond_to do |format|
       format.html { render action: 'show' }
       format.json { render json: @user, :except => [:email] }

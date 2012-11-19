@@ -35,6 +35,12 @@ p.updated { font-style: italic; font-size: 90% }
 .widget .table th { background-color: #ddd; }
 .widget .table td { background-color: #fff; }
 
+/* Roles */
+span.sysadmin { color: #B94A48 !important; }
+span.admin { color: #B94A48 !important; }
+span.moderator { color: #468847 !important; }
+span.banned { text-decoration: line-through !important; }
+
 /* Table sorting */
 th .current {
   padding-right: 20px;

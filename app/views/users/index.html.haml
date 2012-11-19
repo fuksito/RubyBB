@@ -19,7 +19,7 @@
       %td.icon
         = link_to user do
           = render 'shared/avatar', user: user, size: :icon
-          = user.name
+          = username user
       %td.number
         = user.age if user.birthdate
       %td
