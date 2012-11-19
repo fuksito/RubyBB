@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  ROLES = %w[banned user moderator admin sysadmin]
   has_many :roles
   has_many :topics
   has_many :messages
@@ -48,23 +49,28 @@ class User < ActiveRecord::Base
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
   end
 
-  def sysadmin? forum_id
+  def sysadmin? forum_id, strict = false
     forum_id = 0 if forum_id == :all
-    roles.where(:forum_id => [forum_id, 'all'], :name => 'sysadmin').limit(1).any?
+    roles.where(:forum_id => [forum_id, 0], :name => 'sysadmin').limit(1).any?
   end
 
-  def admin? forum_id
+  def admin? forum_id, strict = false
     forum_id = 0 if forum_id == :all
-    roles.where(:forum_id => [forum_id, 'all'], :name => ['sysadmin', 'admin']).limit(1).any?
+    roles.where(:forum_id => [forum_id, 0], :name => strict ? 'admin' : ['sysadmin', 'admin']).limit(1).any?
   end
 
-  def moderator? forum_id
+  def moderator? forum_id, strict = false
     forum_id = 0 if forum_id == :all
-    roles.where(:forum_id => [forum_id, 'all'], :name => ['sysadmin', 'admin', 'moderator']).limit(1).any?
+    roles.where(:forum_id => [forum_id, 0], :name => strict ? 'moderator' : ['sysadmin', 'admin', 'moderator']).limit(1).any?
   end
 
-  def banned? forum_id
+  def user? forum_id, strict = false
     forum_id = 0 if forum_id == :all
-    roles.where(:forum_id => [forum_id, 'all'], :name => 'banned').limit(1).any?
+    roles.where(:forum_id => [forum_id, 0]).limit(1).empty?
+  end
+
+  def banned? forum_id, strict = false
+    forum_id = 0 if forum_id == :all
+    roles.where(:forum_id => [forum_id, 0], :name => 'banned').limit(1).any?
   end
 end

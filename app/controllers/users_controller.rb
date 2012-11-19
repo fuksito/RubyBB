@@ -26,6 +26,24 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT /users/1/roles
+  def roles
+    @user = User.find(params[:id])
+
+    params[:roles].each do |array|
+      forum_id, name = array
+      r = Role.new user_id: @user.id, forum_id: forum_id, name: name
+      authorize! :manage, r
+      @user.roles.where(forum_id: forum_id).delete_all
+      r.save unless name == 'user'
+    end
+
+    respond_to do |format|
+      format.html { render action: 'show' }
+      format.json { render json: @user.roles, :except => [:email] }
+    end
+  end
+
   private
 
   def default_column

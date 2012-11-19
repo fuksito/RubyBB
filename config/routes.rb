@@ -18,8 +18,11 @@ RubyBB::Application.routes.draw do
 
   devise_for :users, :skip => [:sessions, :registrations]
 
-  resources :users, :only => [:index, :show]
-
+  resources :users, :only => [:index, :show] do
+    member do
+      put 'roles' => :roles
+    end
+  end
   resources :messages
 
   # The priority is based upon order of creation:
