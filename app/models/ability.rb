@@ -25,8 +25,12 @@ class Ability
         user.id == o.user_id || user.admin?(o.forum_id)
       end
 
-      can :manage, Forum do |o|
+      can [:update, :destroy], Forum do |o|
         user.sysadmin? || user.admin?(o.id)
+      end
+
+      can :create, Forum do |o|
+        user.sysadmin?
       end
 
       can :manage, Role do |o|
