@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
 
   def role forum_id = nil
     return :sysadmin if sysadmin?
+    return :user unless forum_id
     roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
   end
 end
