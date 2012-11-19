@@ -10,6 +10,9 @@
           %p
             %strong= forum.name
         %p.reset= forum.content
+        %small
+          = "#{t('common.staff')}:"
+          = raw forum.roles.includes(:user).where(name: %w[admin moderator]).order('users.name').map{|r| username(r.user, forum.id)}.join(', ');
       %td.infos.hidden-portrait-phone
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
