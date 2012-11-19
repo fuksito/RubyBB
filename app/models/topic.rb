@@ -28,6 +28,7 @@ class Topic < ActiveRecord::Base
   private
   def update_counters
     if forum_id_changed?
+      messages.update_all forum_id: forum_id
       Forum.update_counters forum_id_was, topics_count: -1, messages_count: -messages_count
       Forum.update_counters forum_id, topics_count: 1, messages_count: messages_count
     end
