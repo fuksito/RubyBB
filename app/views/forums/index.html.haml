@@ -1,8 +1,13 @@
 %h1
-  = t('.title')
-  %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new
+  = t('common.title')
 
 %table.table.table-striped
+  %tr
+    %th
+      = t('.title')
+      %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new
+    %th
+    %th
   - @forums.each do |forum|
     %tr
       %td

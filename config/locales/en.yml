@@ -10,6 +10,7 @@ en:
       default: "%Y-%m-%d, %I:%M %p"
 
   common:
+    title: RubyBB
     by: by
     stats: Stats
     staff: Staff
@@ -36,7 +37,6 @@ en:
 
   layouts:
     navigation:
-      title: RubyBB
       forums: Forums
       users: Users
       user: Profile
