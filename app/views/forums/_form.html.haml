@@ -6,6 +6,6 @@
     = f.input :content, :input_html => {:rows => 5}
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'btn-warning'
     = link_to t('common.destroy'), @forum, method: :delete, class: 'btn btn-danger', data: { confirm: t('common.are_you_sure') } if !@forum.new_record? && can?(:destroy, @forum)
     = link_to t('common.back'), @forum.new_record? ? forums_path : forum_path(@forum), :class => 'btn btn-link'

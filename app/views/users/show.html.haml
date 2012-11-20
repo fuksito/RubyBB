@@ -65,4 +65,4 @@
                 - User::ROLES.each do |r|
                   %td.role{class: "role-#{r}"}
                     %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
-        = f.button :submit
+        = f.button :submit, class: 'btn-warning'
