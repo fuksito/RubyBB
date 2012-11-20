@@ -11,6 +11,7 @@ en:
 
   common:
     title: RubyBB
+    description: "RubyBB, a free and open source Ruby on Rails forum software under BSD license"
     by: by
     stats: Stats
     staff: Staff
@@ -54,6 +55,7 @@ en:
 
   users:
     index:
+      title: Users
       age: Age
     show:
       stats: Stats

@@ -1,4 +1,6 @@
-%h1 Listing users
+- content_for :title, t('.title')
+
+%h1= t('.title')
 
 = paginate @users
 

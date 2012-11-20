@@ -1,3 +1,5 @@
+- content_for :title, @topic.name
+
 %h1
   = t('.title', name: @topic.name)
   %small= link_to t('common.edit'), edit_topic_path(@topic) if can? :update, @topic
