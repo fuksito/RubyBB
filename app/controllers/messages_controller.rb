@@ -5,7 +5,12 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    begin
+      @messages = Message.search(params[:q], page: params[:page], load: true)
+    rescue
+      flash[:error] = I18n.t('search.error')
+      @messages = []
+    end
 
     respond_to do |format|
       format.html # index.html.erb

@@ -14,6 +14,9 @@
  *= require_tree .
  */
 
+.no_results { font-style: italic; }
+nav form { float: right;  margin-top: 5px; margin-bottom: -5px; }
+nav form input { float: right; }
 .in-breadcrumb { float: right; margin-top: 3px; margin-right: 3px; }
 h1 small { font-size: 50% !important; }
 a { cursor: pointer; }
@@ -59,7 +62,7 @@ th .desc {
 
 /* Messages */
 td.user { width: 128px; text-align: center !important; }
-.date { font-style: italic; font-size: 90%; }
+.date, .search { font-style: italic; font-size: 90%; }
 .table.messages {
   border-collapse: separate;
   border-spacing: 8px;

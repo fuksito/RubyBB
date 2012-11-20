@@ -2,6 +2,12 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  search:
+    title: Search
+    find: Find
+    no_results: 'No results have been found'
+    error: 'Sorry, your query is invalid.'
+
   date:
     formats:
       default: "%Y-%m-%d"
@@ -89,6 +95,9 @@ en:
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
       human: "%{name} is a human"
+  messages:
+    index:
+      title: Search results
 
   activerecord:
     models:

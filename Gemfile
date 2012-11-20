@@ -20,7 +20,6 @@ end
 
 gem 'bootstrap-sass'
 gem 'cancan'
-gem 'country_select'
 gem 'devise'
 gem 'friendly_id'
 gem 'gravtastic'
@@ -35,3 +34,4 @@ gem 'rails3_acts_as_paranoid'
 gem 'redcarpet'
 gem 'redis'
 gem 'simple_form'
+gem 'tire'

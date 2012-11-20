@@ -33,6 +33,13 @@ Configure `config/database.yml`. Then:
     bundle install
     bundle exec rake db:create
 
+### Setup and start elasticsearch
+
+    curl -k -L -o elasticsearch-0.19.0.tar.gz http://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.19.0.tar.gz
+    tar -zxvf elasticsearch-0.19.0.tar.gz
+    ./elasticsearch-0.19.0/bin/elasticsearch -f
+    rake environment tire:import CLASS='Message'
+
 ### Update everything
 
     git pull origin master

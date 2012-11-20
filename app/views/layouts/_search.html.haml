@@ -1,0 +1,3 @@
+= form_tag messages_path, method: :get, class: 'form-search' do
+  = text_field_tag :q, params[:q], placeholder: t('search.title'), class: 'search-query'
+  = submit_tag t('search.find'), name: nil, class: 'hidden'

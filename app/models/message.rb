@@ -1,4 +1,7 @@
 class Message < ActiveRecord::Base
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   acts_as_paranoid
   paginates_per 20
 
@@ -8,6 +11,14 @@ class Message < ActiveRecord::Base
   belongs_to :forum, :counter_cache => true, :touch => true
   validates :content, :presence => true
   attr_accessible :content, :user_id, :topic_id, :forum_id
+
+  mapping do
+    indexes :id, :index => :not_analyzed
+    indexes :content, :analyzer => 'snowball', :boost => 100
+    indexes :topic_name, :as => 'topic.name', :analyzer => 'snowball', :boost => 10
+    indexes :user_name, :as => 'user.name', :analyzer => 'snowball'
+    indexes :created_at, :type => 'date'
+  end
 
   before_save :render_content
 
