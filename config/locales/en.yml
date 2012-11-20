@@ -79,6 +79,8 @@ en:
       views: Views
       last: Last
       last_page: last page
+    breadcrumb:
+      new_topic: New topic
   topics:
     show:
       title: "%{name}"

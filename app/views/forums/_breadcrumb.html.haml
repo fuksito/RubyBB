@@ -1,3 +1,5 @@
+= link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb' if can? :create, Topic.new(forum_id: forum.id)
+
 %ul.breadcrumb
   %li
     = link_to t('layouts.navigation.title'), root_path
