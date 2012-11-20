@@ -6,7 +6,7 @@
 
 = paginate @messages
 
-%table.table.table-striped
+%table.table.table-striped.messages
   %tr.hidden
     %th= t('activerecord.models.user')
     %th= t('activerecord.models.message')
@@ -17,14 +17,16 @@
         %p
           = render 'shared/avatar', user: message.user, size: :small
         %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
-      %td
+      %td.message
         = raw message.rendered_content
         - if !message.user.human? && can?(:bot, User)
           = form_for message.user, url: bot_user_path(message.user) do |f|
             = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
             = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
         - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
-          %p.updated= t('.updated_by', name: message.updater.name, date: message.updated_at)
+          %p.date= t('.updated_by', name: message.updater.name, date: l(message.updated_at))
+      %td.ago.hidden-portrait-phone
+        %span{title: l(message.created_at)}= time_ago_in_words message.created_at
 
 = paginate @messages
 

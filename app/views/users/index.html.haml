@@ -30,6 +30,7 @@
       %td.number.hidden-phone= user.topics_count
       %td.number= user.messages_count
       %td.hidden-phone.hidden-tablet= l user.created_at.to_date
-      %td= time_ago_in_words user.updated_at
+      %td
+        %span{title: l(user.updated_at)}= time_ago_in_words user.updated_at
 
 = paginate @users
