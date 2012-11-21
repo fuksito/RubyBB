@@ -8,7 +8,7 @@ class Topic < ActiveRecord::Base
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :user, :counter_cache => true
-  belongs_to :forum, :counter_cache => true # do not touch: true, msg ever do this
+  belongs_to :forum, :counter_cache => true, :touch => true
   has_many :messages, :include => [:user], :dependent => :destroy
   accepts_nested_attributes_for :messages
   validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
