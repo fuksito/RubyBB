@@ -9,7 +9,7 @@
     %th
     %th
   - @forums.each do |forum|
-    - cache "forum-#{forum.id}", updated_at: forum.updated_at do
+    - cache "forum-#{forum.id}-#{forum.updated_at}" do
       %tr
         %td
           = link_to forum do

@@ -1,41 +1,15 @@
-- content_for :title, @forum.name
+- cache "forum-#{@forum.id}-topics-page#{params[:page]}-#{current_user.try(:role, @forum.id)||'anon'}-#{@forum.updated_at}" do
 
-%h1
-  = t('.title', name: @forum.name)
-  %small= link_to t('common.edit'), edit_forum_path(@forum) if can? :update, @forum
+  - content_for :title, @forum.name
 
-= render 'breadcrumb', forum: @forum
+  %h1
+    = t('.title', name: @forum.name)
+    %small= link_to t('common.edit'), edit_forum_path(@forum) if can? :update, @forum
 
-= paginate @topics
+  = render 'breadcrumb', forum: @forum
 
-%table.table.table-striped
-  %tr
-    %th= t('.topics')
-    %th.number.hidden-phone= t('.messages')
-    %th.number.hidden-phone= t('.views')
-    %th.hidden-portrait-phone= t('.last')
-  - @topics.each do |topic|
-    %tr
-      %td
-        = link_to topic do
-          %p= topic.name
-        %p
-          = t('common.by')
-          = username topic.user, @forum.id
-          - if topic.messages_count > 20
-            –
-            = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
-      %td.number.hidden-phone
-        %p= topic.messages_count
-      %td.number.hidden-phone
-        %p= topic.views_count
-      %td.infos.hidden-portrait-phone
-        - if topic.messages.any?
-          %p= l topic.updated_at, format: :short
-          %p
-            = t('common.by')
-            = username topic.updater, @forum.id
+  = paginate @topics
 
-= paginate @topics
+  = render 'topics/list'
 
-= render 'breadcrumb', forum: @forum
+  = render 'breadcrumb', forum: @forum

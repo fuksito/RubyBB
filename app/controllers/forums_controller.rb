@@ -18,8 +18,6 @@ class ForumsController < ApplicationController
   # GET /forums/1.json
   def show
     @forum = Forum.find(params[:id])
-    # All except previous line can be cached
-    # cache "forum-#{@forum.id}-topics-page#{params[:page]}-#{current_user.try(:role, @forum.id)||'anon'}-#{@forum.updated_at}"
     @topics = @forum.topics.includes(:user, :updater).order('updated_at desc').page(params[:page])
 
     respond_to do |format|

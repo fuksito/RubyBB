@@ -1,13 +1,15 @@
-- content_for :title, @topic.name
+- cache "topic-#{@topic.id}-messages-page#{params[:page]}-#{current_user.try(:role, @topic.forum_id)||'anon'}-#{@topic.updated_at}" do
 
-%h1
-  = t('.title', name: @topic.name)
-  %small= link_to t('common.edit'), edit_topic_path(@topic) if can? :update, @topic
+  - content_for :title, @topic.name
 
-= render 'breadcrumb', topic: @topic
+  %h1
+    = t('.title', name: @topic.name)
+    %small= link_to t('common.edit'), edit_topic_path(@topic) if can? :update, @topic
 
-= render 'messages/list'
+  = render 'breadcrumb', topic: @topic
 
-= render 'breadcrumb', topic: @topic
+  = render 'messages/list'
 
-= render 'messages/form', back: false if can? :create, Message.new
+  = render 'breadcrumb', topic: @topic
+
+  = render 'messages/form', back: false if can? :create, Message.new

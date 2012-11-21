@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require jquery.ui.all
 //= require bootstrap
 //= require markdown-toolbar
 //= require_tree .
