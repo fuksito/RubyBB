@@ -1,12 +1,12 @@
 class ForumsController < ApplicationController
   authorize_resource
   before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :get_stats, :only => :index
 
   # GET /forums
   # GET /forums.json
   def index
     @forums = Forum.all
-    @users = User.where('updated_at >= ?', 5.minutes.ago)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,8 +19,6 @@ class ForumsController < ApplicationController
   def show
     @forum = Forum.find(params[:id])
     @topics = @forum.topics.order('updated_at desc').page params[:page]
-    @topic = Topic.new forum_id: @forum.id
-    @topic.messages.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -86,5 +84,10 @@ class ForumsController < ApplicationController
       format.html { redirect_to forums_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def get_stats
+    @users = User.where('updated_at >= ?', 5.minutes.ago)
   end
 end

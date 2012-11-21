@@ -15,17 +15,19 @@
           %p
             %strong= forum.name
         %p.reset= forum.content
-        %small
-          = "#{t('common.staff')}:"
-          = raw forum.roles.includes(:user).where(name: %w[admin moderator]).order('users.name').map{|r| username(r.user, forum.id)}.join(', ');
+        - if forum.roles.any?
+          %small
+            = "#{t('common.staff')}:"
+            = raw forum.roles.includes(:user).where(name: %w[admin moderator]).order('users.name').map{|r| username(r.user, forum.id)}.join(', ');
       %td.infos.hidden-phone
         %p= t('common.topics_count', count: forum.topics_count)
         %p= t('common.messages_count', count: forum.messages_count)
       %td.infos.hidden-portrait-phone
-        %p= l forum.updated_at, format: :short
-        %p
-          = t('common.by')
-          = username forum.updater, forum.id
+        - if forum.updater
+          %p= l forum.updated_at, format: :short
+          %p
+            = t('common.by')
+            = username forum.updater, forum.id
 
 .widget
   %h4= t('common.stats')
