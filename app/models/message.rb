@@ -15,9 +15,9 @@ class Message < ActiveRecord::Base
   mapping do
     indexes :id, :index => :not_analyzed
     indexes :content, :analyzer => 'snowball', :boost => 100
-    indexes :topic_name, :as => 'topic.name', :analyzer => 'snowball', :boost => 10
-    indexes :user_name, :as => 'user.name', :analyzer => 'snowball'
-    indexes :created_at, :type => 'date'
+    indexes :topic, :as => 'topic.name', :analyzer => 'snowball', :boost => 10
+    indexes :user, :as => 'user.name', :analyzer => 'snowball'
+    indexes :at, :as => 'created_at', :type => 'date'
   end
 
   before_save :render_content
