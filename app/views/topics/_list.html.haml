@@ -9,11 +9,14 @@
   - @topics.each do |topic|
     %tr
       %td
-        = link_to topic do
-          %p
-            - if current_user && current_user.new_message(topic)
+        - if current_user && m_id = current_user.new_message(topic)
+          = link_to topic_path(topic, message_id: m_id, anchor: "m#{m_id}") do
+            %p
               %i.icon-bookmark{title: t('.new_messages')}
-            = topic.name
+              = topic.name
+        - else
+          = link_to topic do
+            %p= topic.name
         %p
           = t('common.by')
           = username topic.user, @forum.id

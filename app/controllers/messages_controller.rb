@@ -57,7 +57,7 @@ class MessagesController < ApplicationController
         @message.topic.update_column :last_message_id, @message.id
         @message.topic.update_column :updater_id, current_user.id
         @message.forum.update_column :updater_id, current_user.id
-        format.html { redirect_to topic_url(@message.topic, page: Topic.find(@message.topic_id).messages.page.num_pages), notice: 'Message was successfully created.' }
+        format.html { redirect_to topic_url(@message.topic, page: Topic.find(@message.topic_id).messages.page.num_pages, anchor: "m#{@message.id}"), notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -93,7 +93,7 @@ class MessagesController < ApplicationController
       r = forum_url(@message.forum)
       @message.topic.destroy
     else
-      r = topic_url(@message.topic)
+      r = topic_url(@message.topic, page: params[:page])
       @message.destroy
     end
 

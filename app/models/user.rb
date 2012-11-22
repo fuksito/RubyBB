@@ -80,6 +80,6 @@ class User < ActiveRecord::Base
 
   def new_message topic
     b = bookmarks.where(topic_id: topic.id).last
-    b && b.message_id < topic.last_message_id
+    b && b.message_id < topic.last_message_id ? b.message_id : false
   end
 end
