@@ -10,7 +10,7 @@
     %tr
       %td
         - if current_user && m_id = current_user.new_message(topic)
-          = link_to topic_path(topic, message_id: m_id, anchor: "m#{m_id}") do
+          = link_to topic_path(topic) + "?newest" do
             %p
               %i.icon-bookmark{title: t('.new_messages')}
               = topic.name

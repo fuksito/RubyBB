@@ -19,7 +19,7 @@ class Topic < ActiveRecord::Base
   after_update :update_counters
 
   def last_page
-    (messages_count / 20.0).ceil
+    (messages_count.to_f / Message::PER_PAGE).ceil
   end
 
   def last_page? page

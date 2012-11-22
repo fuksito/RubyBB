@@ -3,7 +3,9 @@ class Message < ActiveRecord::Base
   include Tire::Model::Callbacks
 
   acts_as_paranoid
-  paginates_per 20
+
+  PER_PAGE = 20
+  paginates_per PER_PAGE
 
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :user, :counter_cache => true

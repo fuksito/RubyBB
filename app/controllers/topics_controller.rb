@@ -17,6 +17,14 @@ class TopicsController < ApplicationController
   # GET /topics/1.json
   def show
     @topic = Topic.find(params[:id])
+
+    if params.has_key? :newest
+      m_id = current_user.bookmarks.where(topic_id: @topic.id).first.message_id
+      nb = Message.where(topic_id: @topic.id).where('id <= ?', m_id).count
+      page = (nb.to_f / Message::PER_PAGE).ceil
+      return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")
+    end
+
     @messages = @topic.messages.page params[:page]
     @message = Message.new topic_id: @topic.id
 
