@@ -1,4 +1,5 @@
-- cache "topic-#{@topic.id}-messages-page#{params[:page]}-#{current_user.try(:role, @topic.forum_id)||'anon'}-#{@topic.updated_at}" do
+-# " cache "topic-#{@topic.id}-messages-page#{params[:page]}-#{current_user.try(:role, @topic.forum_id)||'anon'}-#{@topic.updated_at}" do
+- if true
 
   - content_for :title, @topic.name
 
