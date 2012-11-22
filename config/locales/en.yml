@@ -92,14 +92,15 @@ en:
   topics:
     show:
       title: "%{name}"
-      updated_by: "Updated by %{name} at %{date}"
-      bot: "%{name} is a bot"
-      human: "%{name} is a human"
     list:
      new_messages: 'New messages!'
   messages:
     index:
       title: Search results
+    list:
+      updated_by: "Updated by %{name} at %{date}"
+      bot: "%{name} is a bot"
+      human: "%{name} is a human"
 
   activerecord:
     models:

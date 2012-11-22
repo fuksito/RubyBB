@@ -43,7 +43,7 @@ class Ability
       end
 
       can :bot, User do |o|
-        user.sysadmin? || (user.moderator?(o.messages.first.try(:forum_id)) && o.messages.count == 1)
+        user.sysadmin? || (user.moderator?(o.messages.first.try(:forum_id)) && !o.human)
       end
     end
   end

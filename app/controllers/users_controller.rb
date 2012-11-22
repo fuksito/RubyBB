@@ -58,9 +58,10 @@ class UsersController < ApplicationController
       @user.update_column :human, true
     end
 
-    @widgets_mode = true
+    Topic.find(params[:topic_id]).touch
+
     respond_to do |format|
-      format.html { render action: 'show' }
+      format.html { redirect_to topic_url(params[:topic_id]) }
       format.json { render json: @user, :except => [:email] }
     end
   end

@@ -13,9 +13,10 @@
             = render 'shared/avatar', user: message.user, size: :small
           %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
         %td.message
+          %a{name: "m#{message.id}"}
           = raw message.rendered_content
           - if !message.user.human? && can?(:bot, User)
-            = form_for message.user, url: bot_user_path(message.user) do |f|
+            = form_for message.user, url: bot_user_path(message.user, topic_id: params[:id]) do |f|
               = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
               = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
           - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
