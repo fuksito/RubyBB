@@ -17,7 +17,9 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :user_id, :forum_id, :messages_attributes
 
   has_many :bookmarks
-  scope :for_user, lambda { |user| select('topics.*, bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id) || user}") }
+  scope :for_user, lambda { |user| select('topics.*, bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id)}") }
+
+  scope :with_roles, lambda { select('r_user.name AS r_user, r_updater.name AS r_updater').joins("LEFT JOIN roles r_user ON r_user.forum_id = topics.forum_id AND r_user.user_id = topics.updater_id").joins("LEFT JOIN roles r_updater ON r_updater.forum_id = topics.forum_id AND r_updater.user_id = topics.updater_id") }
 
   after_update :update_counters
 
