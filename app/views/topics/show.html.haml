@@ -12,4 +12,4 @@
 
   = render 'breadcrumb', topic: @topic
 
-  = render 'messages/form', back: false if can? :create, Message.new
+  = render 'messages/form', back: false if can? :create, @message

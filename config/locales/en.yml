@@ -95,6 +95,8 @@ en:
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
       human: "%{name} is a human"
+    list:
+     new_messages: 'New messages!'
   messages:
     index:
       title: Search results

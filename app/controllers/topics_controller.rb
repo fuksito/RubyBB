@@ -20,6 +20,12 @@ class TopicsController < ApplicationController
     @messages = @topic.messages.page params[:page]
     @message = Message.new topic_id: @topic.id
 
+    if current_user
+      b = current_user.bookmarks.find_or_initialize_by_topic_id(@topic.id)
+      b.message_id = @topic.last_message_id
+      b.save!
+    end
+
     if current_user && current_user.id != @topic.viewer_id && @topic.last_page?(params[:page])
       @topic.update_column :viewer_id, current_user.id
       @topic.update_column :views_count, @topic.views_count+1

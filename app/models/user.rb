@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :roles
   has_many :topics
   has_many :messages
+  has_many :bookmarks
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -75,5 +76,10 @@ class User < ActiveRecord::Base
     return :sysadmin if sysadmin?
     return :user unless forum_id
     roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
+  end
+
+  def new_message topic
+    b = bookmarks.where(topic_id: topic.id).last
+    b && b.message_id < topic.last_message_id
   end
 end

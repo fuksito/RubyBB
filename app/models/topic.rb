@@ -7,6 +7,7 @@ class Topic < ActiveRecord::Base
 
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
+  belongs_to :last_message, :class_name => 'Message', :foreign_key => 'last_message_id'
   belongs_to :user, :counter_cache => true
   belongs_to :forum, :counter_cache => true, :touch => true
   has_many :messages, :include => [:user], :dependent => :destroy

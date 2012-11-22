@@ -10,7 +10,10 @@
     %tr
       %td
         = link_to topic do
-          %p= topic.name
+          %p
+            - if current_user && current_user.new_message(topic)
+              %i.icon-bookmark{title: t('.new_messages')}
+            = topic.name
         %p
           = t('common.by')
           = username topic.user, @forum.id
