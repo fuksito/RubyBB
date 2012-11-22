@@ -16,6 +16,9 @@ class Topic < ActiveRecord::Base
   validates :forum, :presence => true
   attr_accessible :name, :user_id, :forum_id, :messages_attributes
 
+  has_many :bookmarks
+  scope :for_user, lambda { |user| select('topics.*, bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id) || user}") }
+
   after_update :update_counters
 
   def last_page

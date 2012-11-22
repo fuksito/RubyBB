@@ -77,9 +77,4 @@ class User < ActiveRecord::Base
     return :user unless forum_id
     roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
   end
-
-  def new_message topic
-    b = bookmarks.where(topic_id: topic.id).last
-    b && b.message_id < topic.last_message_id ? b.message_id : false
-  end
 end

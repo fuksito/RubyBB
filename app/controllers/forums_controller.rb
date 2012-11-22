@@ -18,7 +18,7 @@ class ForumsController < ApplicationController
   # GET /forums/1.json
   def show
     @forum = Forum.find(params[:id])
-    @topics = @forum.topics.includes(:user, :updater).order('updated_at desc').page(params[:page])
+    @topics = @forum.topics.includes(:user, :updater).for_user(current_user).order('updated_at desc').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
