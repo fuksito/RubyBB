@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122113450) do
+ActiveRecord::Schema.define(:version => 20121123141806) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -76,6 +76,21 @@ ActiveRecord::Schema.define(:version => 20121122113450) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "small_messages", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.integer  "forum_id"
+    t.string   "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "small_messages", ["forum_id"], :name => "index_small_messages_on_forum_id"
+  add_index "small_messages", ["message_id"], :name => "index_small_messages_on_message_id"
+  add_index "small_messages", ["topic_id"], :name => "index_small_messages_on_topic_id"
+  add_index "small_messages", ["user_id"], :name => "index_small_messages_on_user_id"
 
   create_table "topics", :force => true do |t|
     t.string   "name"

@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Message:
+  = @small_message.message
+%p
+  %b User:
+  = @small_message.user
+%p
+  %b Topic:
+  = @small_message.topic
+%p
+  %b Forum:
+  = @small_message.forum
+%p
+  %b Content:
+  = @small_message.content
+
+= link_to 'Edit', edit_small_message_path(@small_message)
+\|
+= link_to 'Back', small_messages_path

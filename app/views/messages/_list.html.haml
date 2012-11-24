@@ -12,18 +12,32 @@
           %p
             = render 'shared/avatar', user: message.user, size: :small
           %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
-        %td.message
-          %a{name: "m#{message.id}"}
-          = raw message.rendered_content
-          - if !message.user.human? && can?(:bot, User)
-            = form_for message.user, url: bot_user_path(message.user, topic_id: params[:id]) do |f|
-              = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
-              = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
-          - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
-            %p.date= t('.updated_by', name: message.updater.name, date: l(message.updated_at))
+        %td
           - if params[:q]
-            %p.search= link_to message.topic.name, topic_path(message.topic)
-        %td.ago.hidden-portrait-phone
+            .meta
+              %p.search= link_to message.topic.name, topic_path(message.topic)
+          .message{ class: cycle('odd', 'even') }
+            %a{name: "m#{message.id}"}
+            = raw message.rendered_content
+            - if !message.user.human? && can?(:bot, User)
+              = form_for message.user, url: bot_user_path(message.user, topic_id: params[:id]) do |f|
+                = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
+                = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
+          .meta
+            - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
+              %p.date= t('.updated_by', name: message.updater.name, date: l(message.updated_at))
+            .small_messages
+              - message.small_messages.each do |s|
+                .small_message
+                  %span.content= "#{s.content} – "
+                  %span.user= raw "#{username s.user, s.forum_id}, "
+                  %span.time{title: l(message.created_at)}= time_ago_in_words s.created_at
+              - if can? :create, SmallMessage.new(forum_id: message.forum_id)
+                .comment
+                  = simple_form_for SmallMessage.new(message_id: message.id) do |f|
+                    = f.input :content
+                    = f.input :message_id, as: :hidden
+        %td.ago.hidden-portrait-phone.meta
           %span{title: l(message.created_at)}= time_ago_in_words message.created_at
 
   = paginate @messages

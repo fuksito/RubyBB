@@ -25,8 +25,8 @@ class TopicsController < ApplicationController
       return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")
     end
 
-    @messages = @topic.messages.page params[:page]
-    @message = Message.new topic_id: @topic.id
+    @messages = @topic.messages.includes(:user, :small_messages).page params[:page]
+    @message = Message.new topic_id: @topic.id, forum_id: @topic.forum_id
 
     if current_user
       b = current_user.bookmarks.find_or_initialize_by_topic_id(@topic.id)

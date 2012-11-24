@@ -1,4 +1,6 @@
 RubyBB::Application.routes.draw do
+  resources :small_messages
+
   root :to => 'forums#index'
 
   resources :topics

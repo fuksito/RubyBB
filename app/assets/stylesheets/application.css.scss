@@ -58,19 +58,3 @@ th .asc {
 th .desc {
   background-image: url(/assets/desc.gif);
 }
-
-/* Messages */
-td.user { width: 128px; text-align: center !important; }
-.date, .search { font-style: italic; font-size: 90%; }
-.table.messages {
-  border-collapse: separate;
-  border-spacing: 8px;
-}
-.table.messages td.user, .table.messages td.ago { border: 0; background-color: #FFF; }
-.table.messages td.ago { width: 64px; font-size: 90%; padding: 0; padding-top: 8px; }
-.table.messages td.message {
-  border: 1px #DDD solid;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-}

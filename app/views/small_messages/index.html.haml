@@ -1,0 +1,27 @@
+%h1 Listing small_messages
+
+%table
+  %tr
+    %th Message
+    %th User
+    %th Topic
+    %th Forum
+    %th Content
+    %th
+    %th
+    %th
+
+  - @small_messages.each do |small_message|
+    %tr
+      %td= small_message.message
+      %td= small_message.user
+      %td= small_message.topic
+      %td= small_message.forum
+      %td= small_message.content
+      %td= link_to 'Show', small_message
+      %td= link_to 'Edit', edit_small_message_path(small_message)
+      %td= link_to 'Destroy', small_message, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Small message', new_small_message_path

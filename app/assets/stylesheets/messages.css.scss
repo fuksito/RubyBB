@@ -1,3 +1,27 @@
 // Place all the styles related to the Messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+td.user { width: 128px; text-align: center !important; }
+.date, .search { font-style: italic; font-size: 90%; }
+.table.messages td {
+  border: 0;
+  background-color: #FFF !important;
+}
+.table.messages td.ago { width: 64px; padding: 0; padding-top: 8px; }
+.table.messages td div.message {
+  min-height: 113px;
+  padding: 8px;
+  border: 1px #DDD solid;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+.meta { color: #999; font-size: 90%; }
+.meta p { margin-bottom: 0; display: inline; }
+.small_messages { float: right; text-align: right; }
+.small_messages .comment a { color: #999; }
+.message.odd { background-color: #F9F9F9; }
+.meta label { display: none; }
+.meta input { line-height: 10px; width: 250px; border: 0px #ddd none; margin-top: 2px; height: 10px; }
+.meta .controls:after { content: "‹"; vertical-align: top; }

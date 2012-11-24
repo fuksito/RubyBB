@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   # GET /messages.json
   def index
     begin
-      @messages = Message.search(params[:q], page: params[:page], load: true)
+      @messages = Message.includes(:user, :small_messages).search(params[:q], page: params[:page], load: true)
     rescue
       flash[:error] = I18n.t('search.error')
       @messages = []

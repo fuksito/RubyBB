@@ -12,6 +12,14 @@ class Ability
         (user.human? || user.messages.empty?)
       end
 
+      can :create, SmallMessage do |o|
+        !user.banned?(o.forum_id)
+      end
+
+      can :manage, SmallMessage do |o|
+        user.sysadmin? || user.id == o.user_id || user.moderator?(o.forum_id)
+      end
+
       can :create, Topic do |o|
         !user.banned?(o.forum_id) &&
         (user.human? || user.topics.empty?)
