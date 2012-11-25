@@ -8,6 +8,7 @@
     - @messages.each do |message|
       %tr
         %td.user
+          %a{name: "m#{message.id}"}
           %p= username message.user, message.forum_id
           %p
             = render 'shared/avatar', user: message.user, size: :small
@@ -17,7 +18,6 @@
             .meta
               %p.search= link_to message.topic.name, topic_path(message.topic)
           .message{ class: cycle('odd', 'even') }
-            %a{name: "m#{message.id}"}
             = raw message.rendered_content
             - if !message.user.human? && can?(:bot, User)
               = form_for message.user, url: bot_user_path(message.user, topic_id: params[:id]) do |f|
@@ -32,6 +32,8 @@
                   %span.content= "#{s.content} – "
                   %span.user= raw "#{username s.user, s.forum_id}, "
                   %span.time{title: l(message.created_at)}= time_ago_in_words s.created_at
+                  - if can? :destroy, s
+                    = link_to '×', small_message_path(s, page: params[:page]), method: :delete, confirm: t('common.are_you_sure')
               - if can? :create, SmallMessage.new(forum_id: message.forum_id)
                 .comment
                   = simple_form_for SmallMessage.new(message_id: message.id) do |f|

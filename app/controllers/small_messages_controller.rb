@@ -51,7 +51,7 @@ class SmallMessagesController < ApplicationController
         @small_message.update_column :user_id, current_user.id
         @small_message.update_column :topic_id, message.topic_id
         @small_message.update_column :forum_id, message.forum_id
-        format.html { redirect_to topic_url(message.topic, page: params[:page]), notice: 'Small message was successfully created.' }
+        format.html { redirect_to topic_url(message.topic, page: params[:page], anchor: "m#{message.id}"), notice: 'Small message was successfully created.' }
         format.json { render json: @small_message, status: :created, location: @small_message }
       else
         format.html { render action: "new" }
@@ -80,10 +80,12 @@ class SmallMessagesController < ApplicationController
   # DELETE /small_messages/1.json
   def destroy
     @small_message = SmallMessage.find(params[:id])
+    topic = @small_message.topic
+    message_id = @small_message.message_id
     @small_message.destroy
 
     respond_to do |format|
-      format.html { redirect_to small_messages_url }
+      format.html { redirect_to topic_url(topic, page: params[:page], anchor: "m#{message_id}") }
       format.json { head :no_content }
     end
   end

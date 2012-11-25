@@ -20,8 +20,7 @@ td.user { width: 128px; text-align: center !important; }
 .meta { color: #999; font-size: 90%; }
 .meta p { margin-bottom: 0; display: inline; }
 .small_messages { float: right; text-align: right; }
-.small_messages .comment a { color: #999; }
+.small_messages a { color: #999; }
 .message.odd { background-color: #F9F9F9; }
 .meta label { display: none; }
-.meta input { line-height: 10px; width: 250px; border: 0px #ddd none; margin-top: 2px; height: 10px; }
-.meta .controls:after { content: "‹"; vertical-align: top; }
+.meta input { line-height: 10px; width: 250px; margin-top: 2px; height: 10px; }
