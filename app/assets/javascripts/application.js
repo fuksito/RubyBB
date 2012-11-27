@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require markdown-toolbar
-//= require_tree .
+//= require users
+//
+// Troubles with require_tree which includes scripts twice
+// require_tree .
