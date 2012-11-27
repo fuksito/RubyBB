@@ -1,11 +1,14 @@
 RubyBB::Application.routes.draw do
-  resources :small_messages
 
   root :to => 'forums#index'
 
   resources :topics
 
-  resources :forums
+  resources :forums do
+    collection do
+      put 'position' => :position
+    end
+  end
 
   as :user do
     get 'register' => 'devise/registrations#new', :as => :new_user_registration
@@ -26,7 +29,10 @@ RubyBB::Application.routes.draw do
       put 'bot' => :bot
     end
   end
+
   resources :messages
+
+  resources :small_messages
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

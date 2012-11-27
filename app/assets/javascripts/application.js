@@ -12,9 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tablednd
 //= require bootstrap
 //= require markdown-toolbar
 //= require users
+//= require forums
 //
 // Troubles with require_tree which includes scripts twice
 // require_tree .

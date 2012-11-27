@@ -37,6 +37,10 @@ class Ability
         user.sysadmin? || user.admin?(o.id)
       end
 
+      can :position, Forum do |o|
+        user.sysadmin?
+      end
+
       can :create, Forum do |o|
         user.sysadmin?
       end

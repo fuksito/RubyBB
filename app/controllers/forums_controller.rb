@@ -6,7 +6,7 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @forums = Forum.includes(:updater)
+    @forums = Forum.includes(:updater).order(:position)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,6 +55,22 @@ class ForumsController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @forum.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PUT /forums/position
+  def position
+    i = 1
+    params[:forums].each do |f|
+      if f.present?
+        Forum.find(f.to_i).update_column :position, i
+        i = i + 1
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to forums_url }
+      format.json { render json: Forum.all }
     end
   end
 

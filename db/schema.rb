@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123141806) do
+ActiveRecord::Schema.define(:version => 20121127140421) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20121123141806) do
     t.datetime "deleted_at"
     t.string   "slug"
     t.integer  "updater_id"
+    t.integer  "position"
   end
 
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
