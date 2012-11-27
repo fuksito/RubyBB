@@ -2,12 +2,25 @@
 
 %table.table.table-striped
   %tr
+    %th.icons
     %th= t('.topics')
     %th.number.hidden-phone= t('.messages')
     %th.number.hidden-phone= t('.views')
     %th.hidden-portrait-phone= t('.last')
   - @topics.each do |topic|
     %tr
+      - if can? :pin, topic
+        %td
+          - if topic.pinned
+            = link_to pin_topic_path(topic), method: 'put', title: t('common.unpin') do
+              %i.icon-circle-arrow-right
+          - else
+            = link_to pin_topic_path(topic), method: 'put', title: t('common.pin_on') do
+              %i.icon-arrow-up
+      - else
+        %td
+          - if topic.pinned
+            %i.icon-circle-arrow-right{ title: t('common.pinned') }
       %td
         - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
           = link_to topic_path(topic) + "?newest" do

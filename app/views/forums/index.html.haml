@@ -5,7 +5,7 @@
   %thead
     %tr
       - if can? :position, Forum.new
-        %th
+        %th.icons
       %th
         = t('.title')
         %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new

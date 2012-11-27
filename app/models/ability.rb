@@ -33,6 +33,10 @@ class Ability
         user.sysadmin? || user.id == o.user_id || user.admin?(o.forum_id)
       end
 
+      can :pin, Topic do |o|
+        user.sysadmin? || user.admin?(o.forum_id)
+      end
+
       can [:update, :destroy], Forum do |o|
         user.sysadmin? || user.admin?(o.id)
       end

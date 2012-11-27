@@ -82,6 +82,16 @@ class TopicsController < ApplicationController
     end
   end
 
+  # PUT /topics/1/pin
+  def pin
+    @topic = Topic.find(params[:id])
+    @topic.update_column :pinned, !@topic.pinned
+    respond_to do |format|
+      format.html { redirect_to forum_url(@topic.forum), notice: 'Topic was successfully updated.' }
+      format.json { head :no_content }
+    end
+  end
+
   # PUT /topics/1
   # PUT /topics/1.json
   def update

@@ -2,7 +2,11 @@ RubyBB::Application.routes.draw do
 
   root :to => 'forums#index'
 
-  resources :topics
+  resources :topics do
+    member do
+      put 'pin' => :pin
+    end
+  end
 
   resources :forums do
     collection do

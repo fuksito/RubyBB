@@ -31,6 +31,9 @@ en:
     new: New
     edit: Edit
     destroy: Destroy
+    pin_on: Pin on
+    pinned: Pinned
+    unpin: Unpin
     are_you_sure: "Are you sure?"
     na: "not available"
     topics_count:
