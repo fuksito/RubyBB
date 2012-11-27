@@ -1,4 +1,6 @@
 class Forum < ActiveRecord::Base
+  default_scope order(:position)
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

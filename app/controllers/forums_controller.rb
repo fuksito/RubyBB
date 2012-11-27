@@ -6,7 +6,7 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @forums = Forum.includes(:updater).order(:position)
+    @forums = Forum.includes(:updater)
 
     respond_to do |format|
       format.html # index.html.erb
