@@ -4,6 +4,8 @@
 %table.table.table-striped{id: can?(:position, Forum) ? 'forums' : nil}
   %thead
     %tr
+      - if can? :position, Forum
+        %th
       %th
         = t('.title')
         %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new
@@ -11,8 +13,11 @@
       %th
   %tbody
     - @forums.each do |forum|
-      - cache "forum-#{forum.id}-#{forum.updated_at}" do
-        %tr{id: forum.id}
+      %tr{id: forum.id}
+        - if can? :position, Forum
+          %td.position
+            ☰
+        - cache "forum-#{forum.id}-#{forum.updated_at}" do
           %td
             = link_to forum do
               %p
