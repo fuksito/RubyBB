@@ -4,7 +4,7 @@
 %table.table.table-striped{id: can?(:position, Forum) ? 'forums' : nil}
   %thead
     %tr
-      - if can? :position, Forum
+      - if can? :position, Forum.new
         %th
       %th
         = t('.title')
@@ -14,7 +14,7 @@
   %tbody
     - @forums.each do |forum|
       %tr{id: forum.id}
-        - if can? :position, Forum
+        - if can? :position, forum
           %td.position
             ☰
         - cache "forum-#{forum.id}-#{forum.updated_at}" do
