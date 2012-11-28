@@ -60,7 +60,7 @@
             %th= t('common.forum')
             - User::ROLES.each do |r|
               %th.role{class: "role-#{r}"}= t("common.#{r}")
-          - Forum.each do |f|
+          - Forum.all.each do |f|
             - if can? :manage, Role.new(forum_id: f.id)
               %tr
                 %td= f.name
