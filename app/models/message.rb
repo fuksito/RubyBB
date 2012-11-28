@@ -28,10 +28,19 @@ class Message < ActiveRecord::Base
   private
   def render_content
     require 'redcarpet'
-    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: true
-    extensions = {no_intra_emphasis: true, tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
+    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: false
+    extensions = {space_after_headers: true, no_intra_emphasis: true, tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
+    hashtagged = CGI::escapeHTML(self.content).gsub(/(^|\s)@([[:alnum:]_-]+)/u) { |tag|
+      begin
+        "#{$1}#{ActionController::Base.helpers.link_to("@#{$2}", Rails.application.routes.url_helpers.user_path(User.where(name: $2).first))}"
+      rescue
+        tag
+      end
+    }.gsub(/(^|\s)#([[:alnum:]_-]+)/u) { |tag|
+      "#{$1}#{ActionController::Base.helpers.link_to("##{$2}", Rails.application.routes.url_helpers.messages_path(q: $2))}"
+    }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-    self.rendered_content = redcarpet.render self.content
+    self.rendered_content = redcarpet.render(hashtagged)
   end
 
 end
