@@ -7,8 +7,9 @@
     %th.number.hidden-phone= t('.messages')
     %th.number.hidden-phone= t('.views')
     %th.hidden-portrait-phone= t('.last')
+  - pinned = false
   - @topics.each do |topic|
-    %tr
+    %tr{class: pinned && !topic.pinned ? 'separator' : nil}
       - if can? :pin, topic
         %td
           - if topic.pinned
@@ -46,5 +47,6 @@
           %p
             = t('common.by')
             = username topic.updater, topic.r_updater
+    - pinned = topic.pinned
 
 = paginate @topics
