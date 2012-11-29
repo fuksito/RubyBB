@@ -7,7 +7,7 @@ class Message < ActiveRecord::Base
   PER_PAGE = 20
   paginates_per PER_PAGE
 
-  has_many :small_messages
+  has_many :small_messages, :dependent => :destroy
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :user, :counter_cache => true
   belongs_to :topic, :counter_cache => true, :touch => true
