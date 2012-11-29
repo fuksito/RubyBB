@@ -45,6 +45,7 @@
       %p
         %b= "#{User.human_attribute_name(a)}:"
         = l @user.send(a)
+    %p= link_to t('.see_messages'), messages_path(q: "user:#{@user.name}")
 
 .span4
   .widget

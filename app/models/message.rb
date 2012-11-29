@@ -17,8 +17,8 @@ class Message < ActiveRecord::Base
 
   mapping do
     indexes :id, :index => :not_analyzed
-    indexes :content, :analyzer => 'snowball', :boost => 100
-    indexes :topic, :as => 'topic.name', :analyzer => 'snowball', :boost => 10
+    indexes :content, :analyzer => 'snowball'
+    indexes :topic, :as => 'topic.name', :analyzer => 'snowball'
     indexes :user, :as => 'user.name', :analyzer => 'snowball'
     indexes :at, :as => 'created_at', :type => 'date'
   end
