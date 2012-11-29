@@ -18,7 +18,8 @@ body {
   letter-spacing: 0.1em;
   font-size: 13px;
 }
-a { color: #666; }
+td a { color: #000; }
+a, .meta a, .user a { color: #666; }
 
 .separator { border-top: 3px #DDD solid; }
 .no_results { font-style: italic; }
