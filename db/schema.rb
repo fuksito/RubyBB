@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127172548) do
+ActiveRecord::Schema.define(:version => 20121129011307) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(:version => 20121127172548) do
   add_index "bookmarks", ["message_id"], :name => "index_bookmarks_on_message_id"
   add_index "bookmarks", ["topic_id"], :name => "index_bookmarks_on_topic_id"
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
+
+  create_table "follows", :force => true do |t|
+    t.integer  "followable_id"
+    t.string   "followable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "follows", ["followable_id"], :name => "index_follows_on_followable_id"
+  add_index "follows", ["followable_type"], :name => "index_follows_on_followable_type"
+  add_index "follows", ["user_id"], :name => "index_follows_on_user_id"
 
   create_table "forums", :force => true do |t|
     t.string   "name"

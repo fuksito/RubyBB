@@ -36,7 +36,9 @@ RubyBB::Application.routes.draw do
 
   resources :messages
 
-  resources :small_messages
+  resources :small_messages, :only => [:create, :destroy]
+
+  resources :follows, :only => [:create, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
