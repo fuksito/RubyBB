@@ -35,6 +35,8 @@ en:
     pinned: Pinned
     unpin: Unpin
     are_you_sure: "Are you sure?"
+    follow: follow
+    unfollow: unfollow
     na: "not available"
     topics_count:
       zero: "%{count} topic"

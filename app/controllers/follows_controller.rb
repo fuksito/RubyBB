@@ -44,7 +44,8 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       if @follow.save
-        format.html { redirect_to @follow, notice: 'Follow was successfully created.' }
+        @follow.update_column :user_id, current_user.id
+        format.html { redirect_to redirect_url(@follow) }
         format.json { render json: @follow, status: :created, location: @follow }
       else
         format.html { render action: "new" }
@@ -76,8 +77,23 @@ class FollowsController < ApplicationController
     @follow.destroy
 
     respond_to do |format|
-      format.html { redirect_to follows_url }
+      format.html { redirect_to redirect_url(@follow) }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def redirect_url(follow)
+    case @follow.followable_type
+    when 'User'
+      user_url(@follow.followable)
+    when 'Forum'
+      forum_url(@follow.followable, page: params[:page])
+    when 'Topic'
+      topic_url(@follow.followable, page: params[:page])
+    when 'Message'
+      topic_url(@follow.followable.topic, page: params[:page], anchor: "m#{@follow.followable_id}")
     end
   end
 end

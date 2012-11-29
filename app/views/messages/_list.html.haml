@@ -41,6 +41,11 @@
                     = f.input :message_id, as: :hidden
         %td.ago.hidden-portrait-phone.meta
           %span{title: l(message.created_at)}= time_ago_in_words message.created_at
+          - if current_user
+            - if message.follow_id
+              %p= link_to t('common.unfollow'), follow_path(message.follow_id, page: params[:page]), method: :delete, rel: :nofollow
+            - else
+              %p= link_to t('common.follow'), follows_path(follow: {followable_id: message.id, followable_type: 'Message'}, page: params[:page]), method: :post, rel: :nofollow
 
   = paginate @messages
 - else

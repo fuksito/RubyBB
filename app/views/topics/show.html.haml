@@ -7,10 +7,10 @@
     = t('.title', name: @topic.name)
     %small= link_to t('common.edit'), edit_topic_path(@topic) if can? :update, @topic
 
-  = render 'breadcrumb', topic: @topic
+  = render 'breadcrumb', topic: @topic, buttons: true
 
   = render 'messages/list'
 
-  = render 'breadcrumb', topic: @topic
+  = render 'breadcrumb', topic: @topic, buttons: true
 
   = render 'messages/form', back: false if can? :create, @message

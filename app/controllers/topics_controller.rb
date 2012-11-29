@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
-    @topic = Topic.find(params[:id])
+    @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id])
 
     if params.has_key? :newest
       m_id = current_user.bookmarks.where(topic_id: @topic.id).first.message_id
@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
       return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")
     end
 
-    @messages = @topic.messages.includes(:user, :small_messages).page params[:page]
+    @messages = @topic.messages.select('messages.*').includes(:user, :small_messages).with_follows(current_user).page params[:page]
     @message = Message.new topic_id: @topic.id, forum_id: @topic.forum_id
 
     if current_user

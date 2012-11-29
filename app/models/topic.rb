@@ -19,6 +19,8 @@ class Topic < ActiveRecord::Base
   has_many :bookmarks
   scope :for_user, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id)}") if user }
 
+  scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = topics.id AND followable_type = 'Topic' AND follows.user_id = #{user.try(:id)}") if user }
+
   scope :with_roles, lambda { select('r_user.name AS r_user, r_updater.name AS r_updater').joins("LEFT JOIN roles r_user ON r_user.forum_id = topics.forum_id AND r_user.user_id = topics.updater_id").joins("LEFT JOIN roles r_updater ON r_updater.forum_id = topics.forum_id AND r_updater.user_id = topics.updater_id") }
 
   after_update :update_counters

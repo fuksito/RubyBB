@@ -24,7 +24,8 @@ a { color: #666; }
 .no_results { font-style: italic; }
 nav form { float: right;  margin-top: 5px; margin-bottom: -5px; }
 nav form input { float: right; }
-.in-breadcrumb { float: right; margin-top: 3px; margin-right: 3px; }
+.link.in-breadcrumb { float: right; margin-top: 8px; margin-right: 15px; }
+.btn.in-breadcrumb { float: right; margin-top: 3px; margin-right: 3px; }
 h1 small { font-size: 50% !important; }
 a { cursor: pointer; }
 table.users td { vertical-align: middle; }

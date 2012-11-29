@@ -1,4 +1,12 @@
-= link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb' if can? :create, Topic.new(forum_id: forum.id)
+- if buttons
+  = link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb' if can? :create, Topic.new(forum_id: forum.id)
+
+
+  - if current_user
+    - if forum.follow_id
+      %p= link_to t('common.unfollow'), follow_path(forum.follow_id, page: params[:page]), method: :delete, rel: :nofollow, class: 'link in-breadcrumb'
+    - else
+      %p= link_to t('common.follow'), follows_path(follow: {followable_id: forum.id, followable_type: 'Forum'}, page: params[:page]), method: :post, rel: :nofollow, class: 'link in-breadcrumb'
 
 %ul.breadcrumb
   %li

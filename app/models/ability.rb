@@ -7,6 +7,12 @@ class Ability
     can :read, :all
 
     unless user.new_record?
+      can :create, Follow
+
+      can :destroy, Follow do |o|
+        user.id == o.user_id
+      end
+
       can :create, Message do |o|
         !user.banned?(o.forum_id) &&
         (user.human? || user.messages.empty?)

@@ -15,6 +15,8 @@ class Message < ActiveRecord::Base
   validates :content, :presence => true
   attr_accessible :content, :user_id, :topic_id, :forum_id
 
+  scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = messages.id AND followable_type = 'Message' AND follows.user_id = #{user.try(:id)}") if user }
+
   mapping do
     indexes :id, :index => :not_analyzed
     indexes :content, :analyzer => 'snowball'

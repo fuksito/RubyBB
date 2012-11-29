@@ -9,5 +9,8 @@ class Forum < ActiveRecord::Base
   has_many :roles
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
+
+  scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = forums.id AND followable_type = 'Forum' AND follows.user_id = #{user.try(:id)}") if user }
+
   attr_accessible :content, :name
 end

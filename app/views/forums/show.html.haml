@@ -7,10 +7,10 @@
     = t('.title', name: @forum.name)
     %small= link_to t('common.edit'), edit_forum_path(@forum) if can? :update, @forum
 
-  = render 'breadcrumb', forum: @forum
+  = render 'breadcrumb', forum: @forum, buttons: true
 
   = paginate @topics
 
   = render 'topics/list'
 
-  = render 'breadcrumb', forum: @forum
+  = render 'breadcrumb', forum: @forum, buttons: true

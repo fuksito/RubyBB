@@ -1,3 +1,9 @@
+- if current_user && buttons
+  - if topic.follow_id
+    %p= link_to t('common.unfollow'), follow_path(topic.follow_id, page: params[:page]), method: :delete, rel: :nofollow, class: 'link in-breadcrumb'
+  - else
+    %p= link_to t('common.follow'), follows_path(follow: {followable_id: topic.id, followable_type: 'Topic'}, page: params[:page]), method: :post, rel: :nofollow, class: 'link in-breadcrumb'
+
 %ul.breadcrumb
   %li
     = link_to t('common.title'), root_path
