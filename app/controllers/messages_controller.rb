@@ -7,6 +7,11 @@ class MessagesController < ApplicationController
   def index
     begin
       @messages = Message.includes(:user, :small_messages).search(params[:q], page: params[:page], load: true)
+      p = params
+      @messages = Message.includes(:user, :small_messages).search(page: params[:page], load: true) do
+        query { string p[:q], default_operator: 'AND' }
+        sort { by :at, 'desc' }
+      end
     rescue
       flash[:error] = I18n.t('search.error')
       @messages = []
