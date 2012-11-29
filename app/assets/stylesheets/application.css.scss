@@ -13,6 +13,13 @@
  *= require_tree .
  */
 
+body {
+  color: #404040;
+  letter-spacing: 0.1em;
+  font-size: 13px;
+}
+a { color: #666; }
+
 .separator { border-top: 3px #DDD solid; }
 .no_results { font-style: italic; }
 nav form { float: right;  margin-top: 5px; margin-bottom: -5px; }
