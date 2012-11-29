@@ -56,7 +56,7 @@ class Ability
       end
 
       can :manage, Role do |o|
-        (!o.user || !o.user.sysadmin?) &&
+        (!o.user || !o.user.sysadmin?) && o.user_id != user.id &&
         (user.sysadmin? || user.admin?(o.forum_id))
       end
 
