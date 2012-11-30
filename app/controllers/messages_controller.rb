@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
+    @meta = true
     begin
       p = params
       @messages = Message.includes(:user, :small_messages).search(page: params[:page], load: true) do

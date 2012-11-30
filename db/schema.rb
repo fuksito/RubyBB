@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129011307) do
+ActiveRecord::Schema.define(:version => 20121129223913) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(:version => 20121129011307) do
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
+  add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

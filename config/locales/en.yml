@@ -52,6 +52,7 @@ en:
       forums: Forums
       users: Users
       user: Profile
+      notifications: Notifications
       logout: Logout
       login: Login
       sign_up: Register
@@ -63,6 +64,10 @@ en:
       previous: "&lsaquo;"
       next: "&rsaquo;"
       truncate: "..."
+
+  notifications:
+    index:
+      title: Notifications
 
   users:
     index:

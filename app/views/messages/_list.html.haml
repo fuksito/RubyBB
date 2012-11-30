@@ -14,7 +14,7 @@
             = render 'shared/avatar', user: message.user, size: :small
           %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
         %td
-          - if params[:q]
+          - if @meta
             .meta
               %p.search= link_to message.topic.name, topic_path(message.topic)
           .message{ class: cycle('odd', 'even') }

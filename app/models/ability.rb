@@ -4,12 +4,17 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :read, :all
+    can :read, Forum
+    can :read, Topic
+    can :read, Message
+    can :read, SmallMessage
+    can :read, User
 
     unless user.new_record?
-      can :create, Follow
+      can :read, Notification
+      can [:create, :read], Follow
 
-      can :destroy, Follow do |o|
+      can :manage, Follow do |o|
         user.id == o.user_id
       end
 
@@ -19,7 +24,7 @@ class Ability
       end
 
       can :create, SmallMessage do |o|
-        !user.banned?(o.forum_id)
+        !user.banned?(o.forum_id) && user.human?
       end
 
       can :manage, SmallMessage do |o|
