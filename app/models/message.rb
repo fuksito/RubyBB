@@ -27,8 +27,8 @@ class Message < ActiveRecord::Base
   end
 
   before_save :render_content
+  after_save :fire_notifications
 
-  private
   def render_content
     require 'redcarpet'
     renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: false
@@ -44,6 +44,20 @@ class Message < ActiveRecord::Base
     }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.rendered_content = redcarpet.render(hashtagged)
+  end
+
+  def fire_notifications
+    Follow.not_by(self.user_id).where(:followable_id => self.user_id, :followable_type => 'User').each do |f|
+      Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
+    end
+    Follow.not_by(self.user_id).where(:followable_id => self.topic_id, :followable_type => 'Topic').each do |f|
+      Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
+    end
+    if self.topic.messages_count == 1
+      Follow.not_by(self.user_id).where(:followable_id => self.forum_id, :followable_type => 'Forum').each do |f|
+        Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
+      end
+    end
   end
 
 end
