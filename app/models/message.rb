@@ -30,13 +30,15 @@ class Message < ActiveRecord::Base
   after_save :fire_notifications
 
   def render_content
+    @user_ids = Array.new
     require 'redcarpet'
     renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: false
     extensions = {space_after_headers: true, no_intra_emphasis: true, tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
     hashtagged = CGI::escapeHTML(self.content).gsub(/(^|\s)@([[:alnum:]_-]+)/u) { |tag|
-      begin
-        "#{$1}#{ActionController::Base.helpers.link_to("@#{$2}", Rails.application.routes.url_helpers.user_path(User.where(name: $2).first))}"
-      rescue
+      if user = User.where(name: $2).first
+        @user_ids << user.id
+        "#{$1}#{ActionController::Base.helpers.link_to("@#{$2}", Rails.application.routes.url_helpers.user_path(user))}"
+      else
         tag
       end
     }.gsub(/(^|\s)#([[:alnum:]_-]+)/u) { |tag|
@@ -47,6 +49,11 @@ class Message < ActiveRecord::Base
   end
 
   def fire_notifications
+    @user_ids.each do |uid|
+      if uid != self.user_id
+        Notification.find_or_create_by_user_id_and_message_id(uid, self.id).touch
+      end
+    end
     Follow.not_by(self.user_id).where(:followable_id => self.user_id, :followable_type => 'User').each do |f|
       Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
     end
