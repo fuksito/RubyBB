@@ -11,7 +11,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user, :counter_cache => true
   belongs_to :forum, :counter_cache => true, :touch => true
   has_many :messages, :include => [:user], :dependent => :destroy
-  has_many :followed_by, :as => :followable, :dependent => :destroy
+  has_many :follows, :as => :followable, :dependent => :destroy
   accepts_nested_attributes_for :messages
   validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
   validates :forum, :presence => true

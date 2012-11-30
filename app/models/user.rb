@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :bookmarks, :dependent => :destroy
   has_many :follows, :dependent => :destroy
-  has_many :followed_by, :as => :followable, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_many :notified_messages, :through => :notifications, :source => :message
 

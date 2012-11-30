@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   paginates_per PER_PAGE
 
   has_many :small_messages, :dependent => :destroy
-  has_many :followed_by, :as => :followable, :dependent => :destroy
+  has_many :follows, :as => :followable, :dependent => :destroy
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :user, :counter_cache => true
   belongs_to :topic, :counter_cache => true, :touch => true
