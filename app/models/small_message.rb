@@ -4,4 +4,5 @@ class SmallMessage < ActiveRecord::Base
   belongs_to :topic
   belongs_to :forum
   attr_accessible :content, :message_id, :forum_id
+  validates :content, :presence => true
 end
