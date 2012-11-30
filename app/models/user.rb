@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   has_many :roles
   has_many :topics
   has_many :messages
-  has_many :bookmarks
+  has_many :bookmarks, :dependent => :destroy
+  has_many :follows, :dependent => :destroy
+  has_many :followed_by, :as => :followable, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
   extend FriendlyId
   friendly_id :name, use: :slugged
