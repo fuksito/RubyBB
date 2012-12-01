@@ -17,6 +17,7 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
+    @pinnable = true
     @forum = Forum.select('forums.*').with_follows(current_user).find(params[:id])
     @topics = @forum.topics.select('topics.*').includes(:user, :updater).with_roles.for_user(current_user).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
 

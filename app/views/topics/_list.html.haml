@@ -1,52 +1,55 @@
-= paginate @topics
+- if @topics.any?
+  = paginate @topics
 
-%table.table.table-striped
-  %tr
-    %th.icons
-    %th= t('.topics')
-    %th.number.hidden-phone= t('.messages')
-    %th.number.hidden-phone= t('.views')
-    %th.hidden-portrait-phone= t('.last')
-  - pinned = false
-  - @topics.each do |topic|
-    %tr{class: pinned && !topic.pinned ? 'separator' : nil}
-      - if can? :pin, topic
-        %td
-          - if topic.pinned
-            = link_to pin_topic_path(topic), method: 'put', title: t('common.unpin') do
-              %i.icon-circle-arrow-right
-          - else
-            = link_to pin_topic_path(topic), method: 'put', title: t('common.pin_on') do
-              %i.icon-arrow-up
-      - else
-        %td
-          - if topic.pinned
-            %i.icon-circle-arrow-right{ title: t('common.pinned') }
-      %td
-        - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
-          = link_to topic_path(topic) + "?newest" do
-            %p
-              %i.icon-bookmark{title: t('.new_messages')}
-              = topic.name
+  %table.table.table-striped
+    %tr
+      %th.icons
+      %th= t('.topics')
+      %th.number.hidden-phone= t('.messages')
+      %th.number.hidden-phone= t('.views')
+      %th.hidden-portrait-phone= t('.last')
+    - pinned = false
+    - @topics.each do |topic|
+      %tr{class: pinned && !topic.pinned && @pinnable ? 'separator' : nil}
+        - if can?(:pin, topic) && @pinnable
+          %td
+            - if topic.pinned
+              = link_to pin_topic_path(topic), method: 'put', title: t('common.unpin') do
+                %i.icon-circle-arrow-right
+            - else
+              = link_to pin_topic_path(topic), method: 'put', title: t('common.pin_on') do
+                %i.icon-arrow-up
         - else
-          = link_to topic do
-            %p= topic.name
-        %p
-          = t('common.by')
-          = username topic.user, topic.r_user
-          - if topic.messages_count > 20
-            –
-            = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
-      %td.number.hidden-phone
-        %p= topic.messages_count
-      %td.number.hidden-phone
-        %p= topic.views_count
-      %td.infos.hidden-portrait-phone
-        - if topic.messages.any?
-          %p= l topic.updated_at, format: :short
+          %td
+            - if topic.pinned
+              %i.icon-circle-arrow-right{ title: t('common.pinned') }
+        %td
+          - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
+            = link_to topic_path(topic) + "?newest" do
+              %p
+                %i.icon-bookmark{title: t('.new_messages')}
+                = topic.name
+          - else
+            = link_to topic do
+              %p= topic.name
           %p
             = t('common.by')
-            = username topic.updater, topic.r_updater
-    - pinned = topic.pinned
+            = username topic.user, topic.r_user
+            - if topic.messages_count > 20
+              –
+              = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
+        %td.number.hidden-phone
+          %p= topic.messages_count
+        %td.number.hidden-phone
+          %p= topic.views_count
+        %td.infos.hidden-portrait-phone
+          - if topic.messages.any?
+            %p= l topic.updated_at, format: :short
+            %p
+              = t('common.by')
+              = username topic.updater, topic.r_updater
+      - pinned = topic.pinned
 
-= paginate @topics
+  = paginate @topics
+- else
+  .no_results= t('search.no_results')

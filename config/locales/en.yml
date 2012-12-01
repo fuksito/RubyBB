@@ -53,6 +53,8 @@ en:
       users: Users
       user: Profile
       notifications: Notifications
+      favorites: Favorites
+      bookmarks: Bookmarks
       logout: Logout
       login: Login
       sign_up: Register
@@ -78,6 +80,10 @@ en:
       admin: Admin
       more: "(%{a_day} a day, %{total} %)"
       see_messages: See messages
+
+  bookmarks:
+    index:
+      title: Bookmarks
 
   forums:
     index:
