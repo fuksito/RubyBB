@@ -11,8 +11,8 @@ class Ability
     can :read, User
 
     unless user.new_record?
-      can :read, Bookmark
-      can :read, Notification
+      can [:read, :clear], Bookmark
+      can [:read, :clear], Notification
       can [:create, :read], Follow
 
       can :manage, Follow do |o|

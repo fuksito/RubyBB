@@ -1,5 +1,7 @@
 - content_for :title, t('.title')
 
-%h1= t('.title')
+%h1
+  = t('.title')
+  = link_to t('.clear'), notifications_path, :method => :delete, :class => 'btn btn-danger'
 
 = render 'messages/list'

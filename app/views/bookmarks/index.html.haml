@@ -2,6 +2,7 @@
 
 %h1
   = t('.title')
+  = link_to t('.clear'), bookmarks_path, :method => :delete, :class => 'btn btn-danger'
 
 = paginate @topics
 

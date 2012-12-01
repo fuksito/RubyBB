@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129223913) do
+ActiveRecord::Schema.define(:version => 20121201011041) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20121129223913) do
     t.string   "slug"
     t.boolean  "human",                  :default => false
     t.boolean  "sysadmin",               :default => false
+    t.integer  "notifications_count",    :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

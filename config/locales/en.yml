@@ -70,6 +70,7 @@ en:
   notifications:
     index:
       title: Notifications
+      delete_all: Clear
 
   users:
     index:

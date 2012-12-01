@@ -40,8 +40,16 @@ RubyBB::Application.routes.draw do
 
   resources :follows, :only => [:create, :destroy]
 
-  resources :notifications, :only => :index
-  resources :bookmarks, :only => :index
+  resources :notifications, :only => :index do
+    collection do
+      delete '' => :clear
+    end
+  end
+  resources :bookmarks, :only => :index do
+    collection do
+      delete '' => :clear
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
