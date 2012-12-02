@@ -41,7 +41,7 @@ class Ability
         user.sysadmin? || user.id == o.user_id || user.moderator?(o.forum_id)
       end
 
-      can :manage, Topic do |o|
+      can [:read, :create, :update], Topic do |o|
         user.sysadmin? || user.id == o.user_id || user.admin?(o.forum_id)
       end
 
