@@ -5,6 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
+    @meta = true
     @messages = current_user.notified_messages.select('messages.*').includes(:user, :small_messages).with_follows(current_user).order('messages.updated_at desc').page(params[:page])
 
     respond_to do |format|
