@@ -45,12 +45,12 @@ class SmallMessagesController < ApplicationController
   def create
     @small_message = SmallMessage.new(params[:small_message])
     message = Message.find(@small_message.message_id)
+    @small_message.user_id = current_user.id
+    @small_message.topic_id = message.topic_id
+    @small_message.forum_id = message.forum_id
 
     respond_to do |format|
       if @small_message.save
-        @small_message.update_column :user_id, current_user.id
-        @small_message.update_column :topic_id, message.topic_id
-        @small_message.update_column :forum_id, message.forum_id
         format.html { redirect_to topic_url(message.topic, page: params[:page], anchor: "m#{message.id}"), notice: 'Small message was successfully created.' }
         format.json { render json: @small_message, status: :created, location: @small_message }
       else

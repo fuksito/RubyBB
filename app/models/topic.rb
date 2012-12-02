@@ -15,7 +15,7 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :messages
   validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
   validates :forum, :presence => true
-  attr_accessible :name, :user_id, :forum_id, :messages_attributes
+  attr_accessible :name, :forum_id, :messages_attributes
 
   has_many :bookmarks
   scope :for_user, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id)}") if user }

@@ -26,7 +26,8 @@ class TopicsController < ApplicationController
     end
 
     @messages = @topic.messages.select('messages.*').includes(:user, :small_messages).with_follows(current_user).page params[:page]
-    @message = Message.new topic_id: @topic.id, forum_id: @topic.forum_id
+    @message = Message.new topic_id: @topic.id
+    @message.forum_id = @topic.forum_id
 
     if current_user
       b = current_user.bookmarks.find_or_initialize_by_topic_id(@topic.id)
@@ -65,14 +66,15 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
-    params[:topic][:user_id] = current_user.id
-    params[:topic][:messages_attributes]['0'][:user_id] = current_user.id
-    params[:topic][:messages_attributes]['0'][:forum_id] = params[:topic][:forum_id]
     @topic = Topic.new(params[:topic])
+    @topic.user_id = current_user.id
+    @topic.updater_id = current_user.id
+    message = @topic.messages.first
+    message.user_id = current_user.id
+    message.forum_id = params[:topic][:forum_id]
 
     respond_to do |format|
       if @topic.save
-        @topic.update_column :updater_id, current_user.id
         format.html { redirect_to topic_url(@topic), notice: 'Topic was successfully created.' }
         format.json { render json: @topic, status: :created, location: @topic }
       else
@@ -95,7 +97,6 @@ class TopicsController < ApplicationController
   # PUT /topics/1
   # PUT /topics/1.json
   def update
-    params[:topic].delete :user_id
     params[:topic].delete :messages_attributes
     @topic = Topic.find(params[:id])
 

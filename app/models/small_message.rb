@@ -3,7 +3,7 @@ class SmallMessage < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   belongs_to :forum
-  attr_accessible :content, :message_id, :forum_id
+  attr_accessible :content, :message_id
   validates :content, :presence => true
 
   after_save :fire_notifications

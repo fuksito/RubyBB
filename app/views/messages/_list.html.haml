@@ -34,7 +34,7 @@
                   %span.time{title: l(message.created_at)}= time_ago_in_words s.created_at
                   - if can? :destroy, s
                     = link_to '×', small_message_path(s, page: params[:page]), method: :delete, confirm: t('common.are_you_sure')
-              - if can? :create, SmallMessage.new(forum_id: message.forum_id)
+              - if can? :create, SmallMessage.new.tap{|s| s.forum_id = message.forum_id}
                 .comment
                   = simple_form_for SmallMessage.new(message_id: message.id) do |f|
                     = f.input :content
