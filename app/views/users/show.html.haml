@@ -46,6 +46,11 @@
         %b= "#{User.human_attribute_name(a)}:"
         = l @user.send(a)
     %p= link_to t('.see_messages'), messages_path(q: "user:#{@user.name}")
+    - if current_user && current_user.id != @user.id
+      - if @user.follow_id
+        %p= link_to t('common.unfollow'), follow_path(@user.follow_id), method: :delete, rel: :nofollow
+      - else
+        %p= link_to t('common.follow'), follows_path(follow: {followable_id: @user.id, followable_type: 'User'}), method: :post, rel: :nofollow
 
 .span4
   .widget

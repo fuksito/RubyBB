@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :notifications, :dependent => :destroy
   has_many :notified_messages, :through => :notifications, :source => :message
 
+  scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = users.id AND followable_type = 'User' AND follows.user_id = #{user.try(:id)}") if user }
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

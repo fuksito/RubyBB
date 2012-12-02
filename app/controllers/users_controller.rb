@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @widgets_mode = true
-    @user = User.find(params[:id])
+    @user = User.select('users.*').with_follows(current_user).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

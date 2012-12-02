@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201011041) do
+ActiveRecord::Schema.define(:version => 20121202112942) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20121201011041) do
     t.string   "slug"
     t.integer  "updater_id"
     t.integer  "position"
+    t.integer  "follows_count",  :default => 0, :null => false
   end
 
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20121201011041) do
     t.datetime "deleted_at"
     t.text     "rendered_content"
     t.integer  "updater_id"
+    t.integer  "follows_count",    :default => 0, :null => false
   end
 
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
@@ -120,15 +122,16 @@ ActiveRecord::Schema.define(:version => 20121201011041) do
     t.integer  "user_id"
     t.integer  "forum_id"
     t.integer  "messages_count",  :default => 0
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.datetime "deleted_at"
     t.string   "slug"
-    t.integer  "views_count",     :default => 0, :null => false
+    t.integer  "views_count",     :default => 0,     :null => false
     t.integer  "viewer_id"
     t.integer  "updater_id"
     t.integer  "last_message_id"
-    t.boolean  "pinned"
+    t.boolean  "pinned",          :default => false
+    t.integer  "follows_count",   :default => 0,     :null => false
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
@@ -167,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20121201011041) do
     t.boolean  "human",                  :default => false
     t.boolean  "sysadmin",               :default => false
     t.integer  "notifications_count",    :default => 0
+    t.integer  "follows_count",          :default => 0,     :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
