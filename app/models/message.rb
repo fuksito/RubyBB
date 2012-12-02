@@ -7,6 +7,7 @@ class Message < ActiveRecord::Base
   PER_PAGE = 20
   paginates_per PER_PAGE
 
+  has_many :notifications, :dependent => :destroy
   has_many :small_messages, :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
@@ -60,7 +61,7 @@ class Message < ActiveRecord::Base
     Follow.not_by(self.user_id).where(:followable_id => self.topic_id, :followable_type => 'Topic').each do |f|
       Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
     end
-    if self.topic.messages_count == 1
+    if self.topic.messages_count == 0
       Follow.not_by(self.user_id).where(:followable_id => self.forum_id, :followable_type => 'Forum').each do |f|
         Notification.find_or_create_by_user_id_and_message_id(f.user_id, self.id).touch
       end
