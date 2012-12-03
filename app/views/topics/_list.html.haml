@@ -26,12 +26,12 @@
         %td
           - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
             = link_to topic_path(topic) + "?newest" do
-              %p
+              %p.title
                 %i.icon-bookmark{title: t('.new_messages')}
                 = topic.name
           - else
             = link_to topic do
-              %p= topic.name
+              %p.title= topic.name
           %p
             = t('common.by')
             = username topic.user, topic.r_user
