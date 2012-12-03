@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
   # GET /notifications.json
   def index
     @meta = true
-    @messages = current_user.notified_messages.select('messages.*').includes(:user, :small_messages).with_follows(current_user).order('messages.updated_at desc').page(params[:page])
+    @messages = current_user.notified_messages.select('messages.*, notifications.id as notification_id').includes(:user, :small_messages).with_follows(current_user).order('notifications.id desc').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +17,18 @@ class NotificationsController < ApplicationController
   # DELETE /notifications
   def clear
     Notification.where(:user_id => current_user.id).destroy_all
+
+    respond_to do |format|
+      format.html { redirect_to notifications_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # DELETE /notifications/1
+  # DELETE /notifications/1.json
+  def destroy
+    @notification = Notification.find(params[:id])
+    @notification.destroy
 
     respond_to do |format|
       format.html { redirect_to notifications_url }

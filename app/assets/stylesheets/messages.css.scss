@@ -17,7 +17,8 @@ td.user { width: 128px; text-align: center !important; }
   border-radius: 8px;
 }
 .meta { color: #999; font-size: 90%; }
-.meta p { margin-bottom: 0; display: inline; }
+.meta p { margin-bottom: 0; }
+.meta p.date { display: inline; }
 .small_messages { float: right; text-align: right; }
 .small_messages a { color: #999; }
 .message.odd { background-color: #F9F9F9; }

@@ -15,6 +15,10 @@ class Ability
       can [:read, :clear], Notification
       can [:create, :read], Follow
 
+      can :manage, Notification do |o|
+        user.id == o.user_id
+      end
+
       can :manage, Follow do |o|
         user.id == o.user_id
       end

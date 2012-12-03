@@ -40,7 +40,7 @@ RubyBB::Application.routes.draw do
 
   resources :follows, :only => [:create, :destroy]
 
-  resources :notifications, :only => :index do
+  resources :notifications, :only => [:index, :destroy] do
     collection do
       delete '' => :clear
     end
