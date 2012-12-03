@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202112942) do
+ActiveRecord::Schema.define(:version => 20121203132703) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -136,7 +136,9 @@ ActiveRecord::Schema.define(:version => 20121202112942) do
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["last_message_id"], :name => "index_topics_on_last_message_id"
+  add_index "topics", ["pinned"], :name => "index_topics_on_pinned"
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
+  add_index "topics", ["updated_at"], :name => "index_topics_on_updated_at"
   add_index "topics", ["updater_id"], :name => "index_topics_on_updater_id"
   add_index "topics", ["user_id"], :name => "index_topics_on_user_id"
   add_index "topics", ["viewer_id"], :name => "index_topics_on_viewer_id"
