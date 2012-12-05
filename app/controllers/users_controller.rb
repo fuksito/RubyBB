@@ -57,10 +57,11 @@ class UsersController < ApplicationController
       @user.update_column :human, true
     end
 
-    Topic.find(params[:topic_id]).touch
+    t = Topic.find(params[:topic_id])
+    t.touch
 
     respond_to do |format|
-      format.html { redirect_to topic_url(params[:topic_id]) }
+      format.html { redirect_to topic_url(t) }
       format.json { render json: @user, :except => [:email] }
     end
   end
