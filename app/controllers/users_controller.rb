@@ -39,9 +39,8 @@ class UsersController < ApplicationController
       r.save unless name == 'user'
     end
 
-    @widgets_mode = true
     respond_to do |format|
-      format.html { render action: 'show' }
+      format.html { redirect_to user_url(@user) }
       format.json { render json: @user.roles, :except => [:email] }
     end
   end
