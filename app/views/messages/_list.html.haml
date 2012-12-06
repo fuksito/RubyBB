@@ -20,34 +20,25 @@
           .message{ class: cycle('odd', 'even') }
             = raw message.rendered_content
             - if !message.user.human? && can?(:bot, User)
-              = form_for message.user, url: bot_user_path(message.user, topic_id: params[:id]) do |f|
+              = form_for message.user, url: bot_user_path(message.user, topic_id: message.topic_id) do |f|
                 = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
                 = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
           .meta
             - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
               %p.date= t('.updated_by', name: message.updater.name, date: l(message.updated_at))
             .small_messages
-              - message.small_messages.each do |s|
-                .small_message
-                  %span.content= "#{s.content} – "
-                  %span.user= raw "#{username s.user, s.forum_id}, "
-                  %span.time{title: l(message.created_at)}= time_ago_in_words s.created_at
-                  - if can? :destroy, s
-                    = link_to '×', small_message_path(s, page: params[:page]), method: :delete, confirm: t('common.are_you_sure')
+              - message.small_messages.each do |small_message|
+                = render 'small_messages/show', small_message: small_message
               - if can? :create, SmallMessage.new.tap{|s| s.forum_id = message.forum_id}
-                .comment
-                  = simple_form_for SmallMessage.new(message_id: message.id) do |f|
-                    = f.input :content
-                    = f.input :message_id, as: :hidden
+                = simple_form_for SmallMessage.new(message_id: message.id), remote: true, html: { id: "new_small_message-#{message.id}" } do |f|
+                  = f.input :content
+                  = f.input :message_id, as: :hidden
         %td.ago.hidden-portrait-phone.meta
           - if url_for == notifications_path
-            %p= link_to t('common.remove'), notification_path(message.notification_id), method: :delete
+            %p= link_to t('common.remove'), notification_path(message.notification_id), method: :delete, rel: :nofollow, remote: true, class: 'ajax'
           %p{title: l(message.created_at)}= time_ago_in_words message.created_at
           - if current_user && !params[:q] && current_user.id != message.user_id
-            - if message.follow_id
-              %p= link_to t('common.unfollow'), follow_path(message.follow_id, page: params[:page]), method: :delete, rel: :nofollow
-            - else
-              %p= link_to t('common.follow'), follows_path(follow: {followable_id: message.id, followable_type: 'Message'}, page: params[:page]), method: :post, rel: :nofollow
+            = render 'follows/show', id: message.follow_id, followable_id: message.id, followable_type: 'Message'
 
   = paginate @messages
 - else

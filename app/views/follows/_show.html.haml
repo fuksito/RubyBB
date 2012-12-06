@@ -1,0 +1,5 @@
+- klass = '' unless defined? klass
+- if id
+  %p{class: "follow-#{followable_type} follow-#{id}"}= link_to t('common.unfollow'), follow_path(id, page: params[:page]), method: :delete, rel: :nofollow, remote: true
+- else
+  %p{class: "follow-#{followable_type} follow-#{followable_type}-#{followable_id}"}= link_to t('common.follow'), follows_path(follow: {followable_id: followable_id, followable_type: followable_type}, page: params[:page]), method: :post, rel: :nofollow, remote: true

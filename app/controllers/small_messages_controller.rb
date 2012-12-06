@@ -53,9 +53,11 @@ class SmallMessagesController < ApplicationController
       if @small_message.save
         format.html { redirect_to topic_url(message.topic, page: params[:page], anchor: "m#{message.id}"), notice: 'Small message was successfully created.' }
         format.json { render json: @small_message, status: :created, location: @small_message }
+        format.js
       else
         format.html { redirect_to topic_url(message.topic, page: params[:page], anchor: "m#{message.id}") }
         format.json { render json: @small_message.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

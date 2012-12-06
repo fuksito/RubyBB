@@ -47,9 +47,11 @@ class FollowsController < ApplicationController
         @follow.update_column :user_id, current_user.id
         format.html { redirect_to redirect_url(@follow) }
         format.json { render json: @follow, status: :created, location: @follow }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @follow.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -79,6 +81,7 @@ class FollowsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to redirect_url(@follow) }
       format.json { head :no_content }
+      format.js
     end
   end
 

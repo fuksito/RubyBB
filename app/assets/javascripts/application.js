@@ -20,3 +20,28 @@
 //
 // Troubles with require_tree which includes scripts twice
 // require_tree .
+
+$(document).ready(function() {
+
+  // generic
+
+  $(document).on('ajax:complete', 'a.ajax', function(){
+    $this = $(this);
+    $('a[href="'+$this.attr('href')+'"]').replaceWith('<span class="deleteMe '+$this.removeClass('ajax').attr('class')+'">✓</span>');
+    setTimeout(function(){
+      $('.deleteMe').fadeOut('slow');
+    }, 1000);
+  })
+
+  // small messages
+
+  $(document).on('ajax:beforeSend', 'a.ajax-delete', function(){
+    $(this).css('visibility', 'hidden');
+  }).on('ajax:complete', 'a.ajax-delete', function(){
+    $(this).parent().hide('slow');
+  });
+
+  $('form.new_small_message').bind('ajax:beforeSend', function(e, data){
+    $('#small_message_content', this).blur().attr('value', '').attr('disabled', 'disabled');
+  })
+});

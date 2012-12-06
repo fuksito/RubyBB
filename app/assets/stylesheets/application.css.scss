@@ -22,11 +22,12 @@ td a .title { color: #000; }
 a, .meta a, .user a { color: #666; }
 h1 .btn { float: right; }
 
+a.disabled { cursor: normal; text-decoration: none;}
 .separator { border-top: 3px #DDD solid; }
 .no_results { font-style: italic; }
 nav form { float: right;  margin-top: 5px; margin-bottom: -5px; }
 nav form input { float: right; }
-.link.in-breadcrumb { float: right; margin-top: 8px; margin-right: 15px; }
+.follow-Topic a, .follow-Forum a { float: right; margin-top: 8px; margin-right: 15px; }
 .btn.in-breadcrumb { float: right; margin-top: 3px; margin-right: 3px; }
 h1 small { font-size: 50% !important; }
 a { cursor: pointer; }

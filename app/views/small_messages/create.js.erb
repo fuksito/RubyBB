@@ -1,0 +1,4 @@
+<%- if @small_message.errors.empty? %>
+  $('#new_small_message-<%= @small_message.message_id %>').before("<%= escape_javascript(render 'show', small_message: @small_message) %>");
+<%- end %>
+$('#new_small_message-<%= @small_message.message_id %> input').removeAttr('disabled');

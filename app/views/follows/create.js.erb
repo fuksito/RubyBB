@@ -1,0 +1,1 @@
+$('.follow-<%= @follow.followable_type %>-<%= @follow.followable_id %>').replaceWith("<%= escape_javascript(render 'show', id: @follow.id, followable_type: @follow.followable_type) %>");
