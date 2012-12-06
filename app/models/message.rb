@@ -33,17 +33,17 @@ class Message < ActiveRecord::Base
   def render_content
     @user_ids = Array.new
     require 'redcarpet'
-    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: false
+    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: true
     extensions = {space_after_headers: true, no_intra_emphasis: true, tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
-    hashtagged = CGI::escapeHTML(self.content).gsub(/(^|\s)@([[:alnum:]_-]+)/u) { |tag|
+    hashtagged = self.content.gsub(/(^|\s)@([[:alnum:]_-]+)/u) { |tag|
       if user = User.where(name: $2).first
         @user_ids << user.id
-        "#{$1}#{ActionController::Base.helpers.link_to("@#{$2}", Rails.application.routes.url_helpers.user_path(user))}"
+        "#{$1}[@#{$2}](#{Rails.application.routes.url_helpers.user_path(user)})"
       else
         tag
       end
     }.gsub(/(^|\s)#([[:alnum:]_-]+)/u) { |tag|
-      "#{$1}#{ActionController::Base.helpers.link_to("##{$2}", Rails.application.routes.url_helpers.messages_path(q: $2))}"
+      "#{$1}[##{$2}](#{Rails.application.routes.url_helpers.messages_path(q: $2)})"
     }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.rendered_content = redcarpet.render(hashtagged)
