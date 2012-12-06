@@ -31,7 +31,7 @@
             %p= t('common.topics_count', count: forum.topics_count)
             %p= t('common.messages_count', count: forum.messages_count)
           %td.infos.hidden-portrait-phone
-            - if forum.updater
+            - if forum.updated_at
               %p= l forum.updated_at, format: :short
               %p
                 = t('common.by')
