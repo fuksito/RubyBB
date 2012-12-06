@@ -2,7 +2,7 @@
   = link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb' if can? :create, Topic.new(forum_id: forum.id)
 
   - if current_user
-    = render 'follows/show', id: forum.follow_id, followable_id: forum.id, followable_type: 'Forum', klass: 'link in-breadcrumb'
+    = render 'follows/show', id: forum.follow_id, followable_id: forum.id, followable_type: 'Forum'
 
 %ul.breadcrumb
   %li
