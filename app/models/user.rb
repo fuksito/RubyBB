@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   paginates_per 25
 
   include Gravtastic
-  gravtastic :default => 'retro', :size => 100
+  gravtastic :size => 100
 
   attr_accessible :avatar
   has_attached_file :avatar, :styles => {
