@@ -120,6 +120,8 @@ en:
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
       human: "%{name} is a human"
+      i_am_a_bot: "You cannot post anymore: you have to wait someone confirms your account."
+      it_is_a_bot: "%{name} cannot posts anymore: he or she has to wait account confirmation."
 
   activerecord:
     models:

@@ -19,10 +19,17 @@
               %p.search= link_to message.topic.name, topic_path(message.topic)
           .message{ class: cycle('odd', 'even') }
             = raw message.rendered_content
-            - if !message.user.human? && can?(:bot, User)
-              = form_for message.user, url: bot_user_path(message.user, topic_id: message.topic_id) do |f|
-                = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
-                = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
+            - if !message.user.human?
+              - if can?(:bot, message.user)
+                = form_for message.user, url: bot_user_path(message.user, topic_id: message.topic_id) do |f|
+                  = f.submit t('.bot', name: message.user.name), name: 'bot', class: 'btn btn-danger'
+                  = f.submit t('.human', name: message.user.name), name: 'human', class: 'btn btn-success'
+              - elsif message.user_id == current_user.id
+                %p
+                  %em= t('.i_am_a_bot')
+              - else
+                %p
+                  %em= t('.it_is_a_bot')
           .meta
             - if message.updater && (message.updater_id != message.user_id || message.updated_at - 5.minutes > message.created_at)
               %p.date= t('.updated_by', name: message.updater.name, date: l(message.updated_at))
