@@ -1,17 +1,21 @@
+%a.btn.btn-navbar{data: {toggle: 'collapse', target: '.nav-collapse'}}
+  .icon-bar
+  .icon-bar
+  .icon-bar
 = link_to t('common.title'), root_path, :class => 'brand'
-%ul.nav
-  %li= link_to t('.forums'), root_path
-  %li= link_to t('.users'), users_path
-  - if user_signed_in?
-    %li= link_to t('.user'), edit_user_registration_path
-    %li
-      = link_to notifications_path do
-        = t('.notifications')
-        - if current_user.notifications_count > 0
-          %span.badge.badge-success= current_user.notifications_count
-    %li= link_to t('.bookmarks'), bookmarks_path
-    %li= link_to t('.logout'), destroy_user_session_path, :method=>'delete'
-  - else
-    %li= link_to t('.sign_up'), new_user_registration_path
-    %li= link_to t('.login'), new_user_session_path
-
+.nav-collapse
+  %ul.nav
+    %li= link_to t('.users'), users_path
+    - if user_signed_in?
+      %li= link_to t('.user'), edit_user_registration_path
+      %li
+        = link_to notifications_path do
+          = t('.notifications')
+          - if current_user.notifications_count > 0
+            %span.badge.badge-success= current_user.notifications_count
+      %li= link_to t('.bookmarks'), bookmarks_path
+      %li= link_to t('.logout'), destroy_user_session_path, :method=>'delete'
+    - else
+      %li= link_to t('.sign_up'), new_user_registration_path
+      %li= link_to t('.login'), new_user_session_path
+  = render 'layouts/search'

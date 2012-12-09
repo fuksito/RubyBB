@@ -9,8 +9,8 @@
       %th
         = t('.title')
         %small= link_to t('common.new'), new_forum_path if can? :create, Forum.new
-      %th
-      %th
+      %th.hidden-phone
+      %th.hidden-portrait-phone
   %tbody
     - @forums.each do |forum|
       %tr{id: forum.id}
