@@ -22,6 +22,12 @@
             = link_to forum do
               %p.title
                 %strong= forum.name
+            - if forum.children.any?
+              %p
+                %strong= t('.see_also')
+                - forum.children.each do |f|
+                  = link_to f do
+                    %strong= f.name
             %p.reset= forum.content
             - if forum.roles.any?
               %small

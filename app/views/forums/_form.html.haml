@@ -3,6 +3,7 @@
 
   .form-inputs
     = f.input :name, :required => true
+    = f.association :parent
     = f.input :content, :input_html => {:rows => 5}
 
   .form-actions

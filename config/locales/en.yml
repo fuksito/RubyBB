@@ -89,6 +89,7 @@ en:
 
   forums:
     index:
+      see_also: 'See also:'
       title: "Forums"
       users:
         zero: "%{count} user, "

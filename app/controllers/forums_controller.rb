@@ -6,7 +6,7 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @forums = Forum.includes(:updater)
+    @forums = Forum.includes(:updater, :children).where(:parent_id => nil)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,6 +47,10 @@ class ForumsController < ApplicationController
   # POST /forums.json
   def create
     @forum = Forum.new(params[:forum])
+    if @forum.parent_id
+      @forum.position = @forum.parent.position
+      @forum.parent.touch
+    end
 
     respond_to do |format|
       if @forum.save
@@ -64,7 +68,9 @@ class ForumsController < ApplicationController
     i = 1
     params[:forums].each do |f|
       if f.present?
-        Forum.find(f.to_i).update_column :position, i
+        f = Forum.find(f.to_i)
+        f.update_column :position, i
+        f.children.update_all :position => i
         i = i + 1
       end
     end

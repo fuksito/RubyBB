@@ -1,10 +1,12 @@
 class Forum < ActiveRecord::Base
-  default_scope order(:position)
+  default_scope order(:position, :parent_id)
 
   extend FriendlyId
   friendly_id :name, use: :slugged
 
   acts_as_paranoid
+  has_many :children, :class_name => 'Forum', :foreign_key => 'parent_id'
+  belongs_to :parent, :class_name => 'Forum', :foreign_key => 'parent_id'
   has_many :topics, :dependent => :destroy
   has_many :roles
   has_many :follows, :as => :followable, :dependent => :destroy
@@ -13,5 +15,5 @@ class Forum < ActiveRecord::Base
 
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = forums.id AND followable_type = 'Forum' AND follows.user_id = #{user.try(:id)}") if user }
 
-  attr_accessible :content, :name
+  attr_accessible :content, :name, :parent_id
 end

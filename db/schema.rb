@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203132703) do
+ActiveRecord::Schema.define(:version => 20121211130050) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -49,8 +49,10 @@ ActiveRecord::Schema.define(:version => 20121203132703) do
     t.integer  "updater_id"
     t.integer  "position"
     t.integer  "follows_count",  :default => 0, :null => false
+    t.integer  "parent_id"
   end
 
+  add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
   add_index "forums", ["updater_id"], :name => "index_forums_on_updater_id"
 
