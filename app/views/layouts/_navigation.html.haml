@@ -11,8 +11,7 @@
       %li
         = link_to notifications_path do
           = t('.notifications')
-          - if current_user.notifications_count > 0
-            %span.badge.badge-success= current_user.notifications_count
+          %span.badge.badge-success#faye-notifications{class: current_user.notifications_count <= 0 && 'hidden'}= current_user.notifications_count
       %li= link_to t('.bookmarks'), bookmarks_path
       %li= link_to t('.logout'), destroy_user_session_path, :method=>'delete'
     - else
