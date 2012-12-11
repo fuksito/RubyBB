@@ -30,6 +30,9 @@
       %p
         %b= "#{User.human_attribute_name(:website)}:"
         = link_to @user.website, @user.website, :rel => :nofollow
+    - if @user.id == current_user.id
+      %p
+        = link_to t('.edit'), edit_user_registration_path
 
 .span4
   .widget
