@@ -4,7 +4,10 @@
   .form-inputs
     = f.input :name, :required => true
     - if @topic.new_record?
-      = f.association :forum, :collection => Forum.where(:id => @topic.forum.children.map(&:id) << @topic.forum_id), :include_blank => false
+      - if @topic.forum.children.any?
+        = f.association :forum, :collection => Forum.where(:id => @topic.forum.children.map(&:id) << @topic.forum_id), :include_blank => false
+      -else
+        .hidden= f.association :forum
       = f.simple_fields_for :messages do |m|
         = m.input :content, :input_html => {:rows => 15, :class => 'input-xxlarge markdown-toolbar'}
     - else
