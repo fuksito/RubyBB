@@ -1,21 +1,6 @@
-%h1 Listing follows
+- content_for :title, t('.title')
 
-%table
-  %tr
-    %th Followable
-    %th User
-    %th
-    %th
-    %th
+%h1
+  = t('.title')
 
-  - @follows.each do |follow|
-    %tr
-      %td= follow.followable
-      %td= follow.user
-      %td= link_to 'Show', follow
-      %td= link_to 'Edit', edit_follow_path(follow)
-      %td= link_to 'Destroy', follow, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Follow', new_follow_path
+= render 'messages/list'

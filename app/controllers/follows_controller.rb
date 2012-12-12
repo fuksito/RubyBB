@@ -2,7 +2,8 @@ class FollowsController < ApplicationController
   # GET /follows
   # GET /follows.json
   def index
-    @follows = Follow.all
+    @messages = Message.select('messages.*').followed_by(current_user).includes(:topic, :user, :small_messages => :user).order('follows.id DESC').page(params[:page])
+    @meta = true
 
     respond_to do |format|
       format.html # index.html.erb

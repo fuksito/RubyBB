@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
   # GET /notifications.json
   def index
     @meta = true
-    @messages = current_user.notified_messages.select('messages.*, notifications.id as notification_id').includes(:user, :small_messages).with_follows(current_user).order('notifications.id desc').page(params[:page])
+    @messages = current_user.notified_messages.select('messages.*, notifications.id as notification_id').includes(:topic, :user, :small_messages => :user).with_follows(current_user).order('notifications.id desc').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

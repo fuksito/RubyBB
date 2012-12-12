@@ -55,6 +55,7 @@ en:
       forums: Forums
       users: Users
       user: Profile
+      follows: Follows
       notifications: Notifications
       favorites: Favorites
       bookmarks: Bookmarks
@@ -74,6 +75,10 @@ en:
     index:
       title: Notifications
       delete_all: Clear
+
+  follows:
+    index:
+      title: Follows
 
   users:
     index:

@@ -38,7 +38,7 @@ RubyBB::Application.routes.draw do
 
   resources :small_messages, :only => [:create, :destroy]
 
-  resources :follows, :only => [:create, :destroy]
+  resources :follows, :only => [:index, :create, :destroy]
 
   resources :notifications, :only => [:index, :destroy] do
     collection do
