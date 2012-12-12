@@ -6,6 +6,7 @@
     %title= content_for?(:title) ? "#{yield(:title)} - #{t('common.title')}" : t('common.title')
     %meta{:content => t('common.description'), :name => "description"}
     %meta{:content => "Julien Grillot", :name => "author"}
+    = favicon_link_tag '/ruby.png', rel: 'image_src', :type => 'image/png'
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = javascript_include_tag "//#{request.host}:9292/faye.js"
@@ -44,3 +45,7 @@
             = link_to 'RubyBB', 'http://www.rubybb.com'
             –
             = link_to 'Fork me on GitHub', 'https://github.com/RubyBB/RubyBB'
+            –
+            = link_to '@RubyBB_dev', 'https://twitter.com/RubyBB_dev'
+            –
+            = link_to 'Share on Facebook', "https://www.facebook.com/sharer/sharer.php?u=#{u request.url}", rel: 'nofollow'

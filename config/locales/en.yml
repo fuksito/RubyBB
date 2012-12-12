@@ -18,7 +18,7 @@ en:
   common:
     title: RubyBB
     read: 'read'
-    description: "RubyBB, a free and open source Ruby on Rails forum software under BSD license"
+    description: "RubyBB is a free and open source Ruby on Rails forum software under BSD license"
     by: by
     stats: Stats
     staff: Staff
