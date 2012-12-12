@@ -24,10 +24,8 @@
                 %strong= forum.name
             - if forum.children.any?
               %p
-                %strong= t('.see_also')
-                - forum.children.each do |f|
-                  = link_to f do
-                    %strong= f.name
+                = t('.see_also')
+                =raw forum.children.map{|f| link_to f.name, forum_path(f)}.join(', ')
             %p.reset= forum.content
             - if forum.roles.any?
               %small

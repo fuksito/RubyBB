@@ -33,6 +33,9 @@
             = link_to topic do
               %p.title= topic.name
           %p
+            - if topic.forum_id != @forum.id
+              = t('common.in')
+              = link_to topic.forum.name, forum_path(topic.forum)
             = t('common.by')
             = username topic.user, topic.r_user
             - if topic.messages_count > 20

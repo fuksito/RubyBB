@@ -4,12 +4,11 @@
   .form-inputs
     = f.input :name, :required => true
     - if @topic.new_record?
+      = f.association :forum, :collection => Forum.where(:id => @topic.forum.children.map(&:id) << @topic.forum_id), :include_blank => false
       = f.simple_fields_for :messages do |m|
         = m.input :content, :input_html => {:rows => 15, :class => 'input-xxlarge markdown-toolbar'}
-    - if @topic.new_record?
-      .hidden= f.association :forum
     - else
-      = f.association :forum
+      = f.association :forum, :include_blank => false
 
   .form-actions
     = f.button :submit, class: @topic.new_record? || @topic.user_id == current_user.id ? 'btn-primary' : 'btn-warning'

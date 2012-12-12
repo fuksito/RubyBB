@@ -30,6 +30,22 @@ class Message < ActiveRecord::Base
   before_save :render_content
   after_save :fire_notifications
 
+  after_create :increment_parent_counters
+  after_destroy :decrement_parent_counters
+
+  private
+  def increment_parent_counters
+    if forum.parent_id
+      Forum.update_counters forum.parent_id, messages_count: 1
+    end
+  end
+
+  def decrement_parent_counters
+    if forum.parent_id
+      Forum.update_counters forum.parent_id, messages_count: -1
+    end
+  end
+
   def render_content
     @user_ids = Array.new
     require 'redcarpet'

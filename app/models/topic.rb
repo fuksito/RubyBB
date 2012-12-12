@@ -27,6 +27,8 @@ class Topic < ActiveRecord::Base
   scope :with_roles, lambda { select('r_user.name AS r_user, r_updater.name AS r_updater').joins("LEFT JOIN roles r_user ON r_user.forum_id = topics.forum_id AND r_user.user_id = topics.user_id").joins("LEFT JOIN roles r_updater ON r_updater.forum_id = topics.forum_id AND r_updater.user_id = topics.updater_id") }
 
   after_update :update_counters
+  after_create :increment_parent_counters
+  after_destroy :decrement_parent_counters
 
   def last_page
     (messages_count.to_f / Message::PER_PAGE).ceil
@@ -37,12 +39,26 @@ class Topic < ActiveRecord::Base
   end
 
   private
+  def increment_parent_counters
+    if forum.parent_id
+      Forum.update_counters forum.parent_id, topics_count: 1
+    end
+  end
+
+  def decrement_parent_counters
+    if forum.parent_id
+      Forum.update_counters forum.parent_id, topics_count: -1
+    end
+  end
+
   def update_counters
     if forum_id_changed?
       messages.update_all forum_id: forum_id
-      Forum.find(forum_id_was).touch
-      Forum.update_counters forum_id_was, topics_count: -1, messages_count: -messages_count
-      Forum.update_counters forum_id, topics_count: 1, messages_count: messages_count
+      was = Forum.find(forum_id_was)
+      if was.parent_id != forum.id && was.id != forum.parent_id
+        Forum.update_counters forum_id_was, topics_count: -1, messages_count: -messages_count
+        Forum.update_counters forum_id, topics_count: 1, messages_count: messages_count
+      end
     end
   end
 end

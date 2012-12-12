@@ -18,8 +18,8 @@ class ForumsController < ApplicationController
   # GET /forums/1.json
   def show
     @pinnable = true
-    @forum = Forum.select('forums.*').with_follows(current_user).find(params[:id])
-    @topics = @forum.topics.select('topics.*').includes(:user, :updater).with_roles.for_user(current_user).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
+    @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id])
+    @topics = Topic.select('topics.*').includes(:user, :updater, :forum).with_roles.for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
