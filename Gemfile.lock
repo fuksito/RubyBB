@@ -70,6 +70,7 @@ GEM
       eventmachine (>= 0.12.0)
     friendly_id (4.0.9)
     gravtastic (3.2.6)
+    gritter (1.0.2)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -180,6 +181,7 @@ DEPENDENCIES
   faye
   friendly_id
   gravtastic
+  gritter
   haml (>= 3.0.0)
   haml-rails
   jquery-rails

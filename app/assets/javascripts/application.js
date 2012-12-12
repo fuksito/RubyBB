@@ -15,6 +15,7 @@
 //= require jquery.tablednd
 //= require bootstrap
 //= require markdown-toolbar
+//= require gritter
 //= require users
 //= require forums
 //

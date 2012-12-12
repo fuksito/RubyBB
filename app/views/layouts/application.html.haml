@@ -13,12 +13,14 @@
     = yield(:head)
     - if current_user
       :javascript
+        function link_to(text, href){ return '<a href="'+href+'">'+text+'</a>'; }
         $(document).ready(function() {
           client = new Faye.Client(location.protocol + '//' + location.hostname + ':9292/faye');
           $notifications = $('#faye-notifications');
           client.subscribe('/#{current_user.id}/notifications', function(data) {
             $notifications.html(parseInt($notifications.html())+1);
             $notifications.removeClass('hidden');
+            $.gritter.add({title: data.title, text: data.content + ' ' + link_to('#{t('common.read')}', data.link), image: data.avatar});
           });
         });
   %body
