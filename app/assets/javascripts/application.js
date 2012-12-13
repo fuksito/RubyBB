@@ -43,6 +43,6 @@ $(document).ready(function() {
   });
 
   $('form.new_small_message').bind('ajax:beforeSend', function(e, data){
-    $('#small_message_content', this).blur().attr('value', '').attr('disabled', 'disabled');
+    $(this).find('#small_message_content').blur().attr('value', '').attr('disabled', 'disabled');
   })
 });
