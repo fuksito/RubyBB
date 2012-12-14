@@ -3,17 +3,17 @@
   = f.error_notification
   .form-inputs
     .controls
-      = render 'shared/avatar', user: current_user, size: :large
+      = render 'shared/avatar', user: current_user, size: 100
     = f.input :avatar, :as => :file
-    = f.input :location
-    = f.input :website, :as => :url
+    = f.input :location, :input_html => {:maxlength => 24}
+    = f.input :website, :as => :url, :input_html => {:maxlength => 255}
     = f.input :birthdate, :start_year => Date.today.year - 100, :end_year => Date.today.year, :include_blank => true, :input_html => {:class => 'input-medium'}
     = f.input :gender, :collection => %w[male female other]
     .expandable
       .controls.more
         %a edit my name, email or password...
       .details
-        = f.input :name, :required => true
+        = f.input :name, :required => true, :input_html => {:maxlength => 24}
         = f.input :email, :required => true
         = f.input :current_password, :hint => t('.current_password_hint'), :required => true
         = f.input :password, :label => t('.new_password'), :autocomplete => "off", :hint => t('.new_password_hint'), :required => false

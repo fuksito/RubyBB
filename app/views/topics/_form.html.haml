@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name, :required => true
+    = f.input :name, :required => true, :input_html => {:maxlength => 64}
     - if @topic.new_record?
       - if @topic.forum.children.any?
         = f.association :forum, :collection => Forum.where(:id => @topic.forum.children.map(&:id) << @topic.forum_id), :include_blank => false

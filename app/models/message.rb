@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
   belongs_to :user, :counter_cache => true
   belongs_to :topic, :counter_cache => true, :touch => true
   belongs_to :forum, :counter_cache => true, :touch => true
-  validates :content, :presence => true
+  validates :content, :presence => true, :length => { :maximum => 32768 }
   attr_accessible :content, :topic_id
 
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = messages.id AND followable_type = 'Message' AND follows.user_id = #{user.try(:id)}") if user }

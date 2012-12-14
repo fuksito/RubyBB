@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.tablednd
+//= require textarea.jquery
 //= require bootstrap
 //= require markdown-toolbar
 //= require gritter
@@ -23,6 +24,8 @@
 // require_tree .
 
 $(document).ready(function() {
+  // Handle maxlength
+  $("textarea").textarea();
 
   // generic
 

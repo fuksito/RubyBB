@@ -13,7 +13,7 @@ class Topic < ActiveRecord::Base
   has_many :messages, :include => [:user], :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
   accepts_nested_attributes_for :messages
-  validates :name, :presence => true, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
+  validates :name, :presence => true, :length => { :maximum => 64 }, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
   validates :forum, :presence => true
   attr_accessible :name, :forum_id, :messages_attributes
 

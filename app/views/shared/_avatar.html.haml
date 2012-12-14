@@ -1,7 +1,7 @@
 - if user
   - if user.avatar.exists?
-    = image_tag user.avatar.url(size)
+    = image_tag user.avatar.url("x#{size}")
   - else
-    = image_tag user.gravatar_url(d: 'retro')
+    = image_tag user.gravatar_url(d: 'retro'), width: size, height: size
 - else
   = image_tag User.new.gravatar_url(d: 'mm', f: 'y')

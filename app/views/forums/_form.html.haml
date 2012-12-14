@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name, :required => true
+    = f.input :name, :required => true, :input_html => {:maxlength => 64}
     = f.association :parent
     = f.input :content, :input_html => {:rows => 5}
 

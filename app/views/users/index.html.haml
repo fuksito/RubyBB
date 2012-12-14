@@ -18,8 +18,8 @@
 
   - @users.each do |user|
     %tr
-      %td.icon
-        = render 'shared/avatar', user: user, size: :icon
+      %td
+        = render 'shared/avatar', user: user, size: 40
         = username user
       %td.number
         = user.age if user.birthdate

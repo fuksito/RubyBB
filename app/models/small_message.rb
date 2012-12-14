@@ -4,7 +4,7 @@ class SmallMessage < ActiveRecord::Base
   belongs_to :topic
   belongs_to :forum
   attr_accessible :content, :message_id
-  validates :content, :presence => true
+  validates :content, :presence => true, :length => { :maximum => 140 }
 
   after_save :fire_notifications
 
