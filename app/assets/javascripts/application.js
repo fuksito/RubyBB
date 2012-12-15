@@ -26,12 +26,21 @@
 // Troubles with require_tree which includes scripts twice
 // require_tree .
 
+var values = [];
 $(document).ready(function() {
-  // Handle maxlength
-  $("textarea").textarea();
+  // Handle autocomplete and maxlength
+  $("textarea").sew({values: values}).textarea();
 
-  // Handle autocomplete
-  $('textarea').sew({values: values});
+  // Does not submit forms twice
+  $('form').submit(function(){
+    $this = $(this);
+    if ($this.data('submitted')) {
+      return false;
+    } else {
+      $this.find('input[type=submit]').addClass('disabled');
+      $this.data('submitted', true);
+    }
+  });
 
   // generic
 
