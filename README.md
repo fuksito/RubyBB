@@ -38,7 +38,13 @@ Configure `config/database.yml`. Then:
     curl -k -L -o elasticsearch-0.19.0.tar.gz http://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.19.0.tar.gz
     tar -zxvf elasticsearch-0.19.0.tar.gz
     ./elasticsearch-0.19.0/bin/elasticsearch -f
-    rake environment tire:import CLASS='Message' FORCE=true
+    bundle exec rake environment tire:import CLASS='Message' FORCE=true
+
+### Start faye
+
+    bundle exec rackup faye.ru -E production
+
+Keep `-E production` in development mode.
 
 ### Update everything
 
