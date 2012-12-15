@@ -9,13 +9,13 @@
       %th= t('activerecord.models.user')
       %th= t('activerecord.models.message')
     - @messages.each do |message|
-      %tr
+      %tr{class: @folded ? 'folded' : nil}
         %td.user
           %a{name: "m#{message.id}"}
           %p= username message.user, message.forum_id
           %p
             = render 'shared/avatar', user: message.user, size: 100
-          %p= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
+          %p.action= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message
         %td
           - if @meta
             .meta

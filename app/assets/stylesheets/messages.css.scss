@@ -24,3 +24,22 @@ td.user { width: 128px; text-align: center !important; }
 .message.odd { background-color: #F9F9F9; }
 .meta label { display: none; }
 .meta input { line-height: 10px; width: 250px; margin-top: 2px; height: 10px; }
+
+.folded {
+  .user img { height: 40px; width: auto; }
+  .action { display: none; }
+  .meta .date { display: none; }
+  .small_messages { display: none; }
+  .message {
+    cursor: pointer;
+    color: #999;
+    min-height: 34px !important;
+    height: 34px !important;
+    overflow: hidden;
+  }
+}
+.foldable {
+  .message {
+    cursor: pointer;
+  }
+}

@@ -2,6 +2,7 @@ class FollowsController < ApplicationController
   # GET /follows
   # GET /follows.json
   def index
+    @folded = true
     @widgets_mode = true
     @users = User.select('users.*').followed_by(current_user)
     @messages = Message.select('messages.*').followed_by(current_user).includes(:topic, :user, :small_messages => :user).order('follows.id DESC').page(params[:page])
