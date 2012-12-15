@@ -1,5 +1,5 @@
 :javascript
-  var values = #{@messages.map(&:user).map{|u|{val:u.name}}.to_json};
+  var values = #{@messages.map(&:user).uniq.reject{|u|!u}.map{|u|{val:u.name}}.to_json};
 
 - if @messages.any?
   = paginate @messages
