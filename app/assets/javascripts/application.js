@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.caretposition
+//= require jquery.sew
 //= require jquery.tablednd
 //= require textarea.jquery
 //= require bootstrap
@@ -26,6 +28,9 @@
 $(document).ready(function() {
   // Handle maxlength
   $("textarea").textarea();
+
+  // Handle autocomplete
+  $('textarea').sew({values: values});
 
   // generic
 

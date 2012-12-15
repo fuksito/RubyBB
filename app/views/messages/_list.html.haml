@@ -1,3 +1,6 @@
+:javascript
+  var values = #{@messages.map(&:user).map{|u|{val:u.name}}.to_json};
+
 - if @messages.any?
   = paginate @messages
 
