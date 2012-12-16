@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216131821) do
+ActiveRecord::Schema.define(:version => 20121216145144) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -52,7 +52,9 @@ ActiveRecord::Schema.define(:version => 20121216131821) do
     t.integer  "parent_id"
   end
 
+  add_index "forums", ["deleted_at"], :name => "index_forums_on_deleted_at"
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
+  add_index "forums", ["position"], :name => "index_forums_on_position"
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
   add_index "forums", ["updater_id"], :name => "index_forums_on_updater_id"
 
@@ -69,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20121216131821) do
     t.integer  "follows_count",    :default => 0, :null => false
   end
 
+  add_index "messages", ["deleted_at"], :name => "index_messages_on_deleted_at"
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
@@ -136,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20121216131821) do
     t.integer  "follows_count",   :default => 0,     :null => false
   end
 
+  add_index "topics", ["deleted_at"], :name => "index_topics_on_deleted_at"
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["last_message_id"], :name => "index_topics_on_last_message_id"
   add_index "topics", ["pinned"], :name => "index_topics_on_pinned"
@@ -178,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20121216131821) do
     t.datetime "last_post_at"
   end
 
+  add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true

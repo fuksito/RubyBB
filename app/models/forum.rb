@@ -1,5 +1,5 @@
 class Forum < ActiveRecord::Base
-  default_scope order(:position, :parent_id, :name)
+  default_scope order(:position, :parent_id, :slug)
 
   extend FriendlyId
   friendly_id :name, use: :slugged

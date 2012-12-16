@@ -37,7 +37,7 @@
               = t('common.in')
               = link_to topic.forum.name, forum_path(topic.forum)
             = t('common.by')
-            = username topic.user, topic.r_user
+            = username topic.user
             - if topic.messages_count > 20
               –
               = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
@@ -50,7 +50,7 @@
             %p= l topic.updated_at, format: :short
             %p
               = t('common.by')
-              = username topic.updater, topic.r_updater
+              = username topic.updater
       - pinned = topic.pinned
 
   = paginate @topics

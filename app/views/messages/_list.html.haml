@@ -12,7 +12,7 @@
       %tr{class: @folded ? 'folded' : nil}
         %td.user
           %a{name: "m#{message.id}"}
-          %p= username message.user, message.forum_id
+          %p= username message.user
           %p
             = render 'shared/avatar', user: message.user, size: 100
           %p.action= link_to t('common.edit'), edit_message_path(message, page: params[:page]) if can? :update, message

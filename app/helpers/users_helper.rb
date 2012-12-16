@@ -4,9 +4,9 @@ module UsersHelper
     "<span title='#{long}'>#{short}</span>".html_safe
   end
 
-  def username user, role_or_forum_id = nil, args = {}
+  def username user, args = {}
     if user
-      link_to user, :class => role_or_forum_id.is_a?(String) ? role_or_forum_id : user.role(role_or_forum_id) do
+      link_to user, :class => user.sysadmin ? 'sysadmin' : nil do
         args[:short] ? abbr(user.shortname, user.name) : user.name
       end
     else

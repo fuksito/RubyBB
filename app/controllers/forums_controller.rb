@@ -6,7 +6,7 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @forums = Forum.includes(:updater, :children).where(:parent_id => nil)
+    @forums = Forum.includes(:updater, :children, :roles => :user).where(:parent_id => nil)
 
     respond_to do |format|
       format.html # index.html.erb
