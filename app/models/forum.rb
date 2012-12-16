@@ -8,7 +8,7 @@ class Forum < ActiveRecord::Base
   has_many :children, :class_name => 'Forum', :foreign_key => 'parent_id'
   belongs_to :parent, :class_name => 'Forum', :foreign_key => 'parent_id'
   has_many :topics, :dependent => :destroy
-  has_many :roles
+  has_many :roles, :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   validates :name, :presence => true, :length => { :maximum => 64 }, :uniqueness => { :case_sensitive => false }
