@@ -51,7 +51,7 @@ Keep `-E production` in development mode.
     git pull origin master
     bundle install
     bundle exec rake db:migrate
-    rake assets:clean assets:precompile
+    bundle exec rake assets:clean assets:precompile
 
 You're ready!
 
