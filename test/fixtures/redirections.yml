@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  redirectable_type: MyString
+  redirectable_id: 1
+  slug: MyString
+
+two:
+  redirectable_type: MyString
+  redirectable_id: 1
+  slug: MyString

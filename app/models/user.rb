@@ -1,5 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
+  include Redirectable
+
   ROLES = %w[banned user moderator admin]
   has_many :roles, :dependent => :destroy
   has_many :topics

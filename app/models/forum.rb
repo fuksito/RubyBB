@@ -1,4 +1,6 @@
 class Forum < ActiveRecord::Base
+  include Redirectable
+
   default_scope order(:position, :parent_id, :slug)
 
   extend FriendlyId

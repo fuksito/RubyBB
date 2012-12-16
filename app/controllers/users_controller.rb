@@ -18,9 +18,17 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @widgets_mode = true
-    @user = User.select('users.*').with_follows(current_user).find(params[:id])
+    begin
+      @user = User.select('users.*').with_follows(current_user).find(params[:id])
+    rescue
+      if r = Redirection.where(redirectable_type: 'User', slug: params[:id]).first
+        return redirect_to r.redirectable, :status => :moved_permanently
+      else
+        render_404
+      end
+    end
 
+    @widgets_mode = true
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user, :except => [:email] }

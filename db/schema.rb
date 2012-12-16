@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216150501) do
+ActiveRecord::Schema.define(:version => 20121216205444) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(:version => 20121216150501) do
 
   add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
+
+  create_table "redirections", :force => true do |t|
+    t.string   "redirectable_type"
+    t.integer  "redirectable_id"
+    t.string   "slug"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "redirections", ["redirectable_type"], :name => "index_redirections_on_redirectable_type"
+  add_index "redirections", ["slug"], :name => "index_redirections_on_slug"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

@@ -17,11 +17,20 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
-    @pinnable = true
-    @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id])
+    begin
+      @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id])
+    rescue
+      if r = Redirection.where(redirectable_type: 'Forum', slug: params[:id]).first
+        return redirect_to r.redirectable, :status => :moved_permanently
+      else
+        render_404
+      end
+    end
+
     @topics = Topic.select('topics.*').includes(:user, :updater).for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
     @topics = @topics.includes(:forum) if @forum.children.any?
 
+    @pinnable = true
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @forum }

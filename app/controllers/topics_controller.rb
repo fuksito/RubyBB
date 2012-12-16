@@ -16,7 +16,15 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
-    @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id])
+    begin
+      @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id])
+    rescue
+      if r = Redirection.where(redirectable_type: 'Topic', slug: params[:id]).first
+        return redirect_to r.redirectable, :status => :moved_permanently
+      else
+        render_404
+      end
+    end
 
     if params.has_key? :newest
       m_id = current_user.bookmarks.where(topic_id: @topic.id).first.message_id

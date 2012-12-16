@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
     current_user.touch
   end
 
+  def render_404
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url
