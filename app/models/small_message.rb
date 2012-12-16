@@ -1,4 +1,6 @@
 class SmallMessage < ActiveRecord::Base
+  include Spammable
+
   belongs_to :message
   belongs_to :user
   belongs_to :topic

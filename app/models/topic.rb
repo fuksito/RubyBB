@@ -1,4 +1,6 @@
 class Topic < ActiveRecord::Base
+  include Spammable
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

@@ -32,7 +32,7 @@ $(document).ready(function() {
   $("textarea").sew({values: values}).textarea();
 
   // Does not submit forms twice
-  $('form').submit(function(){
+  $('form:not([data-remote])').submit(function(){
     $this = $(this);
     if ($this.data('submitted')) {
       return false;
@@ -61,6 +61,6 @@ $(document).ready(function() {
   });
 
   $('form.new_small_message').bind('ajax:beforeSend', function(e, data){
-    $(this).find('#small_message_content').blur().attr('value', '').attr('disabled', 'disabled');
+    $(this).find('#small_message_content').blur().attr('value', '').attr('disabled', 'disabled').css('visibility', 'hidden');
   })
 });

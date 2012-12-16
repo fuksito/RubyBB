@@ -1,6 +1,7 @@
 class Message < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  include Spammable
 
   acts_as_paranoid
 
