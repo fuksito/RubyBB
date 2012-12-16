@@ -18,6 +18,8 @@ end
 # To use debugger
 # gem 'debugger'
 
+# gem 'query_reviewer', :git => 'git://github.com/nesquena/query_reviewer.git'
+
 gem 'bootstrap-sass'
 gem 'cancan'
 gem 'dalli'

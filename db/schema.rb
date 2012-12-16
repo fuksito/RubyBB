@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216145144) do
+ActiveRecord::Schema.define(:version => 20121216150501) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -182,9 +182,18 @@ ActiveRecord::Schema.define(:version => 20121216145144) do
     t.datetime "last_post_at"
   end
 
+  add_index "users", ["birthdate"], :name => "index_users_on_birthdate"
+  add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["gender"], :name => "index_users_on_gender"
+  add_index "users", ["location"], :name => "index_users_on_location"
+  add_index "users", ["messages_count"], :name => "index_users_on_messages_count"
+  add_index "users", ["name"], :name => "index_users_on_name"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
+  add_index "users", ["topics_count"], :name => "index_users_on_topics_count"
+  add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
+  add_index "users", ["website"], :name => "index_users_on_website"
 
 end

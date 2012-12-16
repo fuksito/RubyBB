@@ -69,7 +69,7 @@ class UsersController < ApplicationController
   private
 
   def default_column
-    'created_at'
+    'updated_at'
   end
 
   def default_direction column
