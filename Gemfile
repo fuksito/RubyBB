@@ -12,13 +12,17 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  # gem 'query_reviewer'
+  gem 'bullet'
+end
+
 # Deploy with Capistrano
 # gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
 
-# gem 'query_reviewer', :git => 'git://github.com/nesquena/query_reviewer.git'
 
 gem 'bootstrap-sass'
 gem 'cancan'

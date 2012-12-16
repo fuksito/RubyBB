@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
       return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")
     end
 
-    @messages = @topic.messages.select('messages.*').includes(:user, :small_messages).with_follows(current_user).page params[:page]
+    @messages = @topic.messages.select('messages.*').includes(:user, :updater, :small_messages => :user).with_follows(current_user).page params[:page]
     @message = Message.new topic_id: @topic.id
     @message.forum_id = @topic.forum_id
 

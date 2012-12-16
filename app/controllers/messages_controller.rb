@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
     @meta = true
     begin
       p = params
-      @messages = Message.includes(:user, :small_messages).search(page: params[:page], load: true) do
+      @messages = Message.search(page: params[:page], load: { include: [:user, :topic, :updater, :small_messages => :user]}) do
         query { string p[:q], default_operator: 'AND' }
         sort { by :at, 'desc' }
       end
