@@ -13,7 +13,7 @@
         = link_to notifications_path do
           = t('.notifications')
           %span.badge.badge-success#faye-notifications{class: current_user.notifications_count <= 0 && 'hidden'}= current_user.notifications_count
-      %li= link_to t('.bookmarks'), bookmarks_path
+      -# %li= link_to t('.bookmarks'), bookmarks_path
       %li= link_to t('.logout'), destroy_user_session_path, :method=>'delete'
     - else
       %li= link_to t('.sign_up'), new_user_registration_path
