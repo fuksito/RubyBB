@@ -1,28 +1,30 @@
 - if @topics.any?
   = paginate @topics
 
-  %table.table.table-striped
+  %table.table.table-striped.topics{class: @folded ? 'table-condensed' : nil}
     %tr
-      %th.icons
+      - if @pinnable
+        %th.icons
       %th= t('.topics')
       %th.number.hidden-phone= t('.messages')
       %th.number.hidden-phone= t('.views')
       %th.hidden-portrait-phone= t('.last')
     - pinned = false
     - @topics.each do |topic|
-      %tr{class: pinned && !topic.pinned && @pinnable ? 'separator' : nil}
-        - if can?(:pin, topic) && @pinnable
-          %td
-            - if topic.pinned
-              = link_to pin_topic_path(topic), method: 'put', title: t('common.unpin') do
-                %i.icon-circle-arrow-right
-            - else
-              = link_to pin_topic_path(topic), method: 'put', title: t('common.pin_on') do
-                %i.icon-arrow-up
-        - else
-          %td
-            - if topic.pinned
-              %i.icon-circle-arrow-right{ title: t('common.pinned') }
+      %tr{class: "#{pinned && !topic.pinned && @pinnable ? 'separator' : nil} #{@folded ? 'folded' : nil}"}
+        - if @pinnable
+          - if can?(:pin, topic)
+            %td
+              - if topic.pinned
+                = link_to pin_topic_path(topic), method: 'put', title: t('common.unpin') do
+                  %i.icon-circle-arrow-right
+              - else
+                = link_to pin_topic_path(topic), method: 'put', title: t('common.pin_on') do
+                  %i.icon-arrow-up
+          - else
+            %td
+              - if topic.pinned
+                %i.icon-circle-arrow-right{ title: t('common.pinned') }
         %td
           - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
             = link_to topic_path(topic) + "?newest" do
@@ -32,15 +34,16 @@
           - else
             = link_to topic do
               %p.title= topic.name
-          %p
-            - if @forum && topic.forum_id != @forum.id
-              = t('common.in')
-              = link_to topic.forum.name, forum_path(topic.forum)
-            = t('common.by')
-            = username topic.user
-            - if topic.messages_count > 20
-              –
-              = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
+          - unless @folded
+            %p
+              - if @forum && topic.forum_id != @forum.id
+                = t('common.in')
+                = link_to topic.forum.name, forum_path(topic.forum)
+              = t('common.by')
+              = username topic.user
+              - if topic.messages_count > 20
+                –
+                = link_to t('.last_page'), topic_path(topic, page: topic.last_page)
         %td.number.hidden-phone
           %p= topic.messages_count
         %td.number.hidden-phone
@@ -48,9 +51,10 @@
         %td.infos.hidden-portrait-phone
           - if topic.messages.any?
             %p= l topic.updated_at, format: :short
-            %p
-              = t('common.by')
-              = username topic.updater
+            - unless @folded
+              %p
+                = t('common.by')
+                = username topic.updater
       - pinned = topic.pinned
 
   = paginate @topics

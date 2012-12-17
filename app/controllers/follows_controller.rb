@@ -5,6 +5,7 @@ class FollowsController < ApplicationController
     @folded = true
     @widgets_mode = true
     @users = User.select('users.*').followed_by(current_user)
+    @topics = Topic.select('topics.*').followed_by(current_user).includes(:user, :updater).for_user(current_user).order('topics.updated_at desc').page(params[:page])
     @messages = Message.select('messages.*').followed_by(current_user).includes(:topic, :user, :updater, :small_messages => :user).order('follows.id DESC').page(params[:page])
     @meta = true
 
