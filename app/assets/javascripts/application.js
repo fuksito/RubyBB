@@ -42,21 +42,17 @@ $(document).ready(function() {
     }
   });
 
-  // generic
+  // notifications
 
-  $(document).on('ajax:complete', 'a.ajax', function(){
-    $this = $(this);
-    $('a[href="'+$this.attr('href')+'"]').replaceWith('<span class="deleteMe '+$this.removeClass('ajax').attr('class')+'">✓</span>');
-    setTimeout(function(){
-      $('.deleteMe').fadeOut('slow');
-    }, 1000);
-  })
+  $('a.delete_notification').bind('ajax:beforeSend', function(){
+    $(this).parents('tr').hide('slow');
+  });
 
   // small messages
 
-  $(document).on('ajax:beforeSend', 'a.ajax-delete', function(){
+  $(document).on('ajax:beforeSend', 'a.delete_small_message', function(){
     $(this).css('visibility', 'hidden');
-  }).on('ajax:complete', 'a.ajax-delete', function(){
+  }).on('ajax:complete', 'a.delete_small_message', function(){
     $(this).parent().hide('slow');
   });
 

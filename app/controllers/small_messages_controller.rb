@@ -89,6 +89,7 @@ class SmallMessagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to topic_url(topic, page: params[:page], anchor: "m#{message_id}") }
       format.json { head :no_content }
+      format.js { head :no_content }
     end
   end
 end

@@ -3,4 +3,4 @@
   %span.user= raw "#{username small_message.user}, "
   %span.time{title: l(small_message.created_at)}= time_ago_in_words small_message.created_at
   - if can? :destroy, small_message
-    = link_to '×', small_message_path(small_message, page: params[:page]), method: :delete, remote: true, class: 'ajax-delete'
+    = link_to '×', small_message_path(small_message, page: params[:page]), method: :delete, remote: true, class: 'delete_small_message'

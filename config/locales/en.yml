@@ -38,7 +38,7 @@ en:
     unpin: Unpin
     are_you_sure: "Are you sure?"
     follow: follow
-    remove: remove
+    remove: "×"
     unfollow: unfollow
     na: "not available"
     topics_count:

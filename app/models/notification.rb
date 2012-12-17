@@ -15,7 +15,7 @@ class Notification < ActiveRecord::Base
   def publish
     data = {
       # avatar should use shared/avatar partial
-      avatar: self.message.user.avatar.exists? ? self.message.user.avatar.url(:icon) : self.message.user.gravatar_url(d: 'retro'),
+      avatar: self.message.user.avatar.exists? ? self.message.user.avatar.url(:x40) : self.message.user.gravatar_url(d: 'retro'),
       title: truncate(self.message.topic.name, length: 20, separator: ' ', omission: '...'),
       content: truncate(self.message.content, length: 24, separator: ' ', omission: '...'),
       link: topic_path(self.message.topic) + '?newest'
