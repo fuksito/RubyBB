@@ -33,11 +33,18 @@ class Message < ActiveRecord::Base
   before_save :render_content
   after_save :fire_notifications
 
-  after_create :increment_parent_counters
+  after_create :update_parents, :autofollow
   after_destroy :decrement_parent_counters
 
   private
-  def increment_parent_counters
+  def autofollow
+    Follow.find_or_create_by_followable_type_and_followable_id_and_user_id('Topic', topic_id, user_id)
+  end
+
+  def update_parents
+    topic.update_column :last_message_id, id
+    topic.update_column :updater_id, user_id
+    forum.update_column :updater_id, user_id
     if forum.parent_id
       Forum.update_counters forum.parent_id, messages_count: 1
     end

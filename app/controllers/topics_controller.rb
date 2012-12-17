@@ -83,10 +83,6 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        @topic.forum.update_column :updater_id, current_user.id
-        f = Follow.new(followable_id: @topic.id, followable_type: 'Topic')
-        f.user_id = current_user.id
-        f.save
         format.html { redirect_to topic_url(@topic), notice: 'Topic was successfully created.' }
         format.json { render json: @topic, status: :created, location: @topic }
       else

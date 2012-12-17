@@ -44,11 +44,10 @@ class FollowsController < ApplicationController
   # POST /follows
   # POST /follows.json
   def create
-    @follow = Follow.new(params[:follow])
+    @follow = Follow.find_or_create_by_followable_type_and_followable_id_and_user_id(params[:follow][:followable_type], params[:follow][:followable_id], current_user.id)
 
     respond_to do |format|
       if @follow.save
-        @follow.update_column :user_id, current_user.id
         format.html { redirect_to redirect_url(@follow) }
         format.json { render json: @follow, status: :created, location: @follow }
         format.js

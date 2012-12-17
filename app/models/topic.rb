@@ -27,7 +27,7 @@ class Topic < ActiveRecord::Base
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = topics.id AND followable_type = 'Topic' AND follows.user_id = #{user.try(:id)}") if user }
 
   after_update :update_counters
-  after_create :increment_parent_counters
+  after_create :increment_parent_counters, :autofollow
   after_destroy :decrement_parent_counters
 
   def last_page
@@ -39,6 +39,12 @@ class Topic < ActiveRecord::Base
   end
 
   private
+  def autofollow
+    f = Follow.new(followable_id: id, followable_type: 'Topic')
+    f.user_id = user_id
+    f.save
+  end
+
   def increment_parent_counters
     if forum.parent_id
       Forum.update_counters forum.parent_id, topics_count: 1
