@@ -1,7 +1,9 @@
 module Redirectable
-  def self.included(base)
-    base.has_many :redirections, :as => :redirectable, :dependent => :destroy
-    base.after_update :save_redirection
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :redirections, :as => :redirectable, :dependent => :destroy
+    after_update :save_redirection
   end
 
   private
